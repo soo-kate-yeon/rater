@@ -1,0 +1,9 @@
+project:
+  name: rater
+  description: ''
+  type: ''
+  locale: '{{LOCALE}}'
+  created_at: '2026-01-24T13:22:41.620012Z'
+  initialized: 'true'
+github:
+  profile_name: soo-kate-yeon

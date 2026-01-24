@@ -1,180 +1,72 @@
-# ============================================
-# MoAI-ADK Package Distribution .gitignore
-# ============================================
-# Version: 0.33.0
-# Updated: 2026-01-10
-# Purpose: Essential patterns for user projects
-# ============================================
-
-# ===========================================
-# Build Artifacts & Distribution
-# ===========================================
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
+.installed.cfg
 *.egg
 
-# ===========================================
-# Python Cache & Bytecode
-# ===========================================
-__pycache__/
-.pytest_cache/
-*.pyc
-*.pyo
-*.pyd
-.mypy_cache/
-.ruff_cache/
-*.db
-*.sqlite
-*.sqlite3
-*.rdb
-*.dbm
-
-# ===========================================
-# Virtual Environments
-# ===========================================
+# Virtual Environment
 venv/
-.venv/
+ENV/
 env/
-.env/
-.uv_cache/
-.uv-cache/
+.venv
 
-# ===========================================
-# Test Coverage
-# ===========================================
-.coverage
-coverage.json
-htmlcov/
-
-# ===========================================
-# IDE & Editors
-# ===========================================
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
-*.sw?
 *~
-.cursor/
-*.sublime-project
-*.sublime-workspace
-*.njsproj
-*.sln
-*.suo
-.#*
 
-# ===========================================
-# OS Files
-# ===========================================
-# Mac
-.DS_Store
-.AppleDouble
-.LSOverride
-.DocumentRevisions-V100
-.fseventsd
-.Spotlight-V100
-.TemporaryItems
-.Trashes
-.VolumeIcon.icns
+# Environment
+.env
+.env.local
 
-# Windows
-[Dd]esktop.ini
-Thumbs.db
-ehthumbs.db
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
-# Linux
-.directory
-
-# ===========================================
-# Logs & Temporary Files
-# ===========================================
+# Logs
 *.log
 logs/
-*.tmp
-*.temp
-*.bak
-*.backup
 
-# ===========================================
-# Backups
-# ===========================================
-.moai-backups/
-*.backup/
-*-backup/
-*_backup_*/
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
 
-# ===========================================
-# Secrets and Credentials (CRITICAL)
-# ===========================================
-# Environment files
-.env
-.env.*
-!.env.example
+# Alembic
+alembic/versions/*.pyc
 
-# Certificate files
-*.pem
-*.p12
-*.pfx
-*.jks
+# Storage
+storage/*
+!storage/.gitkeep
 
-# Private keys (specific patterns to avoid false positives)
-# FIXED: Issue #237 - Replaced overly broad *key* and *secret* patterns
-*-key.*
-*_key.*
-*.key.*
-*-secret-key.*
-*-api-key.*
-api-key-*
-secret-key-*
-private-key*
-*-secret.*
-*_secret.*
-*.secret.*
-secret-*.*
+# OS
+.DS_Store
+Thumbs.db
 
-# Credential patterns in environment files
-*_secret=*
-*_token=*
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
-# Cloud provider credentials
-.aws/config
-.aws/credentials
-
-# ===========================================
-# Claude Code Configuration
-# ===========================================
-.claude/settings.local.json
-.claude/settings.local.*.json
-.claude/.env.local*
-.claude/local/
-
-# Skill-specific credentials
-.claude/skills/*/.env*
-.claude/skills/*/secrets/
-.claude/skills/*/*/*secret*
-.claude/skills/*/*/*key*
-.claude/skills/*/*/*token*
-
-# ===========================================
-# Node.js (for docs/Nextra)
-# ===========================================
-node_modules/
-*.tsbuildinfo
-.tscache/
-.next/
-out/
-
-# ===========================================
-# Build Tools & Frameworks
-# ===========================================
-.turbo/
-.nuxt/
-dist-ssr/
-
-# ===========================================
-# Deployment & CI/CD
-# ===========================================
-.vercel/
-.netlify/
-.firebase/
+# Ruff
+.ruff_cache/

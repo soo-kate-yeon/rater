@@ -3,7 +3,7 @@
 from functools import lru_cache
 from typing import Literal
 
-from pydantic import Field, PostgresDsn, RedisDsn
+from pydantic import Field, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -18,9 +18,9 @@ class Settings(BaseSettings):
     )
 
     # Database
-    database_url: PostgresDsn = Field(
+    database_url: str = Field(
         default="postgresql+asyncpg://postgres:password@localhost:5432/toefl_rater",
-        description="PostgreSQL 데이터베이스 연결 URL",
+        description="데이터베이스 연결 URL (PostgreSQL 또는 SQLite)",
     )
 
     # Redis

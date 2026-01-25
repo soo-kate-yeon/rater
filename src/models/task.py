@@ -11,13 +11,13 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base, UUIDMixin
 
 
-class TaskType(enum.Enum):
+class TaskType(str, enum.Enum):
     """
     Enum for TOEFL Speaking task types.
     """
 
-    INDEPENDENT = "independent"  # Tasks 1-2: Personal preference/opinion
-    INTEGRATED = "integrated"  # Tasks 3-4: Reading + Listening integration
+    INDEPENDENT = "INDEPENDENT"  # Tasks 1-2: Personal preference/opinion
+    INTEGRATED = "INTEGRATED"  # Tasks 3-4: Reading + Listening integration
 
 
 class Task(Base, UUIDMixin):

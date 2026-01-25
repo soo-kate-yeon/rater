@@ -8,7 +8,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from src.api.routers import auth, jobs, uploads
+from src.api.routers import auth, jobs, tasks, uploads
 from src.core.config import settings
 from src.core.database import close_db, init_db
 
@@ -83,6 +83,7 @@ async def health() -> dict[str, str]:
 
 
 # 라우터 등록
-app.include_router(auth.router, prefix="/api/auth", tags=["auth"])
+app.include_router(auth.router, prefix="/v1/auth", tags=["auth"])
+app.include_router(tasks.router, prefix="/v1/tasks", tags=["tasks"])
 app.include_router(jobs.router, prefix="/v1/jobs", tags=["jobs"])
 app.include_router(uploads.router, prefix="/v1/uploads", tags=["uploads"])

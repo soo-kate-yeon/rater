@@ -39,7 +39,7 @@ celery_app.conf.update(
 )
 
 # 작업 자동 발견 설정
-celery_app.autodiscover_tasks(["src.workers"])
+celery_app.autodiscover_tasks(["src.workers"], force=True)
 
 # Celery Beat 스케줄 (선택사항 - 향후 주기적 작업용)
 celery_app.conf.beat_schedule = {

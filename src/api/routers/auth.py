@@ -3,6 +3,7 @@
 from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -51,8 +52,7 @@ async def register(
     # 사용자 생성
     new_user = User(
         email=user_data.email,
-        password_hash=hashed_pw,
-        name=user_data.name,
+        hashed_password=hashed_pw,
     )
     db.add(new_user)
     await db.commit()
@@ -63,14 +63,14 @@ async def register(
 
 @router.post("/login", response_model=Token)
 async def login(
-    credentials: UserLogin,
+    form_data: OAuth2PasswordRequestForm = Depends(),
     db: AsyncSession = Depends(get_db),
 ) -> Token:
     """
     로그인 엔드포인트
 
     Args:
-        credentials: 로그인 정보 (이메일, 비밀번호)
+        form_data: OAuth2 로그인 폼 (username=이메일, password)
         db: 데이터베이스 세션
 
     Returns:
@@ -79,12 +79,12 @@ async def login(
     Raises:
         HTTPException: 인증 실패 시 (401)
     """
-    # 사용자 조회
-    result = await db.execute(select(User).where(User.email == credentials.email))
+    # 사용자 조회 (username은 이메일)
+    result = await db.execute(select(User).where(User.email == form_data.username))
     user = result.scalar_one_or_none()
 
     # 사용자 존재 및 비밀번호 확인
-    if not user or not verify_password(credentials.password, user.password_hash):
+    if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
@@ -93,4 +93,4 @@ async def login(
 
     # JWT 토큰 생성
     access_token = create_access_token(data={"sub": str(user.id)})
-    return Token(access_token=access_token)
+    return Token(access_token=access_token, token_type="bearer")

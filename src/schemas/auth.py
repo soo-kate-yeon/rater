@@ -1,5 +1,7 @@
 """인증 관련 Pydantic 스키마"""
 
+from uuid import UUID
+
 from pydantic import BaseModel, EmailStr, Field
 
 
@@ -28,8 +30,7 @@ class Token(BaseModel):
 class UserResponse(BaseModel):
     """사용자 정보 응답 스키마"""
 
-    id: int = Field(..., description="사용자 ID")
+    id: UUID = Field(..., description="사용자 ID")
     email: str = Field(..., description="사용자 이메일")
-    name: str | None = Field(None, description="사용자 이름")
 
     model_config = {"from_attributes": True}

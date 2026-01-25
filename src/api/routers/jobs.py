@@ -19,7 +19,7 @@ from src.schemas.jobs import (
     ReportResponse,
 )
 from src.services.storage_service import StorageService, get_storage_service
-from src.workers.scoring_worker import process_scoring_job
+from src.workers.tasks import process_scoring_job
 
 router = APIRouter()
 

@@ -14,7 +14,6 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from src.core.celery import celery_app
 from src.core.config import settings
 from src.models.job import Job, JobStatus
 from src.models.job_artifact import JobArtifact
@@ -54,14 +53,9 @@ class ScoringTask(Task):
     retry_jitter = True
 
 
-@celery_app.task(
-    bind=True,
-    base=ScoringTask,
-    name="src.workers.scoring_worker.process_scoring_job",
-)
-def process_scoring_job(self: Task, job_id: str, job_data: dict[str, Any]) -> dict[str, Any]:
+def process_scoring_impl(job_id: str, job_data: dict[str, Any]) -> dict[str, Any]:
     """
-    채점 Job 처리 메인 함수 (동기 래퍼)
+    채점 Job 처리 구현 함수 (동기 래퍼)
 
     Args:
         job_id: Job UUID 문자열
@@ -69,6 +63,10 @@ def process_scoring_job(self: Task, job_id: str, job_data: dict[str, Any]) -> di
 
     Returns:
         처리 결과 딕셔너리
+
+    Note:
+        이 함수는 src.workers.tasks.process_scoring_job Celery task에서 호출됩니다.
+        순환 참조를 방지하기 위해 Task 등록과 구현을 분리했습니다.
     """
     import asyncio
 

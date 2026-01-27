@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import Boolean, DateTime, Enum, ForeignKey, Integer, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
@@ -51,25 +52,25 @@ class Stimulus(Base, UUIDMixin):
         comment="자료 유형 (reading/audio/image/direction)",
     )
 
-    title: Mapped[str | None] = mapped_column(
+    title: Mapped[Optional[str]] = mapped_column(
         String(200),
         nullable=True,
         comment="자료 제목",
     )
 
-    content_text: Mapped[str | None] = mapped_column(
+    content_text: Mapped[Optional[str]] = mapped_column(
         Text,
         nullable=True,
         comment="텍스트 내용 (reading, direction 용)",
     )
 
-    asset_url: Mapped[str | None] = mapped_column(
+    asset_url: Mapped[Optional[str]] = mapped_column(
         String(500),
         nullable=True,
         comment="미디어 URL (audio, image 용)",
     )
 
-    duration_seconds: Mapped[int | None] = mapped_column(
+    duration_seconds: Mapped[Optional[int]] = mapped_column(
         Integer,
         nullable=True,
         comment="음성 길이 (초, audio 전용)",

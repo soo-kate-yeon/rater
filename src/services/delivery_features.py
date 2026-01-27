@@ -2,7 +2,7 @@
 
 import logging
 import re
-from typing import Any
+from typing import Any, List, Optional
 
 import numpy as np
 
@@ -101,7 +101,7 @@ class DeliveryFeatureExtractor:
         words = re.findall(r"\b[a-zA-Z]+\b", text.lower())
         return len(words)
 
-    def _extract_pauses(self, segments: list[WhisperSegment]) -> list[float]:
+    def _extract_pauses(self, segments: List[WhisperSegment]) -> List[float]:
         """
         세그먼트 간 무음 구간을 추출합니다.
 
@@ -109,9 +109,9 @@ class DeliveryFeatureExtractor:
             segments: Whisper 세그먼트 리스트
 
         Returns:
-            list[float]: 무음 구간 길이 목록 (밀리초, >500ms만)
+            List[float]: 무음 구간 길이 목록 (밀리초, >500ms만)
         """
-        pauses_ms: list[float] = []
+        pauses_ms: List[float] = []
 
         for i in range(len(segments) - 1):
             current_end = segments[i].end
@@ -124,7 +124,7 @@ class DeliveryFeatureExtractor:
 
         return pauses_ms
 
-    def _calculate_silence_ratio(self, pauses_ms: list[float], duration_sec: float) -> float:
+    def _calculate_silence_ratio(self, pauses_ms: List[float], duration_sec: float) -> float:
         """
         무음 비율을 계산합니다.
 
@@ -189,7 +189,7 @@ class DeliveryFeatureExtractor:
         Returns:
             str: 해석 결과
         """
-        parts: list[str] = []
+        parts: List[str] = []
 
         # 속도 평가
         if wpm < 90:
@@ -216,7 +216,7 @@ class DeliveryFeatureExtractor:
 
 
 # 싱글톤 인스턴스
-_extractor: DeliveryFeatureExtractor | None = None
+_extractor: Optional[DeliveryFeatureExtractor] = None
 
 
 def get_delivery_feature_extractor() -> DeliveryFeatureExtractor:

@@ -5,12 +5,16 @@ from __future__ import annotations
 
 import enum
 import uuid
+from typing import TYPE_CHECKING, Optional
 
 from sqlalchemy import Enum, ForeignKey, Integer, String, Text
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import BaseModel
+
+if TYPE_CHECKING:
+    from .report import Report
 
 
 class JobStatus(enum.Enum):
@@ -85,12 +89,12 @@ class Job(BaseModel):
         nullable=False,
     )
 
-    error_code: Mapped[str | None] = mapped_column(
+    error_code: Mapped[Optional[str]] = mapped_column(
         String(100),
         nullable=True,
     )
 
-    error_message: Mapped[str | None] = mapped_column(
+    error_message: Mapped[Optional[str]] = mapped_column(
         Text,
         nullable=True,
     )
@@ -115,7 +119,7 @@ class Job(BaseModel):
         cascade="all, delete-orphan",
     )
 
-    report: Mapped["Report | None"] = relationship(  # noqa: F821
+    report: Mapped[Optional["Report"]] = relationship(  # noqa: F821
         "Report",
         back_populates="job",
         lazy="selectin",

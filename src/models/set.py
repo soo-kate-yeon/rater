@@ -6,6 +6,8 @@ Set 모델 - TOEFL Speaking 문제 세트.
 """
 from __future__ import annotations
 
+from typing import Optional
+
 from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -49,7 +51,7 @@ class Set(BaseModel):
         comment="버전 (예: v1.0)",
     )
 
-    description: Mapped[str | None] = mapped_column(
+    description: Mapped[Optional[str]] = mapped_column(
         Text,
         nullable=True,
         comment="세트 설명",

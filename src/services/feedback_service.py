@@ -5,7 +5,7 @@ Delivery, Language, Structure features를 통합하여 최종 피드백을 생�
 """
 
 import logging
-from typing import Any, Literal
+from typing import Any, Dict, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -26,7 +26,7 @@ class DeliveryFeatures(BaseModel):
     pause_count: int = Field(..., ge=0, description="침묵(>500ms) 횟수")
     pause_p95_ms: int = Field(..., ge=0, description="95th percentile pause 길이 (ms)")
     filler_count: int = Field(..., ge=0, description="Filler 단어 카운트 (uh, um, like)")
-    asr_clarity_signal: dict[str, float] = Field(
+    asr_clarity_signal: Dict[str, float] = Field(
         ...,
         description="ASR 명료도 신호 (avg_logprob, no_speech_prob)",
     )
@@ -65,7 +65,7 @@ class FeedbackService:
         4. 모든 features를 LLM에 전달하여 피드백 생성
     """
 
-    def __init__(self, config: FeedbackServiceConfig | None = None) -> None:
+    def __init__(self, config: Optional[FeedbackServiceConfig] = None) -> None:
         """
         피드백 서비스 초기화
 
@@ -88,8 +88,8 @@ class FeedbackService:
         prompt: str,
         transcript: str,
         delivery_features: DeliveryFeatures,
-        source_reading: str | None = None,
-        source_listening: str | None = None,
+        source_reading: Optional[str] = None,
+        source_listening: Optional[str] = None,
     ) -> FeedbackReport:
         """
         최종 피드백 생성
@@ -144,7 +144,7 @@ class FeedbackService:
 
         return feedback_report
 
-    def _summarize_features(self, features: dict[str, Any]) -> str:
+    def _summarize_features(self, features: Dict[str, Any]) -> str:
         """
         Features 요약 (로그용)
 
@@ -173,9 +173,9 @@ async def generate_full_feedback(
     task_type: Literal["independent", "integrated"],
     prompt: str,
     transcript: str,
-    delivery_features_dict: dict[str, Any],
-    source_reading: str | None = None,
-    source_listening: str | None = None,
+    delivery_features_dict: Dict[str, Any],
+    source_reading: Optional[str] = None,
+    source_listening: Optional[str] = None,
     llm_provider: LLMProvider = LLMProvider.OPENAI,
 ) -> FeedbackReport:
     """

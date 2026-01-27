@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -48,7 +49,7 @@ class AnswerKey(Base, UUIDMixin):
         comment="모범답안 유형",
     )
 
-    level: Mapped[AnswerKeyLevel | None] = mapped_column(
+    level: Mapped[Optional[AnswerKeyLevel]] = mapped_column(
         Enum(AnswerKeyLevel, name="answer_key_level_enum"),
         nullable=True,
         index=True,
@@ -61,7 +62,7 @@ class AnswerKey(Base, UUIDMixin):
         comment="모범답안 내용 또는 Blueprint JSON",
     )
 
-    source: Mapped[str | None] = mapped_column(
+    source: Mapped[Optional[str]] = mapped_column(
         String(100),
         nullable=True,
         comment="출처 (예: ETS Official)",

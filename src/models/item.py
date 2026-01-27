@@ -7,6 +7,7 @@ Independent와 Integrated 두 가지 유형이 있으며, 각 유형별로 필�
 from __future__ import annotations
 
 import uuid
+from typing import Optional
 
 from sqlalchemy import Enum, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -92,21 +93,21 @@ class Item(BaseModel):
     )
 
     # Independent 전용 필드
-    topic_type: Mapped[TopicType | None] = mapped_column(
+    topic_type: Mapped[Optional[TopicType]] = mapped_column(
         Enum(TopicType, name="topic_type_enum"),
         nullable=True,
         index=True,
         comment="주제 유형 (Independent 전용)",
     )
 
-    topic_category: Mapped[TopicCategory | None] = mapped_column(
+    topic_category: Mapped[Optional[TopicCategory]] = mapped_column(
         Enum(TopicCategory, name="topic_category_enum"),
         nullable=True,
         index=True,
         comment="주제 카테고리 (Independent 전용)",
     )
 
-    question_pattern: Mapped[str | None] = mapped_column(
+    question_pattern: Mapped[Optional[str]] = mapped_column(
         String(200),
         nullable=True,
         comment="질문 패턴 (예: Do you agree or disagree...)",
@@ -120,7 +121,7 @@ class Item(BaseModel):
         comment="태그 목록",
     )
 
-    difficulty: Mapped[Difficulty | None] = mapped_column(
+    difficulty: Mapped[Optional[Difficulty]] = mapped_column(
         Enum(Difficulty, name="difficulty_enum"),
         nullable=True,
         index=True,

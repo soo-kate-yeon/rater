@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any
+from typing import Any, Dict, Optional, Union
 
 import whisper
 from whisper import Whisper
@@ -18,7 +18,7 @@ class ASRService:
 
     def __init__(self) -> None:
         """서비스 초기화"""
-        self._model: Whisper | None = None
+        self._model: Optional[Whisper] = None
         self._model_name = settings.whisper_model
         self._device = settings.whisper_device
 
@@ -36,7 +36,7 @@ class ASRService:
                 raise RuntimeError(f"Whisper 모델 로딩 실패: {e}") from e
         return self._model
 
-    async def transcribe(self, audio_path: str | Path) -> ASRResult:
+    async def transcribe(self, audio_path: Union[str, Path]) -> ASRResult:
         """
         오디오 파일을 전사합니다.
 
@@ -60,7 +60,7 @@ class ASRService:
             model = self._load_model()
 
             # Whisper transcribe 실행
-            result: dict[str, Any] = model.transcribe(
+            result: Dict[str, Any] = model.transcribe(
                 str(audio_path),
                 language="en",  # TOEFL Speaking은 영어만 처리
                 word_timestamps=False,  # 단어 단위 타임스탬프는 불필요 (세그먼트 단위로 충분)
@@ -131,7 +131,7 @@ class ASRService:
 
 
 # 싱글톤 인스턴스
-_asr_service: ASRService | None = None
+_asr_service: Optional[ASRService] = None
 
 
 def get_asr_service() -> ASRService:

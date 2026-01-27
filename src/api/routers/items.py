@@ -4,7 +4,7 @@ Item 관리 라우터.
 개별 문항(Item) CRUD API를 제공합니다.
 """
 import uuid
-from typing import List
+from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
@@ -27,8 +27,8 @@ router = APIRouter()
 @router.get("", response_model=ItemListResponse)
 async def list_items(
     db: AsyncSession = Depends(get_db),
-    set_id: str | None = Query(None, description="Set UUID 필터"),
-    task_type: TaskType | None = Query(None, description="문항 유형 필터"),
+    set_id: Optional[str] = Query(None, description="Set UUID 필터"),
+    task_type: Optional[TaskType] = Query(None, description="문항 유형 필터"),
     skip: int = Query(0, ge=0, description="건너뛸 개수"),
     limit: int = Query(100, ge=1, le=500, description="조회 개수"),
 ) -> ItemListResponse:

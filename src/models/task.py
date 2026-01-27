@@ -1,11 +1,15 @@
 """
 Task model for TOEFL Speaking questions.
+
+NOTE: 이 모델은 하위 호환성을 위해 유지됩니다.
+새로운 문제는 Item 모델을 사용하세요. Task는 Item으로 마이그레이션 예정입니다.
 """
 import enum
+import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Enum, String, Text, func
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import DateTime, Enum, ForeignKey, String, Text, func
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base, UUIDMixin
@@ -24,6 +28,8 @@ class Task(Base, UUIDMixin):
     """
     Task model representing TOEFL Speaking questions.
 
+    NOTE: Deprecated - 새로운 문제는 Item 모델을 사용하세요.
+
     Attributes:
         id: UUID primary key
         task_type: Type of task (independent or integrated)
@@ -32,6 +38,7 @@ class Task(Base, UUIDMixin):
         source_listening: Optional listening transcript for integrated tasks
         tags: JSONB field for categorization (e.g., topic, difficulty)
         created_at: Task creation timestamp
+        item_id: Optional FK to Item model (for migration)
     """
 
     __tablename__ = "tasks"
@@ -69,10 +76,24 @@ class Task(Base, UUIDMixin):
         server_default=func.now(),
     )
 
+    # Item 참조 (마이그레이션용)
+    item_id: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("items.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+        comment="연결된 Item UUID (마이그레이션용)",
+    )
+
     # Relationships
     jobs: Mapped[list["Job"]] = relationship(  # noqa: F821
         "Job",
         back_populates="task",
+        lazy="selectin",
+    )
+
+    item: Mapped["Item | None"] = relationship(  # noqa: F821
+        "Item",
         lazy="selectin",
     )
 

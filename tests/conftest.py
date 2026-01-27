@@ -148,12 +148,14 @@ async def test_user(test_db: AsyncSession) -> User:
 @pytest_asyncio.fixture
 async def test_task(test_db: AsyncSession) -> Task:
     """테스트용 태스크"""
+    from src.models.task import TaskType
+
     task = Task(
-        task_type="independent",
-        question_number=1,
+        task_type=TaskType.INDEPENDENT,
         prompt="Do you agree or disagree with the following statement? It is better to work in a team than to work alone.",
         source_reading=None,
         source_listening=None,
+        tags={},
     )
     test_db.add(task)
     await test_db.commit()

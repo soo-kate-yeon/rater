@@ -95,6 +95,7 @@ class FeedbackService:
         delivery_features: DeliveryFeatures,
         source_reading: Optional[str] = None,
         source_listening: Optional[str] = None,
+        tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> FeedbackReport:
         """
         최종 피드백 생성
@@ -106,14 +107,21 @@ class FeedbackService:
             delivery_features: Delivery 신호 (이미 추출됨)
             source_reading: 읽기 지문 (통합형)
             source_listening: 듣기 지문 (통합형)
+            tier: 피드백 레벨 (basic/standard/premium, 기본값: basic)
 
         Returns:
             FeedbackReport: 최종 피드백 리포트
 
         Raises:
             RuntimeError: 피드백 생성 실패
+
+        Note:
+            SPEC-TOEFL-FEATURE-001 Phase 2: 3-Tier Feedback System
+            - Basic: 기본 피드백 (점수, 간단한 요약)
+            - Standard: 상세 피드백 (섹션별 분석, 개선 제안)
+            - Premium: 전문가급 피드백 (세부 예시, 맞춤 학습 계획)
         """
-        logger.info(f"피드백 생성 시작: task_type={task_type}")
+        logger.info(f"피드백 생성 시작: task_type={task_type}, tier={tier}")
 
         # 1. Language Features 추출
         logger.info("Language features 추출 중...")
@@ -133,7 +141,7 @@ class FeedbackService:
         logger.info(f"Features 추출 완료: {self._summarize_features(all_features)}")
 
         # 4. LLM을 통한 피드백 생성
-        logger.info("LLM 피드백 생성 중...")
+        logger.info(f"LLM 피드백 생성 중... (tier={tier})")
         feedback_report = await self.llm_service.generate_feedback(
             task_type=task_type,
             prompt=prompt,
@@ -141,6 +149,7 @@ class FeedbackService:
             features=all_features,
             source_reading=source_reading,
             source_listening=source_listening,
+            tier=tier,
         )
 
         logger.info(
@@ -182,6 +191,7 @@ async def generate_full_feedback(
     source_reading: Optional[str] = None,
     source_listening: Optional[str] = None,
     llm_provider: LLMProvider = LLMProvider.OPENAI,
+    tier: Literal["basic", "standard", "premium"] = "basic",
 ) -> FeedbackReport:
     """
     피드백 생성 헬퍼 함수
@@ -194,6 +204,7 @@ async def generate_full_feedback(
         source_reading: 읽기 지문
         source_listening: 듣기 지문
         llm_provider: LLM 제공자
+        tier: 피드백 레벨 (basic/standard/premium)
 
     Returns:
         FeedbackReport: 최종 피드백 리포트
@@ -212,6 +223,7 @@ async def generate_full_feedback(
         delivery_features=delivery_features,
         source_reading=source_reading,
         source_listening=source_listening,
+        tier=tier,
     )
 
     return report

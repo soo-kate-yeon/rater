@@ -2,6 +2,11 @@
 통합 피드백 생성 서비스
 
 Delivery, Language, Structure features를 통합하여 최종 피드백을 생성합니다.
+
+TODO SPEC-TOEFL-FEATURE-001 Phase 2: 3-Tier Feedback System
+- Basic tier: 기본 피드백 (점수, 간단한 요약)
+- Standard tier: 상세 피드백 (섹션별 분석, 개선 제안)
+- Premium tier: 전문가급 피드백 (세부 예시, 맞춤 학습 계획)
 """
 
 import logging

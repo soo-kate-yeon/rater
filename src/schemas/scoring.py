@@ -1,6 +1,5 @@
 """채점 관련 스키마"""
 
-from typing import Any
 
 from pydantic import BaseModel, Field
 

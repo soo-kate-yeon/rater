@@ -58,7 +58,7 @@ class Set(BaseModel):
     )
 
     # Relationships
-    items: Mapped[list["Item"]] = relationship(  # noqa: F821
+    items: Mapped[list[Item]] = relationship(  # noqa: F821
         "Item",
         back_populates="set",
         lazy="selectin",

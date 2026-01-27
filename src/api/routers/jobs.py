@@ -1,14 +1,15 @@
 """채점 Job 라우터"""
 
 import uuid
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID
 
 from src.core.database import get_db
-from src.models.job import Job, JobStatus as JobStatusEnum
+from src.models.job import Job
+from src.models.job import JobStatus as JobStatusEnum
 from src.models.report import Report
 from src.schemas.jobs import (
     FeedbackReport,

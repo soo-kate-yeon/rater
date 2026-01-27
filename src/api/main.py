@@ -1,7 +1,7 @@
 """FastAPI 애플리케이션 엔트리포인트"""
 
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError

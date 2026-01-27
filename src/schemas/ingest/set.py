@@ -7,7 +7,7 @@ UUID 변환은 매핑 레이어에서 수행됩니다.
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class SetIngest(BaseModel):

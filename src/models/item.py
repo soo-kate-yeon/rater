@@ -136,13 +136,13 @@ class Item(BaseModel):
     )
 
     # Relationships
-    set: Mapped["Set"] = relationship(  # noqa: F821
+    set: Mapped[Set] = relationship(  # noqa: F821
         "Set",
         back_populates="items",
         lazy="selectin",
     )
 
-    stimuli: Mapped[list["Stimulus"]] = relationship(  # noqa: F821
+    stimuli: Mapped[list[Stimulus]] = relationship(  # noqa: F821
         "Stimulus",
         back_populates="item",
         lazy="selectin",
@@ -150,7 +150,7 @@ class Item(BaseModel):
         order_by="Stimulus.display_order",
     )
 
-    answer_keys: Mapped[list["AnswerKey"]] = relationship(  # noqa: F821
+    answer_keys: Mapped[list[AnswerKey]] = relationship(  # noqa: F821
         "AnswerKey",
         back_populates="item",
         lazy="selectin",

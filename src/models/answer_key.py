@@ -76,7 +76,7 @@ class AnswerKey(Base, UUIDMixin):
     )
 
     # Relationships
-    item: Mapped["Item"] = relationship(  # noqa: F821
+    item: Mapped[Item] = relationship(  # noqa: F821
         "Item",
         back_populates="answer_keys",
         lazy="selectin",

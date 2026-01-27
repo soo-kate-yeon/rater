@@ -5,7 +5,7 @@ Set 관리 라우터.
 """
 import logging
 import uuid
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select

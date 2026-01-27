@@ -5,7 +5,7 @@
 
 import uuid
 from pathlib import Path
-from typing import Optional, Set
+from typing import Optional
 
 import aiofiles
 from fastapi import HTTPException, UploadFile, status
@@ -13,7 +13,7 @@ from fastapi import HTTPException, UploadFile, status
 from src.core.config import settings
 
 # 허용된 파일 확장자
-ALLOWED_EXTENSIONS: Set[str] = {".mp3", ".wav", ".m4a"}
+ALLOWED_EXTENSIONS: set[str] = {".mp3", ".wav", ".m4a"}
 
 # 최대 파일 크기 (10MB)
 MAX_FILE_SIZE: int = 10 * 1024 * 1024

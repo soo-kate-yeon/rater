@@ -4,7 +4,7 @@ Item 관리 라우터.
 개별 문항(Item) CRUD API를 제공합니다.
 """
 import uuid
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select

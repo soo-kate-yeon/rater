@@ -1,7 +1,6 @@
 """Task 관리 라우터"""
 
 import uuid
-from typing import List
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
@@ -14,12 +13,12 @@ from src.schemas.tasks import TaskCreate, TaskResponse
 router = APIRouter()
 
 
-@router.get("", response_model=List[TaskResponse])
+@router.get("", response_model=list[TaskResponse])
 async def list_tasks(
     db: AsyncSession = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
-) -> List[TaskResponse]:
+) -> list[TaskResponse]:
     """
     Task 목록 조회
 

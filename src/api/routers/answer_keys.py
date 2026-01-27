@@ -4,7 +4,7 @@ AnswerKey 관리 라우터.
 모범답안(AnswerKey) CRUD API를 제공합니다.
 """
 import uuid
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select

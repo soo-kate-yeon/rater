@@ -8,10 +8,10 @@ JSON 모드 출력을 강제하고, 파싱 실패 시 재시도 로직을 제공
 import json
 import logging
 from enum import Enum
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Literal, Optional
 
-from anthropic import Anthropic, AsyncAnthropic
-from openai import AsyncOpenAI, OpenAI
+from anthropic import AsyncAnthropic
+from openai import AsyncOpenAI
 from pydantic import BaseModel, Field, ValidationError
 
 from src.core.config import settings
@@ -106,7 +106,7 @@ class LLMService:
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: Dict[str, Any],
+        features: dict[str, Any],
         source_reading: Optional[str] = None,
         source_listening: Optional[str] = None,
     ) -> FeedbackReport:
@@ -289,7 +289,7 @@ Output Format: Valid JSON matching the FeedbackReport schema.
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: Dict[str, Any],
+        features: dict[str, Any],
         source_reading: Optional[str] = None,
         source_listening: Optional[str] = None,
     ) -> str:

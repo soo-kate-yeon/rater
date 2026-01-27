@@ -10,7 +10,7 @@ from uuid import UUID
 from pydantic import BaseModel, Field, field_validator
 
 from src.models.enums import AnswerKeyLevel, AnswerKeyType
-from src.schemas.blueprint import BlueprintContent, IndependentBlueprint, IntegratedBlueprint
+from src.schemas.blueprint import BlueprintContent
 
 
 class AnswerKeyBase(BaseModel):

@@ -1,0 +1,1766 @@
+[
+  {
+    "topic_id": "INDEPENDENT_TOPIC_001",
+    "number": 1,
+    "prompt": "In work, do you prefer to be dressed formally or casually? Explain with specific examples and details to support \nyour answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_002",
+    "number": 2,
+    "prompt": "Do you prefer to eat fast food or slow food? Explain with specific examples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_003",
+    "number": 3,
+    "prompt": "When having a job, among high salary and interest, which is more important? Describe and explain with specific \nexamples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_004",
+    "number": 4,
+    "prompt": "Do you believe that there is hierarchy in types of profession? Describe and explain with specific examples and \ndetails to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_005",
+    "number": 5,
+    "prompt": "Which do you prefer, listening or speaking? Describe and explain with specific examples and details to support \nyour answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_006",
+    "number": 6,
+    "prompt": "Do you believe mass communication is good? Describe and explain with specific examples and details to support",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_007",
+    "number": 7,
+    "prompt": "Which do you prefer, having proficiency in one area or adequate skills in various areas? Use specific examples \nand details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_008",
+    "number": 8,
+    "prompt": "Do you agree with the following statement? Having more education leads to more success. Use specific \nexamples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_009",
+    "number": 9,
+    "prompt": "Which do you prefer, staying in various countries or one country for a long time? Use specific examples and \ndetails to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_010",
+    "number": 10,
+    "prompt": "Do you believe that Facebook is good? Use specific examples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_011",
+    "number": 11,
+    "prompt": "Do you agree with the following statement? Internet has made our lives better. Use specific examples and details \nto support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_012",
+    "number": 12,
+    "prompt": "Do you believe having more boy/girl friend is better? Use specific examples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_013",
+    "number": 13,
+    "prompt": "Do you believe plastic surgery has made our lives better? Use specific examples and details to support your \nanswer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_014",
+    "number": 14,
+    "prompt": "In human network, which do you think is the better between digital communications or analogue communications?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_015",
+    "number": 15,
+    "prompt": "Do you think that people will read fewer books in the future than today? Give details and examples to support \nyour answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_016",
+    "number": 16,
+    "prompt": "Is it important to interact with other people in a good manner? Give details and explanations to support your \nresponse.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_017",
+    "number": 17,
+    "prompt": "Should snacks and drinks be allowed in classrooms? If so, what are the advantages or disadvantages? Give \nspecific details and examples to support your choice.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_018",
+    "number": 18,
+    "prompt": "Among Café, a quiet place to study, and a PC Room, which do you think the university should build? Give",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_019",
+    "number": 19,
+    "prompt": "Do you think it is important for parents to teach their kids how to manage money? Explain your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_020",
+    "number": 20,
+    "prompt": "Final is coming, and your friend often oversleeps and miss the class. Will you help your friend to study while you \nalso have a lot of exams? Give specific reasons and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_021",
+    "number": 21,
+    "prompt": "Universities usually hold exams in class, but nowadays, some universities allow students to take exams home. \nTalk about the advantages or disadvantages this would bring. Give specific reasons to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_022",
+    "number": 22,
+    "prompt": "One of your friends has decided to take more courses in order to graduate one year earlier. Do you think this is \na good idea?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_023",
+    "number": 23,
+    "prompt": "Which type of professor do you prefer: an interesting professor with a strict grading policy or a boring professor \nwith a loose grading policy? Give specific reasons and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_024",
+    "number": 24,
+    "prompt": "Do you agree with the statement? Employees should be allowed to listen to music at work",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_025",
+    "number": 25,
+    "prompt": "Do you agree or disagree with the following statement? People should always wear fashionable clothes. Please \nuse specific reasons and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_026",
+    "number": 26,
+    "prompt": "Do you agree or disagree with the statement that we should let children use the computers or other electronic \ndevices as early as they can? Please use specific reasons and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_027",
+    "number": 27,
+    "prompt": "Do you agree or disagree with the following statement? Building zoos helps to protect animals. Please give your \nanswer with specific examples and details.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_028",
+    "number": 28,
+    "prompt": "Which one of the following characteristics does your friend value the most: cheerfulness, kindness or intelligence? \nPlease choose one and use specific reasons and examples to support your opinion.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_029",
+    "number": 29,
+    "prompt": "Do you prefer paper books or reading books online? Explain with specific examples and details to support your \nanswer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_030",
+    "number": 30,
+    "prompt": "Do you prefer sedan or sports car? Explain with specific examples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_031",
+    "number": 31,
+    "prompt": "Do you prefer conducting one task at a time or multiple tasks? Explain with specific examples and details to \nsupport your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_032",
+    "number": 32,
+    "prompt": "Is it advantageous to use computers to educate? What are the pros or cons? Give specific details and examples \nto support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_033",
+    "number": 33,
+    "prompt": "Do you prefer attending to a concert or watching the performance via TV broadcast? Explain with specific \nexamples and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_034",
+    "number": 34,
+    "prompt": "Is it good for a school to make volunteer work mandatory? What is your opinion and why? What are some \nadvantages or disadvantages? Use specific examples and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_035",
+    "number": 35,
+    "prompt": "Which is better place to study, home or the library? Give specific details and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_036",
+    "number": 36,
+    "prompt": "Have computers had positive influence on people’s live, or negative influence? Give specific details and",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_037",
+    "number": 37,
+    "prompt": "If you had extra amount of money, would you save it or spend it? Give specific reasons and details to support \nyour answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_038",
+    "number": 38,
+    "prompt": "Is it better to live with a roommate or by yourself? Give specific details and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_039",
+    "number": 39,
+    "prompt": "Should children be controlled from watching TV or be free of such control? Give specific details and examples \nto support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_040",
+    "number": 40,
+    "prompt": "Which do you prefer, among pre-planned trip or free-schedule traveling? Give specific details and examples to \nsupport your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_041",
+    "number": 41,
+    "prompt": "Should schools include arts subject in its curriculum or just focus on academic subjects? Give specific details \nand examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_042",
+    "number": 42,
+    "prompt": "If you have free time, would you read books and magazines, or watch TV and movie? Give specific details and \nexamples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_043",
+    "number": 43,
+    "prompt": "Which should be prioritized in selecting jobs, among pay or aptitude? Give specific details and examples to \nsupport your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_044",
+    "number": 44,
+    "prompt": "Which of the following should the government pursue? Road expansion or constructing schools. Give specific \ndetails and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_045",
+    "number": 45,
+    "prompt": "Do you agree or disagree with the following statement? People live healthier lives today.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_046",
+    "number": 46,
+    "prompt": "Some students prefer to learn on their own. Others seek help from a teacher. Which method do you think is \nbetter for students and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_047",
+    "number": 47,
+    "prompt": "Do you agree or disagree with the following statement? All newspapers and books will be in electronic form one \nday.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_048",
+    "number": 48,
+    "prompt": "Some college students live in dormitories. Others live off campus. Where do you prefer to live and why? Include \ndetails and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_049",
+    "number": 49,
+    "prompt": "Some students prefer to attend universities in big cities, while others choose to go to universities in small towns. \nWhich do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_050",
+    "number": 50,
+    "prompt": "Do you agree or disagree with the following statement? Schools should require all students to take a physical \neducation class.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_051",
+    "number": 51,
+    "prompt": "Some people like to communicate face to face, while others like to communicate through e-mail. Which method \ndo you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_052",
+    "number": 52,
+    "prompt": "Some people think the government should build a library in their community, while others think the government \nshould build a park. Which do you think is better and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_053",
+    "number": 53,
+    "prompt": "Some people make decisions instantly, while others like to decide after taking time to think things over. Which \ndo you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_054",
+    "number": 54,
+    "prompt": "Do you agree or disagree with the following statement? Young people these days are better informed about \nworld events than the young people in the past.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_055",
+    "number": 55,
+    "prompt": "Would you prefer to take a challenging course or an easy course at university? Include details and examples.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_056",
+    "number": 56,
+    "prompt": "Some students like to study in large classes, while others like to study in small ones. Which do you think is more \neffective for students and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_057",
+    "number": 57,
+    "prompt": "Which do you prefer between working with someone who thinks similarly, or someone different? Include details \nand examples.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_058",
+    "number": 58,
+    "prompt": "Do you agree or disagree with the following statement? Government should force rich people to share their \nwealth by imposing higher taxes on them.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_059",
+    "number": 59,
+    "prompt": "Do you agree or disagree with the following statement? Older doctors are more knowledgeable than younger \ndoctors. Give specific reasons and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_060",
+    "number": 60,
+    "prompt": "Do you agree or disagree with the following statement? It is important to be outgoing and friendly to be successful \nin business. Give specific reasons and details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_061",
+    "number": 61,
+    "prompt": "Some people prefer to live in a small town. Others prefer to live in a big city. Which place would you prefer to\nlive in? Give specific reasons and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_062",
+    "number": 62,
+    "prompt": "Would you prefer to do an important college assignment as part of a team with other students, or individually\non your own? Give specific reasons and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_063",
+    "number": 63,
+    "prompt": "Some students get their best study done at night. Others prefer to study during the day. Which time do you\nprefer for getting study done and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_064",
+    "number": 64,
+    "prompt": "Would you prefer to run your own private business or work for a large company with many employees?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_065",
+    "number": 65,
+    "prompt": "Some people prefer to eat at food stands or restaurants. Other people prefer to prepare and eat food at home.\nWhich do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_066",
+    "number": 66,
+    "prompt": "Would you prefer to go on a trip overseas to a new country with a companion you know, or just by yourself?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_067",
+    "number": 67,
+    "prompt": "Some students go directly to the teacher with questions about their course work. Others prefer to ask their\nclassmates first. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_068",
+    "number": 68,
+    "prompt": "During your spare time, would you prefer to watch a movie or read a book? Include details and examples.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_069",
+    "number": 69,
+    "prompt": "Some students try to combine part-time work and study, while others prefer to study only and work later once\ntheir courses are finished. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_070",
+    "number": 70,
+    "prompt": "Would you prefer to go on a long trip by car or by train?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_071",
+    "number": 71,
+    "prompt": "Some people like to stick to tasks they know they can do well. Others like to try new things and take risks.\nWhich do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_072",
+    "number": 72,
+    "prompt": "Which kind of job would you prefer: a job that is uninteresting but has a high salary or a job you really enjoy\nwith a moderate salary?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_073",
+    "number": 73,
+    "prompt": "Some people like to hurry and get things done as quickly as possible. Others prefer to take their time and get\nthings done at a slower pace. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_074",
+    "number": 74,
+    "prompt": "Do you prefer friends who are intelligent, or friends who are reliable?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_076",
+    "number": 76,
+    "prompt": "If you went to study in a different country with a different culture, would you prefer to adapt yourself to the new\nculture, or concentrate more on maintaining your own culture? Include specific details and examples.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_077",
+    "number": 77,
+    "prompt": "Some people like to keep up with current news by reading newspapers. Others prefer to read about the news\nonline. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_078",
+    "number": 78,
+    "prompt": "Would you prefer to do a course that involves lectures and tutorials onsite, or a course that is conducted online\nvia distance learning?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_079",
+    "number": 79,
+    "prompt": "When shopping, some people use brand names to help them decide what to buy. Other people go only by\nprice. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_080",
+    "number": 80,
+    "prompt": "Many universities offer intensive courses during the summer and winter periods. Would you prefer to take\nan intensive course during the summer or the winter vacation period? Give specific reasons and details for\nyour choice.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_081",
+    "number": 81,
+    "prompt": "Some people like living in the center of cities close to downtown areas. Others prefer to live further out in the\nsuburbs. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_082",
+    "number": 82,
+    "prompt": "Some people give money as gifts to friends. Others try to give a specific kind of present. Which kind of gift do\nyou prefer giving to a friend?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_083",
+    "number": 83,
+    "prompt": "To find out about a course subject, would you prefer to go and ask a teacher about it or talk to a student who\nhas already taken the subject?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_084",
+    "number": 84,
+    "prompt": "Some students like to use the library to do most of their research. Others prefer to do most of their research\nusing the Internet. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_085",
+    "number": 85,
+    "prompt": "Some people like to spend their leisure time outdoors, while others prefer to spend it indoors. Which do you\nprefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_086",
+    "number": 86,
+    "prompt": "Would you prefer to spend your vacation period at home with family, or go on a trip somewhere with close\nfriends? Provide specific reasons and details for your choice.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_087",
+    "number": 87,
+    "prompt": "Some students prefer lectures where the teacher does all of the talking. Other students prefer classes where\nstudents are more interactive and contribute to the lesson. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_088",
+    "number": 88,
+    "prompt": "Some students like to buy all their own books and keep them after their courses are finished. Others prefer to\nborrow course books and return them once the course is finished. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_090",
+    "number": 90,
+    "prompt": "Would you like to spend most of your life living and working only in your own country, or would you prefer to\nspend some time living and working in a new country?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_091",
+    "number": 91,
+    "prompt": "Some people enjoy hobbies or sports that are personal and individual. Others like hobbies or sports that\ninvolve groups of people. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_092",
+    "number": 92,
+    "prompt": "Some people want to have specific instructions or directions when they try something new. Other people like\nto experiment and work things out for themselves. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_093",
+    "number": 93,
+    "prompt": "Would you prefer to live in an apartment building, or a private house?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_094",
+    "number": 94,
+    "prompt": "Some students like to make a specific study schedule for themselves, while others prefer to do their study only\nwhen they feel like doing it. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_095",
+    "number": 95,
+    "prompt": "During discussions, some people like to lead the conversation and do a lot of the talking. Other people prefer\nto listen more and talk only when they have to. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_096",
+    "number": 96,
+    "prompt": "For a group assignment, would you prefer to work with a new group of people whom you don't know all that\nwell, or work with your close friends?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_097",
+    "number": 97,
+    "prompt": "Some people like to keep a private diary which they don't show to other people. Other people like to start\nthings like online blogs, where other people can read the posts and make comments about them. Which would\nyou prefer to start - a private diary or an online blog?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_098",
+    "number": 98,
+    "prompt": "Some students choose courses in order to get good jobs in the future. Other students choose courses that are\nvery interesting to them, even if they don't always lead to good jobs. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_099",
+    "number": 99,
+    "prompt": "Some universities are small and have only a couple of thousand students on campus. Other universities are\nvery large and have many thousands of students enrolled. Which kind of university do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_100",
+    "number": 100,
+    "prompt": "Do you agree or disagree that students should bring a cellphone to school? Use details and examples to\nsupport your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_101",
+    "number": 101,
+    "prompt": "Do you prefer to go to someplace you have never been before or someplace you have been before?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_102",
+    "number": 102,
+    "prompt": "Do you agree or disagree that businesses should hire employees for their entire life?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_103",
+    "number": 103,
+    "prompt": "Do you prefer traveling alone or traveling with a companion? Use details and examples to support your\nexplanation.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_104",
+    "number": 104,
+    "prompt": "Do you agree or disagree with the following statement? Young people have nothing to teach older people.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_105",
+    "number": 105,
+    "prompt": "Do you prefer to live in a traditional house or in a modern apartment?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_106",
+    "number": 106,
+    "prompt": "If you have money, would you prefer to buy a house or start a business?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_107",
+    "number": 107,
+    "prompt": "Do you agree that cars should be allowed to enter the campus?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_108",
+    "number": 108,
+    "prompt": "If you were given an empty piece of land, would you rather use it to build a garden or a playground for children?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_109",
+    "number": 109,
+    "prompt": "Should a country that has enough food for all its residents allow recreational hunting? Explain your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_110",
+    "number": 110,
+    "prompt": "Some people prefer work that allows them to move around outdoors. Others feel it is more pleasant to work\nin an office. Which do you prefer, and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_111",
+    "number": 111,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nSnakes should never be kept as pets",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_112",
+    "number": 112,
+    "prompt": "Some people feel they perform better when they have to finish by a strict time. Others feel they do better\nwork if they do not have time pressure. Which best describes you? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_113",
+    "number": 113,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_114",
+    "number": 114,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nStudents should spend more time learning outside of classrooms than within classrooms.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_115",
+    "number": 115,
+    "prompt": "In some areas, summer days are longer, so there is more daylight in the evening and early morning, but\nwinter days are shorter. In other areas, summer and winter days are similar lengths throughout the year.\nWhich do you prefer, and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_116",
+    "number": 116,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nMovies that are longer than three hours should be made shorter by removing less important scenes.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_117",
+    "number": 117,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nParents who do not regularly exercise should start exercising in order to be good role models for their\nchildren.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_118",
+    "number": 118,
+    "prompt": "Some people prefer to respond to emails, phone calls, and other messages they receive immediately. Others\ntake more time to respond. Which do you prefer, and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_119",
+    "number": 119,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nIt’s better to reward employees with gifts and job perks, such as gym memberships or English classes,\nthan to simply pay more.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_120",
+    "number": 120,
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain your answer.\nThe use of bad(violent, sexual) language should be prohibited on television.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_121",
+    "number": 121,
+    "prompt": "When a new product launches, some people buy it the moment it arrives on the web site. Others decide to \ntake some time to decide whether they will buy it or not. Which do you think is better?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_122",
+    "number": 122,
+    "prompt": "Some people tend to go to university immediately after they graduate high school. Others prefer to take some \ntime before going to university. Which do you prefer? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_123",
+    "number": 123,
+    "prompt": "Is it better for students to attend class regularly or study by oneself? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_124",
+    "number": 124,
+    "prompt": "Some people believe that we should help those in an emergency immediately. Others think that we should first \nmake clear of the situation, then decide whether to assist or not. What’s your opinion? Please include specific \ndetails in your explanation.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_125",
+    "number": 125,
+    "prompt": ". Do you agree or disagree with the following statement? People should always tell the truth. Please explain \nyour opinion.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_126",
+    "number": 126,
+    "prompt": "Some people tend to judge a person on the basis of first observation. Others believe it takes a long time to \nknow a person well. Which approach to knowing people do you think is better and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_127",
+    "number": 127,
+    "prompt": "To be a leader or a follower, which do you prefer? Please give your opinion with specific examples and details.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_128",
+    "number": 128,
+    "prompt": "Some people prefer to work in the offices. Others would like to take the work to home. Which do you prefer? \nExplain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_129",
+    "number": 129,
+    "prompt": "Among paper books and digital book devices, which would you prefer to have? Give specific reasons and \ndetails to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_130",
+    "number": 130,
+    "prompt": "Some people prefer to watch movies before they read the books of the same story. Others prefer to read the \nbooks first and then watch the movies with the same plot. Which do you prefer? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_131",
+    "number": 131,
+    "prompt": "Between night and daytime, when do you prefer to study? Give specific details and examples to support your \nresponse.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_132",
+    "number": 132,
+    "prompt": "Do you agree or disagree with the following statement? \nOld people should retire at the age of",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_065",
+    "number": 65,
+    "prompt": "Give specific reasons and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_133",
+    "number": 133,
+    "prompt": "Despite the large cost, and pain, many people choose to change their appearance with plastic surgery. Do you \nbelieve that this is a good method? Explain with specific examples and details.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_134",
+    "number": 134,
+    "prompt": "When trying to express an opinion in the class, is it better for one to immediately express his opinion or listen \nand state his opinion later? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_135",
+    "number": 135,
+    "prompt": "Children with special talents should be educated separately. Do you agree or disagree?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_136",
+    "number": 136,
+    "prompt": "Some people believe that we should not discuss about the private activities of the popular people, like movie \nstars and singers. Do you agree? Why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_137",
+    "number": 137,
+    "prompt": "Some people believe old people should not take risk and participate adventurous events as the young people. \nDo you agree? Why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_138",
+    "number": 138,
+    "prompt": "Do you agree or disagree with the following statement? Children born with talent should be treated in a different \nway than average. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_139",
+    "number": 139,
+    "prompt": "Some people prefer to give their opinions immediately. Others prefer to wait and listen to others’ opinions \nbefore giving their own. Which one do you think is better?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_140",
+    "number": 140,
+    "prompt": "Many people think that students study course materials more effectively by taking exams, while others think \nthat students learn more effective through doing other activities such as writing paper or completing projects. \nWhich do you think is more effective for students to learn? Give reasons for your choice.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_141",
+    "number": 141,
+    "prompt": "In these days’ society, which do you believe is more important between learning math and learning how to \noperate device? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_142",
+    "number": 142,
+    "prompt": "Some people prefer to decorate room with many pictures and ornaments. Others prefer to decorate their room \nsimply. Which do you prefer? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_143",
+    "number": 143,
+    "prompt": "In selecting major in the university which do you think is better, selecting before entering university or after they \nfinish freshmen year in university? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_144",
+    "number": 144,
+    "prompt": "Do you agree or disagree with the following statement? Female and male university students should have \nseparate residence halls. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_145",
+    "number": 145,
+    "prompt": "Do you agree or disagree with the following statement? When children begin to participate in sports activities, \nthey grow to become more active person. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_146",
+    "number": 146,
+    "prompt": "Some students enjoy decorating their surroundings; others choose to keep their surroundings simple and free \nof any decorations. Which do you prefer and why ?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_147",
+    "number": 147,
+    "prompt": "Some universities accept the students to choose a major field of study when they enter the school; while other \nuniversities wait until the second or the third year before students deciding their major fields of study. Which do \nyou prefer? Why or why not?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_148",
+    "number": 148,
+    "prompt": "Some people like participating in performance like theatrical or musical show. Others prefer to be in audience \nwatching those plays. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_149",
+    "number": 149,
+    "prompt": "Do you agree or disagree with the following statement?\nDue to development in technology and internet, library will one day disappear.\nGive specific reasons and details to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_150",
+    "number": 150,
+    "prompt": "Due to long practice hours, children are reluctant to learn musical instrument. What should the parents do to \nencourage their children to learn instruments, between enforcing their children to learn and letting the children \ndecide whether to learn the instruments or not?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_151",
+    "number": 151,
+    "prompt": "Is it better to use your extra money to buy some objects like clothes or electronic products, or is it better to use \nthe extra money to increase your experience like going for a vacation or a concert? Use specific reasons and \nexamples to support your opinion",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_152",
+    "number": 152,
+    "prompt": "Do you think it is necessary for children’s growth for them to live far away from home and stay with relatives or \nfriends for short periods of time? Include details and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_153",
+    "number": 153,
+    "prompt": "When giving feedbacks to students, some teachers would like to talk to their students in person, while some \nteachers would give written comments to students. Which do you prefer and why ?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_154",
+    "number": 154,
+    "prompt": "Some managers tend to check worker’s task closely or frequently, while others tend to check them rarely or \ncasually. Which is better for the management, and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_155",
+    "number": 155,
+    "prompt": "Do you agree or disagree with the following statement? Good teachers admit they make mistakes or don’t \nknow something. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_156",
+    "number": 156,
+    "prompt": "Do you agree or disagree that the determining factor of the success of students in school is the intelligence?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_157",
+    "number": 157,
+    "prompt": "Do you think it is reasonable to give a lower grade to the assignment that was handed in after deadline? Explain \nwhy.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_158",
+    "number": 158,
+    "prompt": "Some countries allow homeschooling. Talk about your perspective on this issue.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_159",
+    "number": 159,
+    "prompt": "If you and your friends or family have a disagreement over an issue, do you prefer to persuade them or to \nleave them be?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_160",
+    "number": 160,
+    "prompt": "Some people like to make decisions based on their own experiences while other people prefer to ask others, \nsuch as family and friends, for help. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_161",
+    "number": 161,
+    "prompt": "Do you agree or disagree with the following statement? Professors should not allow students to record class \nlectures.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_162",
+    "number": 162,
+    "prompt": "Do you agree or disagree with the following statement? People should participate in activities that they are \ngood at or have talent in.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_163",
+    "number": 163,
+    "prompt": "Some parents think that they should protect children from making mistakes. Others think that they should let \nchildren make mistakes. What do you think?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_164",
+    "number": 164,
+    "prompt": "A big corporation is planning to invest in a factory in your hometown. This factory will create many job \nopportunities for people, but also cause a lot of pollution at the same time. Would you support the corporation?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_165",
+    "number": 165,
+    "prompt": "Do you think schools need to teach their students about moral value?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_166",
+    "number": 166,
+    "prompt": "Do you agree or disagree with the following statement? Children should listen to or read the news starting from \nan early age.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_167",
+    "number": 167,
+    "prompt": "Children should be given electronic devices to play with. Do you agree or disagree with this statement?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_168",
+    "number": 168,
+    "prompt": "Do you agree or disagree with the following statement? It is never acceptable to interrupt other people when \nthey are talking. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_169",
+    "number": 169,
+    "prompt": "Do you agree that important business meetings should be held in person rather than through the use of \ntechnology, such as video conference calls? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_170",
+    "number": 170,
+    "prompt": "Do you agree or disagree with the following statement? It is not good for children to know too soon about life’s \ndifficulties.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_171",
+    "number": 171,
+    "prompt": "Do you agree or disagree with the following statement? It is acceptable for someone to use others’ influence \nin order to get a job.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_172",
+    "number": 172,
+    "prompt": "Your university has decided to allow members of the local community to come to campus and listen to the \nclasses. Do you agree with this decision?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_173",
+    "number": 173,
+    "prompt": "Some professors prefer to answer students’ questions at the end of the lecture, and others stop at different \npoints of the lecture to answer students’ questions. Which style do you think is better for learning?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_174",
+    "number": 174,
+    "prompt": "In order to stay healthy, many people choose to exercise. Some prefer exercising alone, like jogging or riding \nthe bicycle. Others prefer to exercise in a group, like a sports team. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_175",
+    "number": 175,
+    "prompt": "Do you agree or disagree with the following statement? Best decisions are made in groups. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_176",
+    "number": 176,
+    "prompt": "Do you agree with this statement: We should be completely honest and open with friends?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_177",
+    "number": 177,
+    "prompt": "Do you agree with the following statement: Parents should discourage children to join competitive activities like \nsports or entertainment? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_178",
+    "number": 178,
+    "prompt": "When teachers give homework feedback, do you think that they should write it on the homework sheet or \nindividually talk to students after class? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_179",
+    "number": 179,
+    "prompt": "Do you prefer big family or small family? Please give your answer with specific examples and details.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_180",
+    "number": 180,
+    "prompt": "Some people think in the future students will have classes on the internet, but some think students will still \nhave class in traditional classroom buildings. What is your opinion and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_181",
+    "number": 181,
+    "prompt": "Some people prefer to wash dishes by a dish washer. Others prefer to wash dishes by hands. Which do you \nprefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_182",
+    "number": 182,
+    "prompt": "Do you agree or disagree with the following statement? Nowadays, it is not important for people to regularly \nhave family meals together.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_183",
+    "number": 183,
+    "prompt": "Do you agree or disagree with the following statement: It is a waste of money for the government to fund space \ntravel or space exploration.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_184",
+    "number": 184,
+    "prompt": "Some people like to make decisions based on their own experiences while other people prefer to ask others, \nsuch as family and friends, for help. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_185",
+    "number": 185,
+    "prompt": "Do you agree with the following statement? Professors should not allow students to record class lectures.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_186",
+    "number": 186,
+    "prompt": "Do you agree or disagree with the following statement? It is better for younger people to take risks and explore \nnew things than for older people.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_187",
+    "number": 187,
+    "prompt": "Do you agree or disagree with the following statement? People should solve problems by themselves or \nthrough the help of friends and family, but not through the government.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_188",
+    "number": 188,
+    "prompt": "If you’re about to graduate soon and need to take one more class, would you take a class from a professor \nwho you studied with before or from a professor who you have never taken a class with?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_189",
+    "number": 189,
+    "prompt": "Do you agree or disagree with the following statement? Children should listen to or read the news starting from \nan early age.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_190",
+    "number": 190,
+    "prompt": "Do you agree or disagree with the following statement? People should relax through their hobbies and physical \nactivities that are unrelated to work.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_191",
+    "number": 191,
+    "prompt": "Do you agree or disagree with the following statement? Children should be given electronic devices to play \nwith.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_192",
+    "number": 192,
+    "prompt": "Some people prefer talking about their opinions immediately when they are on the topic, while others prefer to \nwait and listen to others before talking about their own opinions. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_193",
+    "number": 193,
+    "prompt": "Do you agree or disagree with the following statement? Playing sports can teach people lessons on life.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_194",
+    "number": 194,
+    "prompt": "Do you agree or disagree with the following statement? It is difficult for teachers to be both popular and to \nteach well.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_195",
+    "number": 195,
+    "prompt": "Do you agree or disagree with the following statement? Video games can help children to increase their \ninterests in learning.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_196",
+    "number": 196,
+    "prompt": "Do you agree with the following statement? Physical exercise is more important for older people than for \nyounger people.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_197",
+    "number": 197,
+    "prompt": "At work or at school, you might encounter a problem that requires creativity. In this situation, would you prefer \nto work alone or with others? Why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_198",
+    "number": 198,
+    "prompt": "Some professors prefer to answer students’ questions at the end of the lecture, and others stop at different \npoints of the lecture to answer students’ questions. Which style do you think is better for learning?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_199",
+    "number": 199,
+    "prompt": "Evaluating teachers is very important for schools. Do you think that fellow teachers should evaluate each other, \nor that students should evaluate the teachers?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_200",
+    "number": 200,
+    "prompt": "In order to stay healthy, many people choose to exercise. Some prefer exercising alone, like jogging or riding \nthe bicycle. Others prefer to exercise in a group, like a sports team. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_201",
+    "number": 201,
+    "prompt": "Some people prefer to focus on their ambitious dreams while others believe that realistic, achievable goals are \nmore important. Which do you prefer and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_202",
+    "number": 202,
+    "prompt": "Do you agree with the following statement? We should be completely honest and open with friends.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_203",
+    "number": 203,
+    "prompt": "Some people think that the media (newspapers, television, radio, Internet sources) is becoming less concerned \nwith the accuracy of news. Do you agree with this opinion? Why or why not?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_204",
+    "number": 204,
+    "prompt": "Do you agree with the following statement? It is better to relax by watching a movie or reading a book than by \ndoing physical exercise.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_205",
+    "number": 205,
+    "prompt": "Which do you prefer: a company offering you a job with challenging and interesting projects but with less \nvacation days, or a company offering you a job that is rather boring but with more vacation days?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_206",
+    "number": 206,
+    "prompt": "Some people prefer jobs working with computers or other technology, others like jobs working with no such \ntechnology. Which do you think is better and why?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_207",
+    "number": 207,
+    "prompt": "Do you think that when responding and processing a difficult situation in life people should adopt a humorous \nattitude or a serious attitude?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_208",
+    "number": 208,
+    "prompt": "Do you agree with the following statement? Children should take part in sports team to be more socially \ndeveloped.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_209",
+    "number": 209,
+    "prompt": "Some people say people taking risks can be more successful than people who are careful and cautious. What \nis your opinion? Please give specific details and examples in your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_210",
+    "number": 210,
+    "prompt": "Do you agree that schools should close computer labs because so many students nowadays have their own \ncomputers?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_211",
+    "number": 211,
+    "prompt": "Do you agree that it is easier to be an adult than a child?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_213",
+    "number": 213,
+    "prompt": "Do you agree or disagree with the following statement? Employees shouldn’t send personal text or emails \nduring work hours. Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_214",
+    "number": 214,
+    "prompt": "Do you agree or disagree with the following statement? Competition among friends usually has a negative \neffect on friendship.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_215",
+    "number": 215,
+    "prompt": "Do you agree that parents should let their children start watching/listening to the news from an early age?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_216",
+    "number": 216,
+    "prompt": "Suppose you are going to a job interview, but the distance is too far. Will you accept a telephone interview, or \nstill make the long journey for the interview?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_217",
+    "number": 217,
+    "prompt": "Your local community wants to help old people feel more comfortable with computers. Which do you think is \nbetter? Giving lectures to all elder people together or recruiting students to tutor the elderly individually?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_218",
+    "number": 218,
+    "prompt": "Your teacher in school has suggested promoting competition in class. Do you think this is a good idea?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_219",
+    "number": 219,
+    "prompt": "When visiting a museum that allows photography, do you prefer taking photos or just simply looking around?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_220",
+    "number": 220,
+    "prompt": "Do you agree or disagree with the following statement? Being polite is more important than being truthful. \nExplain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_221",
+    "number": 221,
+    "prompt": "Some people prefer to stay in touch with their friends and family members while travelling. Others do not. What \nis your opinion?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_222",
+    "number": 222,
+    "prompt": "In becoming successful in the society, which is more important? Good luck or Hard work.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_223",
+    "number": 223,
+    "prompt": "Some people prefer to study during the day and work at night. Others choose to work during the day and study \nin the night. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_224",
+    "number": 224,
+    "prompt": "Do you agree or disagree with the following statement? Students should wear school uniforms.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_225",
+    "number": 225,
+    "prompt": "Do you agree or disagree with the following statement? People who are seeking for new jobs should attach \nphotos in their resume.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_226",
+    "number": 226,
+    "prompt": "Do you agree or disagree with the following statement? It is harder to save money today than it was in the past",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_227",
+    "number": 227,
+    "prompt": "Do you believe it is better for university to limit student’s working hours? Why or Why not?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_228",
+    "number": 228,
+    "prompt": "In teaching students in classroom, is it better for the teacher to deliver the entire class or to show a video to \neducate? Use specific details and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_229",
+    "number": 229,
+    "prompt": "Do you agree or disagree with the following statement? When children are trying to work in a field that they are \nnot likely to succeed, parents need to discourage them.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_230",
+    "number": 230,
+    "prompt": "When going to an art museum, would you prefer to go with a companion or by yourself?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_231",
+    "number": 231,
+    "prompt": "Do you agree or disagree with the statement that we should let children watch news in their early ages?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_232",
+    "number": 232,
+    "prompt": "Do you agree or disagree with the following statement? In university, it is better for the graduate students to \nteach the undergraduate students?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_233",
+    "number": 233,
+    "prompt": "Do you agree or disagree with the following statement? Parents should limit their children from watching media.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_234",
+    "number": 234,
+    "prompt": "Do you agree or disagree with the following statement? Good luck is more important than hard work.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_235",
+    "number": 235,
+    "prompt": "Which do you prefer? Pre planned trip or free schedule traveling.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_236",
+    "number": 236,
+    "prompt": "Do you agree or disagree with the following statement? A person who engages in dangerous activities such as \nclimbing are more brave",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_237",
+    "number": 237,
+    "prompt": "Which do you prefer? Working independently or having someone to manage you.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_238",
+    "number": 238,
+    "prompt": "These days, students care a lot about the changing their appearance. Do you think this is a good trend?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_239",
+    "number": 239,
+    "prompt": "When traveling for a week, some people prefer to travel in a major city. Others prefer to travel in small towns. \nWhich do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_240",
+    "number": 240,
+    "prompt": "Do you agree or disagree with the following statement? Children should learn to do house chores before \nbecoming an adult.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_241",
+    "number": 241,
+    "prompt": "When trying to get hobbies, do you believe it is better to choose an activity that the person is good at or an \nactivity that the person is interested in?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_242",
+    "number": 242,
+    "prompt": "When you are traveling, is it better to let other people know of your plans or not",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_243",
+    "number": 243,
+    "prompt": "In maintaining a historical site, is it better to have the site open for the public or to reserve it only for the experts \nfor preservations.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_244",
+    "number": 244,
+    "prompt": "Which do you prefer? A prestigious university that has high tuitions or normal university that has no tuition.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_245",
+    "number": 245,
+    "prompt": "Do you agree or disagree with the following statement? Businesses should prohibit employees from sending \ne-mails or text messages for personal reasons.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_246",
+    "number": 246,
+    "prompt": "Do you agree or disagree with the following statement? Children should learn how to be independent at their \nearly ages.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_247",
+    "number": 247,
+    "prompt": "Do you believe it is better for the university to limit the students’ work hours? Why or why not?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_248",
+    "number": 248,
+    "prompt": "Is it better for the university to require all students to attend the classes or to have them attend classes freely? \nExplain with specific details and examples to support your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_249",
+    "number": 249,
+    "prompt": "Some people believe that it is okay to return or give away the gifts they receive. Other people believe that they \nmust keep those gifts. Which is your opinion? Explain why.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_250",
+    "number": 250,
+    "prompt": "Do you agree or disagree with the following statement? Animals should be treated as equals to humans.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_251",
+    "number": 251,
+    "prompt": "Some believe that serious teachers are better for teaching students in the classroom. Others believe that \nhumorous teachers are better. Which do you prefer?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_252",
+    "number": 252,
+    "prompt": "Do you agree or disagree with the following statement? Video games are bad for children.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_253",
+    "number": 253,
+    "prompt": "When playing with friends or family, which do you think is better between playing computer games or board \ngames. Explain with specific details and examples to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_254",
+    "number": 254,
+    "prompt": "Do you agree or disagree with the following statement? It is necessary to learn math.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_255",
+    "number": 255,
+    "prompt": "In teaching students, is it more effective to compliment or to criticize? Use specific details and examples to \nexplain your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_256",
+    "number": 256,
+    "prompt": "Do you feel the need to be attached to old objects like toys? Why or Why not? Use specific details and examples \nto explain your answer.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_257",
+    "number": 257,
+    "prompt": "Do you agree or disagree with the following statement? It is never acceptable to interrupt other people when \nthey are speaking.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_258",
+    "number": 258,
+    "prompt": "Do you agree or disagree with the following statement? It is important to maintain friendship with a friend that \nyou knew for a long time who did something you do not like. Use specific reasons and details to support your \nresponse.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_259",
+    "number": 259,
+    "prompt": "Which is more important; Math and science or literature and art? Describe and explain with specific examples \nand details to support your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_260",
+    "number": 260,
+    "prompt": "Do you prefer having one long vacation or several shorter vacations? Use specific examples and details to \nsupport your answer",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_261",
+    "number": 261,
+    "prompt": "Art, music 전공학생들도 math science 를 공부해야할까",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_262",
+    "number": 262,
+    "prompt": "In summer, some students prefer to take courses. Others prefer to spend time relaxing or going on a vacation. \nWhich do you prefer? Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_263",
+    "number": 263,
+    "prompt": "When a new electronic product such as computer or a cellphone is launched, would you prefer to buy it the \nmoment it is launched or buy it after a while.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_264",
+    "number": 264,
+    "prompt": "Do you agree or disagree with the following statement? Today, businesses need to use social media to be \nsuccessful. Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_265",
+    "number": 265,
+    "prompt": "Do you agree or disagree with the following statement? In secondary school, students should be required to \ngather in student hall to spend time together. Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_266",
+    "number": 266,
+    "prompt": "Do you agree or disagree with the following statement? People are more kind and friendly in small towns. Use \nspecific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_267",
+    "number": 267,
+    "prompt": "Do you agree or disagree with the following statement? It is better to encourage competition in educating \nchildren. Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_268",
+    "number": 268,
+    "prompt": "Do you agree or disagree with the following statement? In work, is it better to rely on one’s own experience or \nget help from others. Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_269",
+    "number": 269,
+    "prompt": "Do you agree or disagree with the following statement? Coaches are paid too much salary. Use specific \nreasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_270",
+    "number": 270,
+    "prompt": "In anniversary or celebration, is it better to spend time with a lot of people or only few people. Use specific \nreasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_271",
+    "number": 271,
+    "prompt": "Which do you prefer? Having friends with similar age or friends who are older. Use specific reasons and details \nto support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_272",
+    "number": 272,
+    "prompt": "Do you agree or disagree with the following statement? It is more difficult to save money today than it was in \nthe past. Use specific reasons and details to support your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_273",
+    "number": 273,
+    "prompt": "Is it better for children to live in suburbs near nature or to live in a big city? Use specific reasons and details to \nsupport your response.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_274",
+    "number": 274,
+    "prompt": "Do you agree or disagree with the following statement? Students with low grades in exam need to do more \nassignment.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_275",
+    "number": 275,
+    "prompt": "Do you agree or disagree with the following statement? The minimum age for driver’s license should be lower.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_276",
+    "number": 276,
+    "prompt": "Which do you prefer? A friend who think similarly or someone different.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_277",
+    "number": 277,
+    "prompt": "Do you agree or disagree with the following statement? Children should be allowed to use cell phone.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_278",
+    "number": 278,
+    "prompt": "The school needs to cut back on funding. In this case, will it be better to reduce funds for ski club or funds for \nmath club.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_279",
+    "number": 279,
+    "prompt": "Do you agree or disagree with the following statement? Children should be required to help with house chores.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_280",
+    "number": 280,
+    "prompt": "Do you agree or disagree with the following statement? Large classes should be filmed and posted on websites.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_281",
+    "number": 281,
+    "prompt": "Do you agree or disagree with the following statement? Due to the development in technology, students should \nno longer be required to learn math.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_282",
+    "number": 282,
+    "prompt": "Do you agree or disagree with the following statement? Participating in group sports will benefit children.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_283",
+    "number": 283,
+    "prompt": "Do you agree or disagree with the following statement? Robots will reduce people’s jobs.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_284",
+    "number": 284,
+    "prompt": "Is it better for school to educate students in practical knowledge such as teaching, engineering or broader \nknowledge such as humanity.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_285",
+    "number": 285,
+    "prompt": "Do you agree or disagree with the following statement? Good friends can always be best roommates",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_286",
+    "number": 286,
+    "prompt": "Do you agree or disagree with the following statement? The best way to learn about another country’s culture \nis to watch its’ TV show.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_287",
+    "number": 287,
+    "prompt": "Do you agree or disagree with the following statement? Bosses or managers need to maintain a friendly \nrelationship with employees.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_288",
+    "number": 288,
+    "prompt": "Do you agree or disagree with the following statement? Young people today are more dependent on their \nparents than young people in the past.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_289",
+    "number": 289,
+    "prompt": "Is it better to buy an electronic device such as computers or smartphones the moment it comes out or take \ntime to consider?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_290",
+    "number": 290,
+    "prompt": "Do you agree or disagree with the following statement? Children need to go to school until",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_291",
+    "number": 291,
+    "prompt": "Do you agree or disagree with the following statement? Universities should limit the number of clubs to join for \nstudents",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_292",
+    "number": 292,
+    "prompt": "Do you believe people who do extreme sports activities(with the risk of injuries) are brave or foolish?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_293",
+    "number": 293,
+    "prompt": "Do you agree or disagree with the following statement? Parents should help children to solve problems.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_294",
+    "number": 294,
+    "prompt": "Do you agree or disagree with the following statement? Schools should eliminate afterschool assignments.",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_295",
+    "number": 295,
+    "prompt": "Is it better for teacher to teach seriously or humorously?",
+    "source": "Independent_Topics.pdf"
+  },
+  {
+    "topic_id": "INDEPENDENT_TOPIC_296",
+    "number": 296,
+    "prompt": "Do you agree or disagree with the following statement? Parents should not control the way children spend their \nown money.",
+    "source": "Independent_Topics.pdf"
+  }
+]

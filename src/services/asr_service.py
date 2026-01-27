@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import whisper
 from whisper import Whisper
@@ -60,7 +60,7 @@ class ASRService:
             model = self._load_model()
 
             # Whisper transcribe 실행
-            result: Dict[str, Any] = model.transcribe(
+            result: dict[str, Any] = model.transcribe(
                 str(audio_path),
                 language="en",  # TOEFL Speaking은 영어만 처리
                 word_timestamps=False,  # 단어 단위 타임스탬프는 불필요 (세그먼트 단위로 충분)

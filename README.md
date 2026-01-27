@@ -76,11 +76,68 @@ rater/
 │   ├── services/         # 비즈니스 로직
 │   ├── workers/          # Celery Workers
 │   ├── schemas/          # Pydantic 스키마
+│   ├── cli/              # CLI 명령어 (데이터 수집)
 │   └── core/             # 핵심 설정
 ├── tests/                # 테스트
 ├── alembic/              # DB 마이그레이션
+├── external/             # 외부 데이터 파일 (JSON)
 └── storage/              # 로컬 파일 저장소
 ```
+
+## 데이터 수집
+
+TOEFL Speaking 문제 데이터를 PostgreSQL 데이터베이스로 수집하는 파이프라인을 제공합니다.
+
+### 지원하는 데이터 파일
+
+`external/` 디렉토리에 다음 JSON 파일들을 배치합니다:
+
+- **sets.json**: 문제 세트 목록 (테스트 세트 정보)
+- **items.json**: 개별 문항 정보 (Q1-Q6 문제)
+- **stimuli.json**: Reading/Listening 자극자료
+- **answer_keys.json**: 모범답안 및 Blueprint
+- **independent_topics.json**: Independent Speaking 토픽 뱅크
+
+### CLI 사용법
+
+```bash
+# 전체 데이터 시딩 (순차적으로 모든 파일 처리)
+python -m src.cli.seed --all
+
+# 단일 파일 시딩
+python -m src.cli.seed --file external/sets.json
+
+# 검증만 수행 (DB에 쓰지 않음)
+python -m src.cli.seed --validate-only
+
+# Dry-run (변환 확인만)
+python -m src.cli.seed --dry-run
+
+# 기존 데이터 업데이트 (Upsert)
+python -m src.cli.seed --file external/items.json --upsert
+
+# 배치 크기 지정
+python -m src.cli.seed --all --batch-size 50 --verbose
+```
+
+### IndependentTopic 모델
+
+Independent Speaking 문제의 토픽 뱅크를 관리하는 모델입니다:
+
+- **topic_id**: 고유 식별자
+- **number**: 토픽 번호 (1-100)
+- **prompt**: 문제 프롬프트
+- **source**: 출처 (예: TPO, Official Guide)
+
+### 데이터 처리 플로우
+
+1. **JSON 파일 로드**: UTF-8 인코딩으로 파일 읽기
+2. **스키마 검증**: Pydantic v2 모델로 데이터 검증
+3. **SQLAlchemy 변환**: ORM 모델로 변환
+4. **Bulk Insert**: 배치 단위로 데이터베이스 삽입
+5. **트랜잭션 관리**: 오류 발생 시 전체 롤백
+
+상세한 내용은 [SPEC-TOEFL-INGEST-001](.moai/specs/SPEC-TOEFL-INGEST-001/spec.md)을 참조하세요.
 
 ## 라이선스
 

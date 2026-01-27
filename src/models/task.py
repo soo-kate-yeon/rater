@@ -4,9 +4,12 @@ Task model for TOEFL Speaking questions.
 NOTE: 이 모델은 하위 호환성을 위해 유지됩니다.
 새로운 문제는 Item 모델을 사용하세요. Task는 Item으로 마이그레이션 예정입니다.
 """
+from __future__ import annotations
+
 import enum
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import DateTime, Enum, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
@@ -54,12 +57,12 @@ class Task(Base, UUIDMixin):
         nullable=False,
     )
 
-    source_reading: Mapped[str | None] = mapped_column(
+    source_reading: Mapped[Optional[str]] = mapped_column(
         Text,
         nullable=True,
     )
 
-    source_listening: Mapped[str | None] = mapped_column(
+    source_listening: Mapped[Optional[str]] = mapped_column(
         Text,
         nullable=True,
     )
@@ -77,7 +80,7 @@ class Task(Base, UUIDMixin):
     )
 
     # Item 참조 (마이그레이션용)
-    item_id: Mapped[uuid.UUID | None] = mapped_column(
+    item_id: Mapped[Optional[uuid.UUID]] = mapped_column(
         UUID(as_uuid=True),
         ForeignKey("items.id", ondelete="SET NULL"),
         nullable=True,
@@ -92,7 +95,7 @@ class Task(Base, UUIDMixin):
         lazy="selectin",
     )
 
-    item: Mapped["Item | None"] = relationship(  # noqa: F821
+    item: Mapped[Optional["Item"]] = relationship(  # noqa: F821
         "Item",
         lazy="selectin",
     )

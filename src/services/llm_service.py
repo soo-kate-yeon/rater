@@ -8,7 +8,7 @@ JSON 모드 출력을 강제하고, 파싱 실패 시 재시도 로직을 제공
 import json
 import logging
 from enum import Enum
-from typing import Any, Literal
+from typing import Any, Dict, Literal, Optional
 
 from anthropic import Anthropic, AsyncAnthropic
 from openai import AsyncOpenAI, OpenAI
@@ -72,7 +72,7 @@ class LLMService:
         - 멀티 프로바이더 지원
     """
 
-    def __init__(self, config: LLMConfig | None = None) -> None:
+    def __init__(self, config: Optional[LLMConfig] = None) -> None:
         """
         LLM 서비스 초기화
 
@@ -80,8 +80,8 @@ class LLMService:
             config: LLM 설정 (None이면 기본값 사용)
         """
         self.config = config or LLMConfig()
-        self._openai_client: AsyncOpenAI | None = None
-        self._anthropic_client: AsyncAnthropic | None = None
+        self._openai_client: Optional[AsyncOpenAI] = None
+        self._anthropic_client: Optional[AsyncAnthropic] = None
 
     @property
     def openai_client(self) -> AsyncOpenAI:
@@ -106,9 +106,9 @@ class LLMService:
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: dict[str, Any],
-        source_reading: str | None = None,
-        source_listening: str | None = None,
+        features: Dict[str, Any],
+        source_reading: Optional[str] = None,
+        source_listening: Optional[str] = None,
     ) -> FeedbackReport:
         """
         TOEFL Speaking 응답에 대한 구조화된 피드백 생성
@@ -289,9 +289,9 @@ Output Format: Valid JSON matching the FeedbackReport schema.
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: dict[str, Any],
-        source_reading: str | None = None,
-        source_listening: str | None = None,
+        features: Dict[str, Any],
+        source_reading: Optional[str] = None,
+        source_listening: Optional[str] = None,
     ) -> str:
         """
         사용자 프롬프트 생성

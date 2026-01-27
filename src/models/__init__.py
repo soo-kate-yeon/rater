@@ -23,6 +23,7 @@ from .enums import (
     TopicCategory,
     TopicType,
 )
+from .independent_topic import IndependentTopic
 from .item import Item
 from .job import Job, JobStatus
 from .job_artifact import JobArtifact
@@ -49,6 +50,7 @@ __all__ = [
     "Item",
     "Stimulus",
     "AnswerKey",
+    "IndependentTopic",
     # Task-related Enums
     "TaskType",
     "JobStatus",

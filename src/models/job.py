@@ -1,6 +1,8 @@
 """
 Job model for tracking scoring pipeline execution.
 """
+from __future__ import annotations
+
 import enum
 import uuid
 

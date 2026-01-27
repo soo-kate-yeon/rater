@@ -4,6 +4,8 @@ Item 모델 - TOEFL Speaking 개별 문항.
 Item은 Set에 속하는 개별 문제를 나타냅니다.
 Independent와 Integrated 두 가지 유형이 있으며, 각 유형별로 필수 필드가 다릅니다.
 """
+from __future__ import annotations
+
 import uuid
 
 from sqlalchemy import Enum, ForeignKey, Integer, String, Text, UniqueConstraint

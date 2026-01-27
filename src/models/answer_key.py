@@ -4,6 +4,8 @@ AnswerKey 모델 - 모범답안 및 채점 기준.
 AnswerKey는 Item에 대한 모범답안, 스크립트, 개요, 포인트, 또는 Blueprint를 저장합니다.
 여러 수준(high, mid, low)의 모범답안을 지원합니다.
 """
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
 

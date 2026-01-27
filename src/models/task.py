@@ -4,6 +4,8 @@ Task model for TOEFL Speaking questions.
 NOTE: 이 모델은 하위 호환성을 위해 유지됩니다.
 새로운 문제는 Item 모델을 사용하세요. Task는 Item으로 마이그레이션 예정입니다.
 """
+from __future__ import annotations
+
 import enum
 import uuid
 from datetime import datetime

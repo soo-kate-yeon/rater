@@ -4,6 +4,8 @@ Set 모델 - TOEFL Speaking 문제 세트.
 문제 세트(Set)는 여러 개별 문항(Item)을 그룹화하여 관리합니다.
 하나의 세트는 출처(source)와 버전(version)으로 식별됩니다.
 """
+from __future__ import annotations
+
 from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 

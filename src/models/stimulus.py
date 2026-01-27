@@ -4,6 +4,8 @@ Stimulus 모델 - 자극자료.
 Stimulus는 Item에 제공되는 자료(읽기 지문, 음성, 이미지, 지시문)를 나타냅니다.
 하나의 Item은 여러 개의 Stimulus를 가질 수 있으며, display_order로 표시 순서를 결정합니다.
 """
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
 

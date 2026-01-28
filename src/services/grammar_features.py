@@ -60,13 +60,22 @@ class GrammarFeatureExtractor:
         self._nlp: Optional[object] = None
         if SPACY_AVAILABLE:
             try:
-                self._nlp = spacy.load("en_core_web_lg")
-                logger.info("spaCy model 'en_core_web_lg' loaded successfully")
-            except OSError:
-                logger.warning(
-                    "spaCy model 'en_core_web_lg' not found. "
-                    "Install with: python -m spacy download en_core_web_lg"
-                )
+                # Try to load models in order of preference
+                for model_name in ["en_core_web_lg", "en_core_web_md", "en_core_web_sm"]:
+                    try:
+                        self._nlp = spacy.load(model_name)
+                        logger.info(f"spaCy model '{model_name}' loaded successfully")
+                        break
+                    except OSError:
+                        continue
+
+                if self._nlp is None:
+                    logger.warning(
+                        "No spaCy model found. Install with: "
+                        "python -m spacy download en_core_web_sm"
+                    )
+            except Exception as e:
+                logger.warning(f"Failed to load spaCy model: {e}")
                 self._nlp = None
 
     def extract(self, transcript: str, reference_text: Optional[str] = None) -> GrammarFeatures:

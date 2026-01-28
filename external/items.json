@@ -1,0 +1,1002 @@
+[
+  {
+    "item_id": "ACTUAL_TEST_01_Q1",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about a book you have read that was important to you for some reason. Explain why \nthe book was important to you. Give specific details and examples to explain your answer.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_01_Q2",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some people who unexpectedly receive a large amount of money spend it on practical \nthings, while others spend it for pleasure only. Which do you think is better and why?",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_01_Q3",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "Explain why the woman disagrees with the reasons expressed in the letter.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_01_Q4",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Explain groupthink and its effects using example of the computer company.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_01_Q5",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The speakers discuss two possible solutions to the woman’s problem. Briefly summarize \nthe problem. Then state which should solution you recommend and explain why.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_01_Q6",
+    "set_id": "ACTUAL_TEST_01",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using the research described by the professor, explain what scientists have learned about\nthe mathematical abilities of babies.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q1",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Choose a place you go to often that is important to you and explain why it is important. \nPlease include specific details in your explanation.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q2",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some college students choose to take courses in a variety of subject areas in order to get a \nbroad education. Others choose to focus on a single subject area in order to have a deeper \nunderstanding of that area. Which approach to course selection do you think is better for \nstudents and why?",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q3",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q4",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Explain how the examples of tying shoes and learning to type demonstrate the principle of audience effects.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q5",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The speakers discuss two possible solutions to the woman’s problem. Describe the \nproblem and the two solutions. Then explain what you think the woman should do and \nwhy.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_02_Q6",
+    "set_id": "ACTUAL_TEST_02",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points and examples from the talk, explain the two definitions of money presented \nby the professor.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q1",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "What characteristics do you think make someone a good parent? Explain why these \ncharacteristics are important to you.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q2",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some students prefer to work on class assignments by themselves. Others believe it is better \nto work in a group. Which do you prefer? Explain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q3",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q4",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the example discussed by the professor, explain what cognitive dissonance is and how people often deal with it.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q5",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The speakers discuss two possible solutions to the woman’s problem. Briefly summarize the \nproblem. Then state which of the solutions you recommend and explain why.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_03_Q6",
+    "set_id": "ACTUAL_TEST_03",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using the examples from the talk, explain how persuasive strategies are used in advertising.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q1",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "What do you miss most about your home when you are away? Use specific details in your \nexplanation.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q2",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Many universities now offer academic courses over the Internet. However, some people still \nprefer learning in traditional classrooms. Which do you think is better? Explain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q3",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q4",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Explain how the examples from the professor's lecture illustrate the relationship between verbal and nonverbal communication.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q5",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The speakers discuss two possible solutions to the man's problem. Briefly summarize the \nproblem. Then state which solution you recommend and explain why.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_04_Q6",
+    "set_id": "ACTUAL_TEST_04",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points and examples from the lecture, explain the importance of visual elements in \npainting.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q1",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about a place you enjoyed going to or visiting when you were a child. Describe the place. \nExplain why you enjoyed it.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q2",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Do you agree or disagree with the following statement? Why or why not? Use details and \nexamples to explain your answer.It is more important to study math or science than it is to \nstudy art or literature.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q3",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q4",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the professor's examples, explain the advertising technique of target marketing.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q5",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "Briefly summarize the woman's problem. Then state which solution you would recommend. \nExplain the reasons for your recommendation.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_05_Q6",
+    "set_id": "ACTUAL_TEST_05",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points and examples from the talk, explain the two types of motivation.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q1",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about a photograph or painting you have seen that was memorable. Explain what you \nliked or disliked about it.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q2",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some people have one career throughout their lives. Other people do different kinds of work \nat different points in their lives. Which do you think is better? Explain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q3",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q4",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the example of the car advertisement, explain what is meant by implicit memory.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q5",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The professor proposes two solutions to the problem the woman describes. Briefly \nsummarize the problem. Then state which solution you recommend and explain why.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_06_Q6",
+    "set_id": "ACTUAL_TEST_06",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points and examples from the talk, explain the difference between active and passive \nattention.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q1",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "If friends from another country were going to spend time in your country, what city or place \nwould you suggest they visit? Using details and examples, explain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q2",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "State whether you agree or disagree with the following statement. Then explain your reasons, \nusing specific details in your explanation. Learning through online courses is more effective \nthan learning in the traditional classroom setting.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q3",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q4",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the example from the lecture, explain what behavior modification is and how it works.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q5",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "The speakers discuss two possible solutions to the woman‘s problem. Briefly summarize \nthe problem. Then state which solution you recommend and explain why.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_07_Q6",
+    "set_id": "ACTUAL_TEST_07",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points and examples from the lecture, explain the two major factors of product \nquality and how their role in consumer decision making has changed.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q1",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about a time when a friend or family member helped you in the past. Describe how the \nperson helped you. Then explain why this was important to you.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q2",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some people enjoy taking risks and trying new things Others are not adventurous: they are \ncautious and prefer to avoid danger. Which behavior do you think is better? Explain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q3",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q4",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the examples of the peanut bug and the morpho butterfly, explain the concept of revealing coloration.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q5",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "Briefly summarize the problem the speakers are discussing. Then state which solution you \nwould recommend. Explain the reasons for your recommendation.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_08_Q6",
+    "set_id": "ACTUAL_TEST_08",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using the points and examples from the lecture, explain the two pricing strategies described \nby the professor.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q1",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about an important experience that you recently had. Describe what happened and \nexplain why it was important to you.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q2",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Some people think that family members are the most important influence on young adults. \nOthers believe that friends are the most important influence. Which do you agree with? \nExplain why.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q3",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "explain the reasons she gives for holding that opinion.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q4",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the professor's example, explain what an establishing shot is and how it is used.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q5",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "Briefly summarize the problem the speakers are discussing. Then state which solution you \nwould recommend. Explain the reasons for your recommendation.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_09_Q6",
+    "set_id": "ACTUAL_TEST_09",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using points from the lecture, explain how the passion plant and the potato plant defend \nthemselves from insects.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q1",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 1,
+    "task_type": "independent",
+    "prompt": "Talk about a time when you accomplished something you did not think you could do. What \ndo you accomplish? Why did you think you could not do it?",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "personal_experience"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q2",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 2,
+    "task_type": "independent",
+    "prompt": "Do you agree or disagree with the following statement? Use details and examples to explain \nyour answer. All children should be required to learn a second language in school.",
+    "prep_seconds": 15,
+    "response_seconds": 45,
+    "language": "en",
+    "tags": [
+      "independent",
+      "opinion"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q3",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 3,
+    "task_type": "integrated_read_listen",
+    "prompt": "",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "campus"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q4",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 4,
+    "task_type": "integrated_read_listen",
+    "prompt": "Using the examples from the lecture, explain the concept of entertainment merchandising.",
+    "prep_seconds": 30,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "read_listen",
+      "academic"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q5",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 5,
+    "task_type": "integrated_listen_only",
+    "prompt": "Briefly summarize the woman's problem. Then state which solution you would recommend . \nExplain the reasons for your recommendation.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "conversation"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  },
+  {
+    "item_id": "ACTUAL_TEST_10_Q6",
+    "set_id": "ACTUAL_TEST_10",
+    "task_no": 6,
+    "task_type": "integrated_listen_only",
+    "prompt": "Using the points from the lecture, explain why researchers think that babies may feel \nempathy.",
+    "prep_seconds": 20,
+    "response_seconds": 60,
+    "language": "en",
+    "tags": [
+      "integrated",
+      "listen_only",
+      "lecture"
+    ],
+    "difficulty": null,
+    "scoring_focus": null
+  }
+]

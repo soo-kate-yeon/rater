@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -34,8 +34,12 @@ class JobCreate(BaseModel):
     task_id: int = Field(..., description="문제 ID")
     task_type: TaskType = Field(..., description="문제 유형 (independent/integrated)")
     prompt: str = Field(..., description="질문 텍스트")
-    source_reading: str | None = Field(None, description="통합형 문제용 읽기 지문")
-    source_listening: str | None = Field(None, description="통합형 문제용 듣기 지문")
+    source_reading: Optional[str] = Field(None, description="통합형 문제용 읽기 지문")
+    source_listening: Optional[str] = Field(None, description="통합형 문제용 듣기 지문")
+    tier: Literal["basic", "standard", "premium"] = Field(
+        default="basic",
+        description="피드백 티어 레벨 (basic/standard/premium)",
+    )
 
 
 class JobResponse(BaseModel):
@@ -54,8 +58,8 @@ class JobStatusResponse(BaseModel):
     progress: int = Field(..., ge=0, le=100, description="진행률 (0-100)")
     created_at: datetime = Field(..., description="Job 생성 시각")
     updated_at: datetime = Field(..., description="Job 업데이트 시각")
-    error_code: str | None = Field(None, description="에러 코드 (실패 시)")
-    error_message: str | None = Field(None, description="에러 메시지 (실패 시)")
+    error_code: Optional[str] = Field(None, description="에러 코드 (실패 시)")
+    error_message: Optional[str] = Field(None, description="에러 메시지 (실패 시)")
 
     model_config = {"from_attributes": True}
 

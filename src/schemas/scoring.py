@@ -1,6 +1,5 @@
 """채점 관련 스키마"""
 
-from typing import Any
 
 from pydantic import BaseModel, Field
 
@@ -46,6 +45,19 @@ class DeliverySignals(BaseModel):
     )
     interpretation: str = Field(
         ..., description="해석 결과 (예: 속도 적절, 침묵 많음, 명료도 낮음)"
+    )
+    # SPEC-TOEFL-FEATURE-001: ETS SpeechRater v5.0 추가 features
+    secpchk: float = Field(
+        default=0.0, description="평균 chunk 길이 (초, segment 기반)"
+    )
+    silpsecutt: float = Field(
+        default=0.0, description="초당 pause 빈도 (pauses per second)"
+    )
+    within_clause_interruptions: int = Field(
+        default=0, description="절 내부 중단 횟수 (IPC)"
+    )
+    within_clause_silence_mean_ms: float = Field(
+        default=0.0, description="절 내부 평균 침묵 길이 (밀리초)"
     )
 
 

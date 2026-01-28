@@ -21,9 +21,13 @@ from src.models.report import Report
 from src.schemas.jobs import FeedbackReport
 from src.schemas.scoring import ASRResult, DeliverySignals
 from src.services.asr_service import get_asr_service
+from src.services.blueprint_comparison import get_blueprint_comparison_service
 from src.services.delivery_features import get_delivery_feature_extractor
 from src.services.feedback_service import generate_full_feedback
+from src.services.grammar_features import get_grammar_feature_extractor
 from src.services.storage_service import get_storage_service
+from src.services.structure_comparison import get_structure_comparison_service
+from src.services.vocabulary_features import get_vocabulary_feature_extractor
 
 # 로거 설정
 logger = logging.getLogger(__name__)
@@ -119,15 +123,19 @@ async def _process_scoring_job_async(job_id: str, job_data: dict[str, Any]) -> d
 
             # Phase 3: FEATURE_EXTRACTING
             await _update_job_status(db, job, JobStatus.FEATURE_EXTRACTING, 50)
-            delivery_features = await _extract_features(asr_result)
-            logger.info(f"Features extracted: WPM={delivery_features.wpm}")
+            all_features = await _extract_all_features(
+                job=job,
+                asr_result=asr_result,
+            )
+            logger.info(f"All features extracted: delivery, grammar, vocabulary, structure")
 
             # Phase 4: LLM_ANALYZING
             await _update_job_status(db, job, JobStatus.LLM_ANALYZING, 70)
             feedback_report = await _analyze_with_llm(
                 job=job,
                 transcript=asr_result.transcript,
-                delivery_features=delivery_features,
+                all_features=all_features,
+                tier=job_data.get("tier", "basic"),
             )
             logger.info(f"LLM analysis completed: score_band={feedback_report.score_band.min}-{feedback_report.score_band.max}")
 
@@ -136,7 +144,7 @@ async def _process_scoring_job_async(job_id: str, job_data: dict[str, Any]) -> d
                 db=db,
                 job=job,
                 asr_result=asr_result,
-                delivery_features=delivery_features,
+                all_features=all_features,
                 feedback_report=feedback_report,
             )
             logger.info(f"Job artifacts saved for job {job_id}")
@@ -233,28 +241,73 @@ async def _run_asr(audio_path: str) -> ASRResult:
         raise RuntimeError(f"ASR execution failed: {str(e)}") from e
 
 
-async def _extract_features(asr_result: ASRResult) -> DeliverySignals:
+async def _extract_all_features(job: Job, asr_result: ASRResult) -> dict:
     """
-    Delivery 신호 추출 (DeliveryFeatureExtractor 통합)
+    모든 피처 추출 (Delivery, Grammar, Vocabulary, Blueprint/Structure)
 
     Args:
+        job: Job 모델 (task 정보 포함)
         asr_result: Whisper ASR 결과
 
     Returns:
-        DeliverySignals: 추출된 Delivery 신호
+        dict: 모든 피처를 포함한 딕셔너리
+            - delivery: DeliverySignals
+            - grammar: GrammarFeatures
+            - vocabulary: VocabularyFeatures
+            - blueprint: BlueprintComparisonResult (Integrated) or None
+            - structure: StructureComparisonResult (Independent) or None
 
     Raises:
         RuntimeError: Feature 추출 실패 시
     """
-    logger.info("Extracting delivery features from ASR result")
+    logger.info("Extracting all features (delivery, grammar, vocabulary, structure)")
 
     try:
-        extractor = get_delivery_feature_extractor()
-        # extract()는 동기 메서드이므로 직접 호출
-        delivery_signals = extractor.extract(asr_result)
-        return delivery_signals
+        transcript = asr_result.transcript
+
+        # 1. Delivery features 추출
+        delivery_extractor = get_delivery_feature_extractor()
+        delivery_features = delivery_extractor.extract(asr_result)
+        logger.info(f"Delivery features extracted: WPM={delivery_features.wpm}")
+
+        # 2. Grammar features 추출
+        grammar_extractor = get_grammar_feature_extractor()
+        grammar_features = grammar_extractor.extract(transcript)
+        logger.info(f"Grammar features extracted: spacy_available={grammar_features.spacy_available}")
+
+        # 3. Vocabulary features 추출
+        vocab_extractor = get_vocabulary_feature_extractor()
+        vocab_features = vocab_extractor.extract(transcript)
+        logger.info(f"Vocabulary features extracted: types={vocab_features.types}")
+
+        # 4. Blueprint/Structure 비교 (task_type에 따라)
+        blueprint_result = None
+        structure_result = None
+
+        if job.task.task_type.value == "INTEGRATED":
+            # Integrated Task: Blueprint 비교
+            # TODO: Blueprint units는 Task 모델에서 가져와야 함 (현재는 빈 리스트)
+            blueprint_service = get_blueprint_comparison_service()
+            blueprint_units = []  # TODO: job.task.blueprint_units로 교체
+            blueprint_result = blueprint_service.compare(transcript, blueprint_units)
+            logger.info(f"Blueprint comparison completed: coverage={blueprint_result.coverage_percentage}%")
+        else:
+            # Independent Task: Structure 분석
+            structure_service = get_structure_comparison_service()
+            structure_result = structure_service.analyze_structure(transcript)
+            logger.info(f"Structure analysis completed: match={structure_result.match_percentage}%")
+
+        # 모든 피처를 딕셔너리로 반환
+        return {
+            "delivery": delivery_features.model_dump(),
+            "grammar": grammar_features.model_dump(),
+            "vocabulary": vocab_features.model_dump(),
+            "blueprint": blueprint_result.model_dump() if blueprint_result else None,
+            "structure": structure_result.model_dump() if structure_result else None,
+        }
+
     except ValueError as e:
-        logger.error(f"Invalid ASR result for feature extraction: {str(e)}")
+        logger.error(f"Invalid data for feature extraction: {str(e)}")
         raise RuntimeError(f"Feature extraction failed: {str(e)}") from e
     except Exception as e:
         logger.error(f"Feature extraction failed: {str(e)}")
@@ -264,7 +317,8 @@ async def _extract_features(asr_result: ASRResult) -> DeliverySignals:
 async def _analyze_with_llm(
     job: Job,
     transcript: str,
-    delivery_features: DeliverySignals,
+    all_features: dict,
+    tier: str,
 ) -> FeedbackReport:
     """
     LLM 분석 및 피드백 생성 (FeedbackService 통합)
@@ -272,7 +326,8 @@ async def _analyze_with_llm(
     Args:
         job: Job 모델 (task 정보 포함)
         transcript: Whisper 전사 텍스트
-        delivery_features: Delivery 신호
+        all_features: 모든 피처 (delivery, grammar, vocabulary, blueprint/structure)
+        tier: 피드백 티어 (basic/standard/premium)
 
     Returns:
         FeedbackReport: 최종 피드백 리포트
@@ -280,16 +335,21 @@ async def _analyze_with_llm(
     Raises:
         RuntimeError: LLM 분석 실패 시
     """
-    logger.info("Analyzing with LLM")
+    logger.info(f"Analyzing with LLM (tier={tier})")
 
     try:
         feedback_report = await generate_full_feedback(
             task_type=job.task.task_type.value,
             prompt=job.task.prompt,
             transcript=transcript,
-            delivery_features_dict=delivery_features.model_dump(),
+            delivery_features_dict=all_features["delivery"],
             source_reading=job.task.source_reading,
             source_listening=job.task.source_listening,
+            tier=tier,
+            grammar_features=all_features["grammar"],
+            vocabulary_features=all_features["vocabulary"],
+            blueprint_result=all_features.get("blueprint"),
+            structure_result=all_features.get("structure"),
         )
         return feedback_report
     except Exception as e:
@@ -301,7 +361,7 @@ async def _save_job_artifact(
     db: AsyncSession,
     job: Job,
     asr_result: ASRResult,
-    delivery_features: DeliverySignals,
+    all_features: dict,
     feedback_report: FeedbackReport,
 ) -> None:
     """
@@ -311,7 +371,7 @@ async def _save_job_artifact(
         db: 데이터베이스 세션
         job: Job 모델
         asr_result: ASR 결과
-        delivery_features: Delivery 신호
+        all_features: 모든 피처 (delivery, grammar, vocabulary, blueprint/structure)
         feedback_report: 피드백 리포트
 
     Raises:
@@ -323,7 +383,7 @@ async def _save_job_artifact(
         artifact = JobArtifact(
             job_id=job.id,
             asr_json=asr_result.model_dump(),
-            features_json=delivery_features.model_dump(),
+            features_json=all_features,
             llm_json=feedback_report.model_dump(),
             rubric_version="toefl_speaking_2026_v1",
             pipeline_version="1.0.0",

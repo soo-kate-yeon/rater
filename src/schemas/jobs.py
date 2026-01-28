@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -36,6 +36,10 @@ class JobCreate(BaseModel):
     prompt: str = Field(..., description="질문 텍스트")
     source_reading: Optional[str] = Field(None, description="통합형 문제용 읽기 지문")
     source_listening: Optional[str] = Field(None, description="통합형 문제용 듣기 지문")
+    tier: Literal["basic", "standard", "premium"] = Field(
+        default="basic",
+        description="피드백 티어 레벨 (basic/standard/premium)",
+    )
 
 
 class JobResponse(BaseModel):

@@ -192,6 +192,10 @@ async def generate_full_feedback(
     source_listening: Optional[str] = None,
     llm_provider: LLMProvider = LLMProvider.OPENAI,
     tier: Literal["basic", "standard", "premium"] = "basic",
+    grammar_features: Optional[dict[str, Any]] = None,
+    vocabulary_features: Optional[dict[str, Any]] = None,
+    blueprint_result: Optional[dict[str, Any]] = None,
+    structure_result: Optional[dict[str, Any]] = None,
 ) -> FeedbackReport:
     """
     피드백 생성 헬퍼 함수
@@ -205,6 +209,10 @@ async def generate_full_feedback(
         source_listening: 듣기 지문
         llm_provider: LLM 제공자
         tier: 피드백 레벨 (basic/standard/premium)
+        grammar_features: Grammar features (Phase 1+2)
+        vocabulary_features: Vocabulary features (Phase 1+2)
+        blueprint_result: Blueprint comparison result (Integrated)
+        structure_result: Structure comparison result (Independent)
 
     Returns:
         FeedbackReport: 최종 피드백 리포트
@@ -216,11 +224,29 @@ async def generate_full_feedback(
     config = FeedbackServiceConfig(llm_provider=llm_provider)
     service = FeedbackService(config=config)
 
-    report = await service.generate_feedback(
+    # Language features 추출 (기존 방식 유지)
+    language_features = extract_language_features(transcript)
+
+    # Structure features 추출 (기존 방식 유지)
+    structure_features = extract_structure_features(transcript, prompt)
+
+    # 모든 features 통합
+    all_features = {
+        "delivery": delivery_features.model_dump(),
+        "language": language_features,
+        "structure": structure_features,
+        "grammar": grammar_features or {},
+        "vocabulary": vocabulary_features or {},
+        "blueprint": blueprint_result,
+        "structure_comparison": structure_result,
+    }
+
+    # LLM 피드백 생성
+    report = await service.llm_service.generate_feedback(
         task_type=task_type,
         prompt=prompt,
         transcript=transcript,
-        delivery_features=delivery_features,
+        features=all_features,
         source_reading=source_reading,
         source_listening=source_listening,
         tier=tier,

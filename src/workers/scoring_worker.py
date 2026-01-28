@@ -19,7 +19,7 @@ from src.models.job import Job, JobStatus
 from src.models.job_artifact import JobArtifact
 from src.models.report import Report
 from src.schemas.jobs import FeedbackReport
-from src.schemas.scoring import ASRResult, DeliverySignals
+from src.schemas.scoring import ASRResult
 from src.services.asr_service import get_asr_service
 from src.services.blueprint_comparison import get_blueprint_comparison_service
 from src.services.delivery_features import get_delivery_feature_extractor
@@ -127,7 +127,7 @@ async def _process_scoring_job_async(job_id: str, job_data: dict[str, Any]) -> d
                 job=job,
                 asr_result=asr_result,
             )
-            logger.info(f"All features extracted: delivery, grammar, vocabulary, structure")
+            logger.info("All features extracted: delivery, grammar, vocabulary, structure")
 
             # Phase 4: LLM_ANALYZING
             await _update_job_status(db, job, JobStatus.LLM_ANALYZING, 70)

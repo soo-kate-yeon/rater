@@ -14,7 +14,6 @@ Requirements:
 import logging
 import math
 import re
-from typing import List, Optional, Set
 
 from pydantic import BaseModel, Field
 
@@ -46,7 +45,7 @@ except ImportError:
 class VocabularyFeatures(BaseModel):
     """Vocabulary 신호 (어휘 특징)"""
 
-    cvamax: Optional[float] = Field(
+    cvamax: float | None = Field(
         default=None,
         ge=0.0,
         le=1.0,
@@ -57,7 +56,7 @@ class VocabularyFeatures(BaseModel):
         ge=0,
         description="고유 단어 수 (Lexical diversity)",
     )
-    logFreq: Optional[float] = Field(
+    logFreq: float | None = Field(
         default=None,
         description="평균 log frequency (낮을수록 고급 어휘)",
     )
@@ -83,7 +82,7 @@ class VocabularyFeatureExtractor:
 
     def __init__(self) -> None:
         """추출기 초기화"""
-        self._word_freq_cache: Optional[dict] = None
+        self._word_freq_cache: dict | None = None
         if NLTK_AVAILABLE:
             try:
                 # Brown corpus 다운로드 시도
@@ -94,7 +93,7 @@ class VocabularyFeatureExtractor:
                 self._word_freq_cache = None
 
     def extract(
-        self, transcript: str, reference_text: Optional[str] = None
+        self, transcript: str, reference_text: str | None = None
     ) -> VocabularyFeatures:
         """
         Transcript에서 Vocabulary 신호 추출
@@ -126,8 +125,8 @@ class VocabularyFeatureExtractor:
         )
 
     def _calculate_cvamax(
-        self, transcript: str, reference_text: Optional[str]
-    ) -> Optional[float]:
+        self, transcript: str, reference_text: str | None
+    ) -> float | None:
         """
         TF-IDF 기반 Content Vector Analysis (CVA) 유사도 계산
 
@@ -172,10 +171,10 @@ class VocabularyFeatureExtractor:
         """
         # 알파벳만 추출하여 소문자로 변환
         words = re.findall(r"\b[a-zA-Z]+\b", transcript.lower())
-        unique_words: Set[str] = set(words)
+        unique_words: set[str] = set(words)
         return len(unique_words)
 
-    def _calculate_log_frequency(self, transcript: str) -> Optional[float]:
+    def _calculate_log_frequency(self, transcript: str) -> float | None:
         """
         평균 log frequency 계산
 
@@ -239,7 +238,7 @@ class VocabularyFeatureExtractor:
 
 
 # 싱글톤 인스턴스
-_extractor: Optional[VocabularyFeatureExtractor] = None
+_extractor: VocabularyFeatureExtractor | None = None
 
 
 def get_vocabulary_feature_extractor() -> VocabularyFeatureExtractor:

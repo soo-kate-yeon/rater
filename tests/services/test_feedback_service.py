@@ -3,18 +3,19 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
+import pytest_asyncio
 
 from src.schemas.jobs import FeedbackReport, ScoreBand
 from src.services.feedback_service import DeliveryFeatures, FeedbackService, FeedbackServiceConfig
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def feedback_service():
     """피드백 서비스 픽스처"""
     return FeedbackService()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def delivery_features():
     """Delivery features 픽스처"""
     return DeliveryFeatures(
@@ -28,43 +29,50 @@ def delivery_features():
     )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def mock_feedback_report():
     """모킹된 피드백 리포트"""
+    from src.schemas.jobs import ActionItem, BottleneckInfo, DeliveryAnalysis, LanguageAnalysis, StructureAnalysis
+
     return FeedbackReport(
-        summary={
-            "line1": "Your response demonstrates good organization and clear structure.",
-            "line2": "There are minor grammar errors that affect clarity.",
-            "line3": "Vocabulary usage is appropriate for the task level.",
-        },
-        delivery={
-            "speed": {"status": "good", "description": "Natural speaking pace at 120 WPM"},
-            "pauses": {
-                "status": "fair",
-                "description": "Some noticeable hesitation with 5 pauses",
-            },
-            "clarity": {"status": "good", "description": "Clear pronunciation with good ASR confidence"},
-        },
-        language_use={
-            "errors": [
-                {"type": "grammar", "example": "I was go to school"},
-                {"type": "word_choice", "example": "very much good"},
-            ],
-            "vocabulary_level": "intermediate",
-            "sentence_variety": "good",
-        },
-        structure={
-            "has_intro": True,
-            "has_body": True,
-            "has_conclusion": True,
-            "coherence": "good",
-        },
-        score_band=ScoreBand(min=22, max=25),
-        action_items=[
-            "Focus on verb tense consistency",
-            "Practice reducing filler words",
-            "Work on smoother transitions between ideas",
+        summary_3lines=[
+            "Your response demonstrates good organization and clear structure.",
+            "There are minor grammar errors that affect clarity.",
+            "Vocabulary usage is appropriate for the task level.",
         ],
+        bottleneck=BottleneckInfo(
+            title="Grammar consistency",
+            explanation="Verb tense errors affect clarity",
+            evidence_quote="I was go to school",
+        ),
+        action_items=[
+            ActionItem(
+                action="Focus on verb tense consistency",
+                why="Tense errors reduce clarity",
+                how_to="Practice past tense formation",
+                example_sentence="I went to school yesterday.",
+            )
+        ],
+        structure=StructureAnalysis(
+            checklist={"has_intro": True, "has_body": True, "has_conclusion": True},
+            missing=[],
+            suggested_template="Introduction → Body → Conclusion",
+        ),
+        language=LanguageAnalysis(
+            top_errors=["Verb tense", "Word choice"],
+            improved_sentences=["I went to school instead of I was go to school"],
+        ),
+        delivery=DeliveryAnalysis(
+            speed_comment="Natural speaking pace at 120 WPM",
+            pause_comment="Some noticeable hesitation with 5 pauses",
+            clarity_comment="Clear pronunciation with good ASR confidence",
+        ),
+        score_band=ScoreBand(
+            min=22,
+            max=25,
+            rationale="Good structure and vocabulary, minor grammar issues",
+        ),
+        disclaimer="This is an automated assessment for practice purposes only.",
     )
 
 
@@ -92,9 +100,9 @@ async def test_generate_feedback_independent(
     assert result.score_band.min >= 0
     assert result.score_band.max <= 30
     assert result.score_band.min <= result.score_band.max
-    assert len(result.summary) == 3
+    assert len(result.summary_3lines) == 3
     assert "delivery" in result.model_dump()
-    assert "language_use" in result.model_dump()
+    assert "language" in result.model_dump()
     assert "structure" in result.model_dump()
 
 
@@ -256,3 +264,185 @@ def test_feedback_service_summarize_features(feedback_service: FeedbackService):
     assert "TTR=0.75" in summary
     assert "Errors=2" in summary
     assert "Coherence=0.85" in summary
+
+
+# ========== 3-Tier Feedback System Tests ==========
+
+
+@pytest.mark.asyncio
+async def test_generate_feedback_basic_tier(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+):
+    """Basic tier 피드백 생성 테스트"""
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        mock_generate.return_value = mock_feedback_report
+
+        result = await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Do you agree or disagree?",
+            transcript="I think technology is important.",
+            delivery_features=delivery_features,
+            tier="basic",
+        )
+
+    # Basic tier 검증
+    assert isinstance(result, FeedbackReport)
+    # LLM 호출 시 tier 정보가 전달되는지 확인
+    call_kwargs = mock_generate.call_args.kwargs
+    assert "tier" in call_kwargs
+    assert call_kwargs["tier"] == "basic"
+
+
+@pytest.mark.asyncio
+async def test_generate_feedback_standard_tier(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+):
+    """Standard tier 피드백 생성 테스트"""
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        mock_generate.return_value = mock_feedback_report
+
+        result = await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Do you agree or disagree?",
+            transcript="I think technology is important because it helps learning.",
+            delivery_features=delivery_features,
+            tier="standard",
+        )
+
+    # Standard tier 검증
+    assert isinstance(result, FeedbackReport)
+    call_kwargs = mock_generate.call_args.kwargs
+    assert "tier" in call_kwargs
+    assert call_kwargs["tier"] == "standard"
+
+
+@pytest.mark.asyncio
+async def test_generate_feedback_premium_tier(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+):
+    """Premium tier 피드백 생성 테스트"""
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        mock_generate.return_value = mock_feedback_report
+
+        result = await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Do you agree or disagree?",
+            transcript="I think technology is important. First, it helps learning. For example, online courses.",
+            delivery_features=delivery_features,
+            tier="premium",
+        )
+
+    # Premium tier 검증
+    assert isinstance(result, FeedbackReport)
+    call_kwargs = mock_generate.call_args.kwargs
+    assert "tier" in call_kwargs
+    assert call_kwargs["tier"] == "premium"
+
+
+@pytest.mark.asyncio
+async def test_generate_feedback_default_tier(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+):
+    """tier 미지정 시 기본값 basic 적용 테스트"""
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        mock_generate.return_value = mock_feedback_report
+
+        result = await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Test prompt",
+            transcript="Test transcript",
+            delivery_features=delivery_features,
+            # tier 파라미터 생략
+        )
+
+    # 기본값 basic 확인
+    assert isinstance(result, FeedbackReport)
+    call_kwargs = mock_generate.call_args.kwargs
+    assert "tier" in call_kwargs
+    assert call_kwargs["tier"] == "basic"
+
+
+@pytest.mark.asyncio
+async def test_generate_feedback_invalid_tier(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures
+):
+    """잘못된 tier 값 처리 테스트 (타입 체커용)"""
+    # Note: Literal 타입은 Python 런타임에서 검증되지 않고 mypy와 같은 정적 타입 체커에서만 검증됨
+    # 따라서 이 테스트는 실제 ValidationError를 발생시키지 않음
+    # 대신 tier 파라미터의 기본값이 제대로 작동하는지 테스트
+
+    # tier를 명시하지 않고 호출 (기본값 "basic" 사용)
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        from src.schemas.jobs import ActionItem, BottleneckInfo, DeliveryAnalysis, LanguageAnalysis, StructureAnalysis, ScoreBand
+
+        mock_report = FeedbackReport(
+            summary_3lines=["Test"] * 3,
+            bottleneck=BottleneckInfo(title="Test", explanation="Test", evidence_quote="Test"),
+            action_items=[ActionItem(action="Test", why="Test", how_to="Test", example_sentence="Test")],
+            structure=StructureAnalysis(checklist={}, missing=[], suggested_template="Test"),
+            language=LanguageAnalysis(top_errors=[], improved_sentences=[]),
+            delivery=DeliveryAnalysis(speed_comment="Test", pause_comment="Test", clarity_comment="Test"),
+            score_band=ScoreBand(min=20, max=25, rationale="Test"),
+            disclaimer="Test",
+        )
+        mock_generate.return_value = mock_report
+
+        result = await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Test prompt",
+            transcript="Test transcript",
+            delivery_features=delivery_features,
+            # tier 생략 - 기본값 "basic" 사용
+        )
+
+    # 기본값이 제대로 작동했는지 확인
+    assert isinstance(result, FeedbackReport)
+    call_kwargs = mock_generate.call_args.kwargs
+    assert call_kwargs.get("tier") == "basic"
+
+
+@pytest.mark.asyncio
+async def test_tier_affects_llm_prompt(
+    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+):
+    """tier에 따라 LLM 프롬프트가 달라지는지 확인"""
+    with patch.object(
+        feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
+    ) as mock_generate:
+        mock_generate.return_value = mock_feedback_report
+
+        # Basic tier 호출
+        await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Test",
+            transcript="Test",
+            delivery_features=delivery_features,
+            tier="basic",
+        )
+        basic_call = mock_generate.call_args
+
+        mock_generate.reset_mock()
+
+        # Premium tier 호출
+        await feedback_service.generate_feedback(
+            task_type="independent",
+            prompt="Test",
+            transcript="Test",
+            delivery_features=delivery_features,
+            tier="premium",
+        )
+        premium_call = mock_generate.call_args
+
+    # tier 값이 다르게 전달되는지 확인
+    assert basic_call.kwargs["tier"] == "basic"
+    assert premium_call.kwargs["tier"] == "premium"

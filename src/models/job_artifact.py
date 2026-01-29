@@ -5,7 +5,8 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import DateTime, ForeignKey, String, func
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base, UUIDMixin
@@ -41,19 +42,19 @@ class JobArtifact(Base, UUIDMixin):
     )
 
     asr_json: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
     )
 
     features_json: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
     )
 
     llm_json: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
     )

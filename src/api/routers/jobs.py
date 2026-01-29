@@ -1,14 +1,15 @@
 """채점 Job 라우터"""
 
 import uuid
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from uuid import UUID
 
 from src.core.database import get_db
-from src.models.job import Job, JobStatus as JobStatusEnum
+from src.models.job import Job
+from src.models.job import JobStatus as JobStatusEnum
 from src.models.report import Report
 from src.schemas.jobs import (
     FeedbackReport,
@@ -60,7 +61,7 @@ async def create_job(
     new_job = Job(
         id=uuid.uuid4(),
         user_id=uuid.UUID("00000000-0000-0000-0000-000000000001"),  # TODO: JWT에서 추출
-        task_id=uuid.UUID(str(job_data.task_id)) if isinstance(job_data.task_id, int) else job_data.task_id,
+        task_id=uuid.UUID(job_data.task_id),
         status=JobStatusEnum.QUEUED,
         progress=0,
         audio_key=job_data.audio_key,

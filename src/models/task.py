@@ -11,8 +11,9 @@ import uuid
 from datetime import datetime
 from typing import Optional
 
-from sqlalchemy import DateTime, Enum, ForeignKey, String, Text, func
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy import DateTime, Enum, ForeignKey, Text, func
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base, UUIDMixin
@@ -68,7 +69,7 @@ class Task(Base, UUIDMixin):
     )
 
     tags: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
     )
@@ -89,13 +90,13 @@ class Task(Base, UUIDMixin):
     )
 
     # Relationships
-    jobs: Mapped[list["Job"]] = relationship(  # noqa: F821
+    jobs: Mapped[list[Job]] = relationship(  # noqa: F821
         "Job",
         back_populates="task",
         lazy="selectin",
     )
 
-    item: Mapped[Optional["Item"]] = relationship(  # noqa: F821
+    item: Mapped[Optional[Item]] = relationship(  # noqa: F821
         "Item",
         lazy="selectin",
     )

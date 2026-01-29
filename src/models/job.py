@@ -100,30 +100,31 @@ class Job(BaseModel):
     )
 
     # Relationships
-    user: Mapped["User"] = relationship(  # noqa: F821
+    user: Mapped[User] = relationship(  # noqa: F821
         "User",
         back_populates="jobs",
         lazy="selectin",
     )
 
-    task: Mapped["Task"] = relationship(  # noqa: F821
+    task: Mapped[Task] = relationship(  # noqa: F821
         "Task",
         back_populates="jobs",
         lazy="selectin",
     )
 
-    artifacts: Mapped[list["JobArtifact"]] = relationship(  # noqa: F821
+    artifacts: Mapped[list[JobArtifact]] = relationship(  # noqa: F821
         "JobArtifact",
         back_populates="job",
         lazy="selectin",
         cascade="all, delete-orphan",
     )
 
-    report: Mapped[Optional["Report"]] = relationship(  # noqa: F821
+    report: Mapped[Optional[Report]] = relationship(  # noqa: F821
         "Report",
         back_populates="job",
         lazy="selectin",
         cascade="all, delete-orphan",
+        passive_deletes=True,
         uselist=False,
     )
 

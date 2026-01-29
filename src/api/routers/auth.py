@@ -1,6 +1,5 @@
 """인증 라우터"""
 
-from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
@@ -14,7 +13,7 @@ from src.core.security import (
     verify_password,
 )
 from src.models.user import User
-from src.schemas.auth import Token, UserLogin, UserRegister, UserResponse
+from src.schemas.auth import Token, UserRegister, UserResponse
 
 router = APIRouter()
 
@@ -53,6 +52,7 @@ async def register(
     new_user = User(
         email=user_data.email,
         hashed_password=hashed_pw,
+        name=user_data.name,
     )
     db.add(new_user)
     await db.commit()

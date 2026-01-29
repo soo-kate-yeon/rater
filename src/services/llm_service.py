@@ -8,10 +8,10 @@ JSON 모드 출력을 강제하고, 파싱 실패 시 재시도 로직을 제공
 import json
 import logging
 from enum import Enum
-from typing import Any, Dict, Literal, Optional
+from typing import Any, Literal, Optional
 
-from anthropic import Anthropic, AsyncAnthropic
-from openai import AsyncOpenAI, OpenAI
+from anthropic import AsyncAnthropic
+from openai import AsyncOpenAI
 from pydantic import BaseModel, Field, ValidationError
 
 from src.core.config import settings
@@ -106,9 +106,10 @@ class LLMService:
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: Dict[str, Any],
+        features: dict[str, Any],
         source_reading: Optional[str] = None,
         source_listening: Optional[str] = None,
+        tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> FeedbackReport:
         """
         TOEFL Speaking 응답에 대한 구조화된 피드백 생성
@@ -129,7 +130,7 @@ class LLMService:
             RuntimeError: 최대 재시도 횟수 초과
         """
         # LLM 프롬프트 생성
-        system_prompt = self._build_system_prompt(task_type)
+        system_prompt = self._build_system_prompt(task_type, tier)
         user_prompt = self._build_user_prompt(
             task_type=task_type,
             prompt=prompt,
@@ -137,6 +138,7 @@ class LLMService:
             features=features,
             source_reading=source_reading,
             source_listening=source_listening,
+            tier=tier,
         )
 
         # 재시도 로직 (최대 max_retries회)
@@ -252,17 +254,31 @@ class LLMService:
 
         return report
 
-    def _build_system_prompt(self, task_type: Literal["independent", "integrated"]) -> str:
+    def _build_system_prompt(
+        self,
+        task_type: Literal["independent", "integrated"],
+        tier: Literal["basic", "standard", "premium"] = "basic",
+    ) -> str:
         """
         시스템 프롬프트 생성
 
         Args:
             task_type: 문제 유형 (independent/integrated)
+            tier: 피드백 티어 (basic/standard/premium)
 
         Returns:
             시스템 프롬프트 문자열
         """
+        tier_instructions = {
+            "basic": "Provide concise feedback focusing on key points only.",
+            "standard": "Provide detailed feedback with analysis and actionable recommendations.",
+            "premium": "Provide expert-level detailed feedback with comprehensive analysis, examples, and personalized improvement strategies.",
+        }
+
         return f"""You are an expert TOEFL Speaking evaluator specializing in {task_type} tasks.
+
+Feedback Level: {tier.upper()}
+{tier_instructions[tier]}
 
 Your role:
 - Analyze the user's speaking response based on TOEFL rubric criteria
@@ -289,9 +305,10 @@ Output Format: Valid JSON matching the FeedbackReport schema.
         task_type: Literal["independent", "integrated"],
         prompt: str,
         transcript: str,
-        features: Dict[str, Any],
+        features: dict[str, Any],
         source_reading: Optional[str] = None,
         source_listening: Optional[str] = None,
+        tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> str:
         """
         사용자 프롬프트 생성
@@ -336,6 +353,11 @@ Output Format: Valid JSON matching the FeedbackReport schema.
 ```json
 {json.dumps(features, indent=2, ensure_ascii=False)}
 ```
+
+**Feedback Tier**: {tier}
+- Basic: Overall score, band, 3-line summary, top 2 strengths, top 2 improvements
+- Standard: Basic + dimension scores, feature analysis summary, blueprint/structure coverage %
+- Premium: Standard + full feature analysis (20 features), unit/component details, comparison to sample, history context
 
 ---
 

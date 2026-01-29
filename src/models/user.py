@@ -1,6 +1,8 @@
 """
 User model for authentication and authorization.
 """
+from typing import Optional
+
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -15,6 +17,7 @@ class User(BaseModel):
         id: UUID primary key (inherited from BaseModel)
         email: Unique email address for login
         hashed_password: Bcrypt hashed password
+        name: Optional user display name
         created_at: Account creation timestamp (inherited)
         updated_at: Last update timestamp (inherited)
     """
@@ -31,6 +34,11 @@ class User(BaseModel):
     hashed_password: Mapped[str] = mapped_column(
         String(255),
         nullable=False,
+    )
+
+    name: Mapped[Optional[str]] = mapped_column(
+        String(100),
+        nullable=True,
     )
 
     # Relationships

@@ -11,7 +11,8 @@ from datetime import datetime
 from typing import Optional
 
 from sqlalchemy import DateTime, Enum, ForeignKey, String, func
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base, UUIDMixin
@@ -57,7 +58,7 @@ class AnswerKey(Base, UUIDMixin):
     )
 
     content: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         comment="모범답안 내용 또는 Blueprint JSON",
     )
@@ -76,7 +77,7 @@ class AnswerKey(Base, UUIDMixin):
     )
 
     # Relationships
-    item: Mapped["Item"] = relationship(  # noqa: F821
+    item: Mapped[Item] = relationship(  # noqa: F821
         "Item",
         back_populates="answer_keys",
         lazy="selectin",

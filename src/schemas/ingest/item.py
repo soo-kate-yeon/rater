@@ -2,7 +2,7 @@
 ItemIngest 스키마 - items.json 파싱용.
 """
 from datetime import datetime
-from typing import Any, Literal, Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 

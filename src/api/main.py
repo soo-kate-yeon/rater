@@ -1,7 +1,7 @@
 """FastAPI 애플리케이션 엔트리포인트"""
 
-from contextlib import asynccontextmanager
 from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -83,13 +83,13 @@ async def health() -> dict[str, str]:
 
 
 # 라우터 등록
-app.include_router(auth.router, prefix="/v1/auth", tags=["auth"])
-app.include_router(tasks.router, prefix="/v1/tasks", tags=["tasks"])
-app.include_router(jobs.router, prefix="/v1/jobs", tags=["jobs"])
-app.include_router(uploads.router, prefix="/v1/uploads", tags=["uploads"])
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
+app.include_router(tasks.router, prefix="/api/v1/tasks", tags=["tasks"])
+app.include_router(jobs.router, prefix="/api/v1/jobs", tags=["jobs"])
+app.include_router(uploads.router, prefix="/api/v1/uploads", tags=["uploads"])
 
 # 정규화 스키마 라우터 (SPEC-TOEFL-SCHEMA-001)
-app.include_router(sets.router, prefix="/v1/sets", tags=["sets"])
-app.include_router(items.router, prefix="/v1/items", tags=["items"])
-app.include_router(stimuli.router, prefix="/v1/stimuli", tags=["stimuli"])
-app.include_router(answer_keys.router, prefix="/v1/answer-keys", tags=["answer-keys"])
+app.include_router(sets.router, prefix="/api/v1/sets", tags=["sets"])
+app.include_router(items.router, prefix="/api/v1/items", tags=["items"])
+app.include_router(stimuli.router, prefix="/api/v1/stimuli", tags=["stimuli"])
+app.include_router(answer_keys.router, prefix="/api/v1/answer-keys", tags=["answer-keys"])

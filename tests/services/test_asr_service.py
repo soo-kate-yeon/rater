@@ -4,18 +4,19 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
+import pytest_asyncio
 
 from src.schemas.scoring import ASRResult
 from src.services.asr_service import ASRService
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def asr_service():
     """ASR 서비스 픽스처"""
     return ASRService()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def mock_whisper_model():
     """모킹된 Whisper 모델"""
     mock_model = MagicMock()

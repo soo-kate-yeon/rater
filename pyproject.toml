@@ -7,7 +7,7 @@ name = "toefl-speaking-rater"
 version = "0.1.0"
 description = "TOEFL Speaking 자동 채점 및 피드백 시스템"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 license = { text = "MIT" }
 authors = [
     { name = "수연", email = "asleep@example.com" }
@@ -37,6 +37,10 @@ dependencies = [
     "openai-whisper>=20231117",
     "pydub>=0.25.1",
     "webrtcvad>=2.0.10",
+    # NLP & Feature Extraction (SPEC-TOEFL-FEATURE-001)
+    "spacy>=3.8.0",
+    "scikit-learn>=1.5.0",
+    "nltk>=3.9.0",
     # LLM Integration
     "openai>=1.54.0",
     "anthropic>=0.40.0",

@@ -2,7 +2,7 @@
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -31,11 +31,15 @@ class JobCreate(BaseModel):
     """Job 생성 요청 스키마"""
 
     audio_key: str = Field(..., description="업로드된 오디오 파일 키")
-    task_id: int = Field(..., description="문제 ID")
+    task_id: str = Field(..., description="문제 UUID")
     task_type: TaskType = Field(..., description="문제 유형 (independent/integrated)")
     prompt: str = Field(..., description="질문 텍스트")
     source_reading: Optional[str] = Field(None, description="통합형 문제용 읽기 지문")
     source_listening: Optional[str] = Field(None, description="통합형 문제용 듣기 지문")
+    tier: Literal["basic", "standard", "premium"] = Field(
+        default="basic",
+        description="피드백 티어 레벨 (basic/standard/premium)",
+    )
 
 
 class JobResponse(BaseModel):
@@ -80,16 +84,16 @@ class ActionItem(BaseModel):
 class StructureAnalysis(BaseModel):
     """답변 구조 분석"""
 
-    checklist: Dict[str, bool] = Field(..., description="구조 체크리스트")
-    missing: List[str] = Field(..., description="누락된 구조 요소")
+    checklist: dict[str, bool] = Field(..., description="구조 체크리스트")
+    missing: list[str] = Field(..., description="누락된 구조 요소")
     suggested_template: str = Field(..., description="제안 템플릿")
 
 
 class LanguageAnalysis(BaseModel):
     """언어 사용 분석"""
 
-    top_errors: List[str] = Field(..., description="반복 오류 TOP 2")
-    improved_sentences: List[str] = Field(..., description="개선 문장 예시")
+    top_errors: list[str] = Field(..., description="반복 오류 TOP 2")
+    improved_sentences: list[str] = Field(..., description="개선 문장 예시")
 
 
 class DeliveryAnalysis(BaseModel):
@@ -111,9 +115,9 @@ class ScoreBand(BaseModel):
 class FeedbackReport(BaseModel):
     """최종 피드백 리포트"""
 
-    summary_3lines: List[str] = Field(..., description="요약 진단 (3줄)")
+    summary_3lines: list[str] = Field(..., description="요약 진단 (3줄)")
     bottleneck: BottleneckInfo = Field(..., description="가장 큰 병목 1가지")
-    action_items: List[ActionItem] = Field(..., description="행동 아이템 (1-2개)")
+    action_items: list[ActionItem] = Field(..., description="행동 아이템 (1-2개)")
     structure: StructureAnalysis = Field(..., description="답변 구조 분석")
     language: LanguageAnalysis = Field(..., description="언어 사용 분석")
     delivery: DeliveryAnalysis = Field(..., description="Delivery 분석")

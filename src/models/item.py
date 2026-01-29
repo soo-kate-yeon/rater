@@ -10,7 +10,8 @@ import uuid
 from typing import Optional
 
 from sqlalchemy import Enum, ForeignKey, Integer, String, Text, UniqueConstraint
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import BaseModel
@@ -115,7 +116,7 @@ class Item(BaseModel):
 
     # 공통 필드
     tags: Mapped[list] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="[]",
         comment="태그 목록",
@@ -129,20 +130,20 @@ class Item(BaseModel):
     )
 
     scoring_focus: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
         comment="채점 가중치 (예: {structure: 0.3, language: 0.4, delivery: 0.3})",
     )
 
     # Relationships
-    set: Mapped["Set"] = relationship(  # noqa: F821
+    set: Mapped[Set] = relationship(  # noqa: F821
         "Set",
         back_populates="items",
         lazy="selectin",
     )
 
-    stimuli: Mapped[list["Stimulus"]] = relationship(  # noqa: F821
+    stimuli: Mapped[list[Stimulus]] = relationship(  # noqa: F821
         "Stimulus",
         back_populates="item",
         lazy="selectin",
@@ -150,7 +151,7 @@ class Item(BaseModel):
         order_by="Stimulus.display_order",
     )
 
-    answer_keys: Mapped[list["AnswerKey"]] = relationship(  # noqa: F821
+    answer_keys: Mapped[list[AnswerKey]] = relationship(  # noqa: F821
         "AnswerKey",
         back_populates="item",
         lazy="selectin",

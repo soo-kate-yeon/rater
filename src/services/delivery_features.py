@@ -2,7 +2,7 @@
 
 import logging
 import re
-from typing import Any, List, Optional
+from typing import Optional
 
 import numpy as np
 
@@ -68,6 +68,16 @@ class DeliveryFeatureExtractor:
             asr_clarity_signal=asr_clarity_signal,
         )
 
+        # 7. SPEC-TOEFL-FEATURE-001: 추가 features
+        secpchk = self._calculate_avg_chunk_length(asr_result.segments)
+        silpsecutt = pause_count / duration_sec if duration_sec > 0 else 0.0
+        within_clause_interruptions = self._count_within_clause_interruptions(
+            asr_result.segments
+        )
+        within_clause_silence_mean_ms = self._calculate_within_clause_silence_mean(
+            asr_result.segments
+        )
+
         delivery_signals = DeliverySignals(
             duration_sec=duration_sec,
             wpm=round(wpm, 1),
@@ -77,6 +87,10 @@ class DeliveryFeatureExtractor:
             filler_count=filler_count,
             asr_clarity_signal=round(asr_clarity_signal, 3),
             interpretation=interpretation,
+            secpchk=round(secpchk, 2),
+            silpsecutt=round(silpsecutt, 3),
+            within_clause_interruptions=within_clause_interruptions,
+            within_clause_silence_mean_ms=round(within_clause_silence_mean_ms, 1),
         )
 
         logger.info(
@@ -101,7 +115,7 @@ class DeliveryFeatureExtractor:
         words = re.findall(r"\b[a-zA-Z]+\b", text.lower())
         return len(words)
 
-    def _extract_pauses(self, segments: List[WhisperSegment]) -> List[float]:
+    def _extract_pauses(self, segments: list[WhisperSegment]) -> list[float]:
         """
         세그먼트 간 무음 구간을 추출합니다.
 
@@ -111,7 +125,7 @@ class DeliveryFeatureExtractor:
         Returns:
             List[float]: 무음 구간 길이 목록 (밀리초, >500ms만)
         """
-        pauses_ms: List[float] = []
+        pauses_ms: list[float] = []
 
         for i in range(len(segments) - 1):
             current_end = segments[i].end
@@ -124,7 +138,7 @@ class DeliveryFeatureExtractor:
 
         return pauses_ms
 
-    def _calculate_silence_ratio(self, pauses_ms: List[float], duration_sec: float) -> float:
+    def _calculate_silence_ratio(self, pauses_ms: list[float], duration_sec: float) -> float:
         """
         무음 비율을 계산합니다.
 
@@ -189,7 +203,7 @@ class DeliveryFeatureExtractor:
         Returns:
             str: 해석 결과
         """
-        parts: List[str] = []
+        parts: list[str] = []
 
         # 속도 평가
         if wpm < 90:
@@ -213,6 +227,77 @@ class DeliveryFeatureExtractor:
             parts.append("명료도 양호")
 
         return ", ".join(parts)
+
+    def _calculate_avg_chunk_length(self, segments: list[WhisperSegment]) -> float:
+        """
+        평균 chunk 길이 계산 (secpchk)
+
+        Args:
+            segments: Whisper 세그먼트 리스트
+
+        Returns:
+            float: 평균 chunk 길이 (초)
+        """
+        if not segments:
+            return 0.0
+
+        total_duration = sum(seg.end - seg.start for seg in segments)
+        avg_chunk_length = total_duration / len(segments)
+        return avg_chunk_length
+
+    def _count_within_clause_interruptions(self, segments: list[WhisperSegment]) -> int:
+        """
+        절 내부 중단 횟수 계산 (IPC: Within-clause interruptions)
+
+        짧은 pause (<500ms)도 포함하여 절 내부 중단으로 간주합니다.
+
+        Args:
+            segments: Whisper 세그먼트 리스트
+
+        Returns:
+            int: 절 내부 중단 횟수
+        """
+        interruptions = 0
+
+        for i in range(len(segments) - 1):
+            current_end = segments[i].end
+            next_start = segments[i + 1].start
+            pause_sec = next_start - current_end
+
+            # 짧은 pause (50ms ~ 500ms)를 절 내부 중단으로 간주
+            if 0.05 <= pause_sec < 0.5:
+                interruptions += 1
+
+        return interruptions
+
+    def _calculate_within_clause_silence_mean(self, segments: list[WhisperSegment]) -> float:
+        """
+        절 내부 평균 침묵 길이 계산 (withinClauseSilMean)
+
+        짧은 pause들의 평균 길이를 계산합니다.
+
+        Args:
+            segments: Whisper 세그먼트 리스트
+
+        Returns:
+            float: 평균 침묵 길이 (밀리초)
+        """
+        within_clause_pauses_ms: list[float] = []
+
+        for i in range(len(segments) - 1):
+            current_end = segments[i].end
+            next_start = segments[i + 1].start
+            pause_sec = next_start - current_end
+
+            # 짧은 pause (50ms ~ 500ms)만 포함
+            if 0.05 <= pause_sec < 0.5:
+                within_clause_pauses_ms.append(pause_sec * 1000)
+
+        if not within_clause_pauses_ms:
+            return 0.0
+
+        mean_pause_ms = sum(within_clause_pauses_ms) / len(within_clause_pauses_ms)
+        return mean_pause_ms
 
 
 # 싱글톤 인스턴스

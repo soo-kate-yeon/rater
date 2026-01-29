@@ -13,7 +13,6 @@ from pydantic import ValidationError
 from src.schemas.jobs import FeedbackReport
 from src.services.llm_service import LLMConfig, LLMProvider, LLMService
 
-
 # ============================================================================
 # 테스트 픽스처
 # ============================================================================
@@ -295,7 +294,9 @@ def test_parse_and_validate_invalid_schema():
 
 
 @pytest.mark.asyncio
-async def test_generate_feedback_openai_success(llm_config_openai: LLMConfig, mock_feedback_dict: dict):
+async def test_generate_feedback_openai_success(
+    llm_config_openai: LLMConfig, mock_feedback_dict: dict
+):
     """OpenAI를 사용한 피드백 생성 성공"""
     with patch("src.services.llm_service.settings") as mock_settings:
         mock_settings.openai_api_key = "test-api-key"
@@ -319,7 +320,9 @@ async def test_generate_feedback_openai_success(llm_config_openai: LLMConfig, mo
 
 
 @pytest.mark.asyncio
-async def test_generate_feedback_anthropic_success(llm_config_anthropic: LLMConfig, mock_feedback_dict: dict):
+async def test_generate_feedback_anthropic_success(
+    llm_config_anthropic: LLMConfig, mock_feedback_dict: dict
+):
     """Anthropic을 사용한 피드백 생성 성공"""
     with patch("src.services.llm_service.settings") as mock_settings:
         mock_settings.anthropic_api_key = "test-api-key"
@@ -345,7 +348,9 @@ async def test_generate_feedback_anthropic_success(llm_config_anthropic: LLMConf
 
 
 @pytest.mark.asyncio
-async def test_generate_feedback_retry_on_parse_error(llm_config_openai: LLMConfig, mock_feedback_dict: dict):
+async def test_generate_feedback_retry_on_parse_error(
+    llm_config_openai: LLMConfig, mock_feedback_dict: dict
+):
     """파싱 실패 시 재시도 로직"""
     with patch("src.services.llm_service.settings") as mock_settings:
         mock_settings.openai_api_key = "test-api-key"

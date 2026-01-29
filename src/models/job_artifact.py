@@ -1,15 +1,14 @@
 """
 JobArtifact model for storing intermediate pipeline results.
 """
+
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import JSON
+from sqlalchemy import JSON, DateTime, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, UUIDMixin
+from .base import GUID, Base, UUIDMixin
 
 
 class JobArtifact(Base, UUIDMixin):
@@ -35,7 +34,7 @@ class JobArtifact(Base, UUIDMixin):
     __tablename__ = "job_artifacts"
 
     job_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        GUID,
         ForeignKey("jobs.id", ondelete="CASCADE"),
         nullable=False,
         index=True,

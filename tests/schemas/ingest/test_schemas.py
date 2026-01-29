@@ -7,6 +7,7 @@ PRESERVE 단계: 기존 스키마 동작 검증
 - 필드 제약조건 (min_length, ge, enum) 적용
 - extra="ignore" 동작 확인
 """
+
 from datetime import datetime
 
 import pytest

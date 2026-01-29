@@ -3,13 +3,11 @@
 SPEC-TOEFL-FEATURE-001 Phase 2: Blueprint Matching 구현 테스트
 """
 
-import pytest
 import pytest_asyncio
 
 from src.services.blueprint_comparison import (
     BlueprintComparisonResult,
     BlueprintComparisonService,
-    UnitMatch,
     get_blueprint_comparison_service,
 )
 
@@ -157,9 +155,7 @@ class TestConfidenceScoring:
             if matched:
                 assert 0.4 <= matched[0].confidence < 0.9
 
-    def test_confidence_below_threshold_not_matched(
-        self, service: BlueprintComparisonService
-    ):
+    def test_confidence_below_threshold_not_matched(self, service: BlueprintComparisonService):
         """낮은 confidence: 매칭 안 됨"""
         transcript = "The topic is about technology."
         blueprint_units = ["climate change effects on agriculture"]
@@ -177,7 +173,9 @@ class TestEvidenceSpanExtraction:
 
     def test_evidence_span_contains_keywords(self, service: BlueprintComparisonService):
         """Evidence span이 키워드 포함"""
-        transcript = "First, the professor mentions global warming. Second, deforestation is discussed."
+        transcript = (
+            "First, the professor mentions global warming. Second, deforestation is discussed."
+        )
         blueprint_units = ["global warming"]
 
         result = service.compare(transcript=transcript, blueprint_units=blueprint_units)
@@ -188,9 +186,7 @@ class TestEvidenceSpanExtraction:
             assert evidence is not None
             assert "global warming" in evidence.lower()
 
-    def test_evidence_span_null_when_not_matched(
-        self, service: BlueprintComparisonService
-    ):
+    def test_evidence_span_null_when_not_matched(self, service: BlueprintComparisonService):
         """매칭 안 되면 evidence_span은 None"""
         transcript = "The lecture is about history."
         blueprint_units = ["quantum physics"]

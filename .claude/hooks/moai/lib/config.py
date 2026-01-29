@@ -11,7 +11,7 @@ import logging
 import threading
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -36,7 +36,7 @@ class ColorConfig:
 
     enabled: bool = True
     theme: str = "auto"  # auto | light | dark | high-contrast
-    palette: Dict[str, str] = None
+    palette: dict[str, str] = None
 
     def __post_init__(self):
         if self.palette is None:
@@ -83,7 +83,7 @@ class FormatConfig:
     separator: str = " | "
 
     # Icon configuration for better visual recognition
-    icons: Dict[str, str] = None
+    icons: dict[str, str] = None
 
     def __post_init__(self):
         if self.icons is None:
@@ -126,7 +126,7 @@ class StatuslineConfig:
     """
 
     _instance: Optional["StatuslineConfig"] = None
-    _config: Dict[str, Any] = {}
+    _config: dict[str, Any] = {}
     _lock = threading.Lock()  # Thread-safe singleton lock
 
     def __new__(cls):
@@ -155,7 +155,7 @@ class StatuslineConfig:
             self._config = self._get_default_config()
 
     @staticmethod
-    def _find_config_file() -> Optional[Path]:
+    def _find_config_file() -> Path | None:
         """
         Find statusline config file starting from current directory up to project root
 
@@ -176,7 +176,7 @@ class StatuslineConfig:
         return None
 
     @staticmethod
-    def _parse_yaml(path: Path) -> Dict[str, Any]:
+    def _parse_yaml(path: Path) -> dict[str, Any]:
         """
         Parse YAML file
 
@@ -189,7 +189,7 @@ class StatuslineConfig:
         try:
             import yaml
 
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 data = yaml.safe_load(f)
             return data or {}
         except ImportError:
@@ -197,7 +197,7 @@ class StatuslineConfig:
             return StatuslineConfig._parse_json_fallback(path)
 
     @staticmethod
-    def _parse_json_fallback(path: Path) -> Dict[str, Any]:
+    def _parse_json_fallback(path: Path) -> dict[str, Any]:
         """
         Parse YAML as JSON fallback (limited support)
 
@@ -210,14 +210,14 @@ class StatuslineConfig:
         import json
 
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 return json.load(f)
         except Exception as e:
             logger.debug(f"JSON fallback failed: {e}")
             return {}
 
     @staticmethod
-    def _get_default_config() -> Dict[str, Any]:
+    def _get_default_config() -> dict[str, Any]:
         """
         Get default configuration
 

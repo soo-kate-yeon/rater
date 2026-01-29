@@ -9,7 +9,6 @@ import re
 import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -38,8 +37,8 @@ class GitCollector:
 
     def __init__(self):
         """Initialize git collector with cache"""
-        self._cache: Optional[GitInfo] = None
-        self._cache_time: Optional[datetime] = None
+        self._cache: GitInfo | None = None
+        self._cache_time: datetime | None = None
         self._cache_ttl = timedelta(seconds=self._CACHE_TTL_SECONDS)
 
     def collect_git_info(self) -> GitInfo:

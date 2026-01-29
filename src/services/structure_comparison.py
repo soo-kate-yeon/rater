@@ -8,14 +8,13 @@ SPEC-TOEFL-FEATURE-001 Phase 2: Independent Task Structure Pattern Detection
 
 import logging
 import re
-from typing import Dict, List, Optional, Set
 
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
 # Discourse markers by component type
-POSITION_MARKERS: Set[str] = {
+POSITION_MARKERS: set[str] = {
     "i think",
     "i believe",
     "in my opinion",
@@ -27,7 +26,7 @@ POSITION_MARKERS: Set[str] = {
     "personally",
 }
 
-REASON_MARKERS: Set[str] = {
+REASON_MARKERS: set[str] = {
     "because",
     "since",
     "reason",
@@ -43,7 +42,7 @@ REASON_MARKERS: Set[str] = {
     "this is because",
 }
 
-EXAMPLE_MARKERS: Set[str] = {
+EXAMPLE_MARKERS: set[str] = {
     "for example",
     "for instance",
     "such as",
@@ -60,7 +59,7 @@ class ComponentMatch(BaseModel):
 
     component_type: str = Field(..., description="Component 타입 (position, reason, example)")
     detected: bool = Field(..., description="감지 여부")
-    evidence_text: Optional[str] = Field(default=None, description="증거 텍스트")
+    evidence_text: str | None = Field(default=None, description="증거 텍스트")
     confidence: float = Field(..., ge=0.0, le=1.0, description="신뢰도 (0.0-1.0)")
 
 
@@ -68,7 +67,7 @@ class StructureComparisonResult(BaseModel):
     """구조 비교 결과"""
 
     match_percentage: float = Field(..., ge=0.0, le=100.0, description="구조 매칭 비율 (%)")
-    components: List[ComponentMatch] = Field(
+    components: list[ComponentMatch] = Field(
         default_factory=list, description="Component 매칭 결과"
     )
     total_components: int = Field(..., ge=0, description="전체 component 수")
@@ -98,7 +97,7 @@ class StructureComparisonService:
     """
 
     # Expected components for Independent Task
-    EXPECTED_COMPONENTS: List[str] = ["position", "reason1", "reason2", "example"]
+    EXPECTED_COMPONENTS: list[str] = ["position", "reason1", "reason2", "example"]
 
     def __init__(self) -> None:
         """서비스 초기화"""
@@ -153,7 +152,7 @@ class StructureComparisonService:
             matched_components=matched_count,
         )
 
-    def _split_sentences(self, text: str) -> List[str]:
+    def _split_sentences(self, text: str) -> list[str]:
         """
         텍스트를 문장으로 분리
 
@@ -164,14 +163,14 @@ class StructureComparisonService:
             문장 리스트
         """
         # 단순 문장 분리 (마침표, 느낌표, 물음표 기준)
-        sentences = re.split(r'[.!?]+', text)
+        sentences = re.split(r"[.!?]+", text)
 
         # 빈 문장 제거 및 공백 정리
         sentences = [s.strip() for s in sentences if s.strip()]
 
         return sentences
 
-    def _classify_sentences(self, sentences: List[str]) -> Dict[str, List[str]]:
+    def _classify_sentences(self, sentences: list[str]) -> dict[str, list[str]]:
         """
         문장을 discourse marker로 분류
 
@@ -184,7 +183,7 @@ class StructureComparisonService:
         Returns:
             분류된 문장 딕셔너리 {marker_type: [sentences]}
         """
-        classified: Dict[str, List[str]] = {
+        classified: dict[str, list[str]] = {
             "position": [],
             "reason": [],
             "example": [],
@@ -212,8 +211,8 @@ class StructureComparisonService:
         return classified
 
     def _detect_components(
-        self, classified_sentences: Dict[str, List[str]]
-    ) -> List[ComponentMatch]:
+        self, classified_sentences: dict[str, list[str]]
+    ) -> list[ComponentMatch]:
         """
         분류된 문장에서 components 감지
 
@@ -223,14 +222,12 @@ class StructureComparisonService:
         Returns:
             ComponentMatch 리스트
         """
-        components: List[ComponentMatch] = []
+        components: list[ComponentMatch] = []
 
         # Position component
         position_detected = len(classified_sentences["position"]) > 0
         position_confidence = 1.0 if position_detected else 0.0
-        position_evidence = (
-            classified_sentences["position"][0] if position_detected else None
-        )
+        position_evidence = classified_sentences["position"][0] if position_detected else None
 
         components.append(
             ComponentMatch(
@@ -290,7 +287,7 @@ class StructureComparisonService:
 
 
 # 싱글톤 인스턴스
-_service: Optional[StructureComparisonService] = None
+_service: StructureComparisonService | None = None
 
 
 def get_structure_comparison_service() -> StructureComparisonService:

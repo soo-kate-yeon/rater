@@ -13,7 +13,13 @@ from pathlib import Path
 LANGUAGE_CONFIGS: dict[str, dict] = {
     "Python": {
         "extensions": [".py", ".pyi"],
-        "indicators": ["pyproject.toml", "requirements.txt", "setup.py", "setup.cfg", "poetry.lock"],
+        "indicators": [
+            "pyproject.toml",
+            "requirements.txt",
+            "setup.py",
+            "setup.cfg",
+            "poetry.lock",
+        ],
         "test_frameworks": ["pytest", "unittest"],
         "coverage_tools": ["coverage.py", "pytest-cov"],
         "test_patterns": ["tests/test_*.py", "test_*.py"],

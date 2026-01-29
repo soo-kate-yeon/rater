@@ -2,6 +2,7 @@
 
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+from typing import Any
 
 from fastapi import FastAPI, Request, status
 from fastapi.exceptions import RequestValidationError
@@ -11,6 +12,19 @@ from fastapi.responses import JSONResponse
 from src.api.routers import answer_keys, auth, items, jobs, sets, stimuli, tasks, uploads
 from src.core.config import settings
 from src.core.database import close_db, init_db
+
+
+def make_json_serializable(obj: Any) -> Any:
+    """객체를 JSON 직렬화 가능하도록 재귀적으로 변환"""
+    if isinstance(obj, dict):
+        return {k: make_json_serializable(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [make_json_serializable(item) for item in obj]
+    elif isinstance(obj, (str, int, float, bool, type(None))):
+        return obj
+    else:
+        # 직렬화 불가능한 객체는 문자열로 변환
+        return str(obj)
 
 
 @asynccontextmanager
@@ -48,11 +62,13 @@ async def validation_exception_handler(
     request: Request, exc: RequestValidationError
 ) -> JSONResponse:
     """입력 검증 오류 핸들러"""
+    # errors()의 결과를 JSON 직렬화 가능하도록 변환
+    errors = make_json_serializable(exc.errors())
+
     return JSONResponse(
         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
         content={
-            "detail": exc.errors(),
-            "body": exc.body,
+            "detail": errors,
         },
     )
 

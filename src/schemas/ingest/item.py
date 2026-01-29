@@ -1,8 +1,9 @@
 """
 ItemIngest 스키마 - items.json 파싱용.
 """
+
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -36,9 +37,9 @@ class ItemIngest(BaseModel):
     response_seconds: int = Field(45, description="응답 시간 (초)", ge=0)
     language: str = Field("en", description="언어", max_length=10)
     tags: list[str] = Field(default_factory=list, description="태그 목록")
-    difficulty: Optional[str] = Field(None, description="난이도")
-    scoring_focus: Optional[str] = Field(None, description="채점 가중치")
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    difficulty: str | None = Field(None, description="난이도")
+    scoring_focus: str | None = Field(None, description="채점 가중치")
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")

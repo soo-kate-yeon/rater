@@ -3,8 +3,8 @@ AnswerKey 관리 라우터.
 
 모범답안(AnswerKey) CRUD API를 제공합니다.
 """
+
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
@@ -28,8 +28,8 @@ router = APIRouter()
 @router.get("", response_model=AnswerKeyListResponse)
 async def list_answer_keys(
     db: AsyncSession = Depends(get_db),
-    item_id: Optional[str] = Query(None, description="Item UUID 필터"),
-    answer_type: Optional[AnswerKeyType] = Query(None, description="유형 필터"),
+    item_id: str | None = Query(None, description="Item UUID 필터"),
+    answer_type: AnswerKeyType | None = Query(None, description="유형 필터"),
 ) -> AnswerKeyListResponse:
     """
     AnswerKey 목록 조회

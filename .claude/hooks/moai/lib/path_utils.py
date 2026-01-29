@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Optional
 
 # Project root markers (files/dirs that indicate project root)
 PROJECT_ROOT_MARKERS = [
@@ -31,7 +30,7 @@ PROJECT_ROOT_MARKERS = [
 _project_root_cache: Path | None = None
 
 
-def get_project_root_from_env() -> Optional[Path]:
+def get_project_root_from_env() -> Path | None:
     """Get project root from environment variables.
 
     Checks in order:

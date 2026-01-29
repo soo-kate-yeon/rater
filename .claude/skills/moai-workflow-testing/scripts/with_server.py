@@ -34,7 +34,7 @@ def is_server_ready(port, timeout=30):
         try:
             with socket.create_connection(("localhost", port), timeout=1):
                 return True
-        except (socket.error, ConnectionRefusedError):
+        except (OSError, ConnectionRefusedError):
             time.sleep(0.5)
     return False
 
@@ -120,7 +120,9 @@ Examples:
         default=30,
         help="Timeout in seconds per server (default: 30)",
     )
-    parser.add_argument("command", nargs=argparse.REMAINDER, help="Command to run after server(s) ready")
+    parser.add_argument(
+        "command", nargs=argparse.REMAINDER, help="Command to run after server(s) ready"
+    )
 
     args = parser.parse_args()
 
@@ -147,7 +149,7 @@ Examples:
         sys.exit(1)
 
     servers = []
-    for cmd, port, cwd in zip(args.servers, args.ports, cwds):
+    for cmd, port, cwd in zip(args.servers, args.ports, cwds, strict=False):
         # Validate and resolve working directory
         resolved_cwd = None
         if cwd:
@@ -189,7 +191,9 @@ Examples:
             # Wait for this server to be ready
             print(f"Waiting for server on port {server['port']}...")
             if not is_server_ready(server["port"], timeout=args.timeout):
-                raise RuntimeError(f"Server failed to start on port {server['port']} within {args.timeout}s")
+                raise RuntimeError(
+                    f"Server failed to start on port {server['port']} within {args.timeout}s"
+                )
 
             print(f"Server ready on port {server['port']}")
 

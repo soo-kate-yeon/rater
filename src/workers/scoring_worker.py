@@ -6,7 +6,7 @@ QUEUED → FETCHING_AUDIO → ASR_RUNNING → FEATURE_EXTRACTING
 """
 
 import logging
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from celery import Task
@@ -87,9 +87,7 @@ def process_scoring_impl(job_id: str, job_data: dict[str, Any]) -> dict[str, Any
 
 
 async def _process_scoring_job_async(
-    job_id: str,
-    job_data: dict[str, Any],
-    db: Optional[AsyncSession] = None
+    job_id: str, job_data: dict[str, Any], db: AsyncSession | None = None
 ) -> dict[str, Any]:
     """
     채점 Job 처리 비동기 함수
@@ -117,9 +115,7 @@ async def _process_scoring_job_async(
 
 
 async def _process_job_with_session(
-    db: AsyncSession,
-    job_id: str,
-    job_data: dict[str, Any]
+    db: AsyncSession, job_id: str, job_data: dict[str, Any]
 ) -> dict[str, Any]:
     """
     실제 Job 처리 로직 (세션 주입)
@@ -135,9 +131,7 @@ async def _process_job_with_session(
     try:
         # Job 조회 (UUID 변환 필요)
         job_uuid = UUID(job_id)
-        result = await db.execute(
-            select(Job).where(Job.id == job_uuid)
-        )
+        result = await db.execute(select(Job).where(Job.id == job_uuid))
         job = result.scalar_one_or_none()
 
         if not job:
@@ -172,7 +166,9 @@ async def _process_job_with_session(
             all_features=all_features,
             tier=job_data.get("tier", "basic"),
         )
-        logger.info(f"LLM analysis completed: score_band={feedback_report.score_band.min}-{feedback_report.score_band.max}")
+        logger.info(
+            f"LLM analysis completed: score_band={feedback_report.score_band.min}-{feedback_report.score_band.max}"
+        )
 
         # Phase 4.5: Save JobArtifact
         await _save_job_artifact(
@@ -308,7 +304,9 @@ async def _extract_all_features(job: Job, asr_result: ASRResult) -> dict:
         # 2. Grammar features 추출
         grammar_extractor = get_grammar_feature_extractor()
         grammar_features = grammar_extractor.extract(transcript)
-        logger.info(f"Grammar features extracted: spacy_available={grammar_features.spacy_available}")
+        logger.info(
+            f"Grammar features extracted: spacy_available={grammar_features.spacy_available}"
+        )
 
         # 3. Vocabulary features 추출
         vocab_extractor = get_vocabulary_feature_extractor()
@@ -325,7 +323,9 @@ async def _extract_all_features(job: Job, asr_result: ASRResult) -> dict:
             blueprint_service = get_blueprint_comparison_service()
             blueprint_units = []  # TODO: job.task.blueprint_units로 교체
             blueprint_result = blueprint_service.compare(transcript, blueprint_units)
-            logger.info(f"Blueprint comparison completed: coverage={blueprint_result.coverage_percentage}%")
+            logger.info(
+                f"Blueprint comparison completed: coverage={blueprint_result.coverage_percentage}%"
+            )
         else:
             # Independent Task: Structure 분석
             structure_service = get_structure_comparison_service()

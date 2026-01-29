@@ -9,7 +9,6 @@ import logging
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pathlib import Path
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -18,9 +17,9 @@ logger = logging.getLogger(__name__)
 class AlfredTask:
     """Alfred task information"""
 
-    command: Optional[str]
-    spec_id: Optional[str]
-    stage: Optional[str]
+    command: str | None
+    spec_id: str | None
+    stage: str | None
 
 
 class AlfredDetector:
@@ -31,8 +30,8 @@ class AlfredDetector:
 
     def __init__(self):
         """Initialize Alfred detector"""
-        self._cache: Optional[AlfredTask] = None
-        self._cache_time: Optional[datetime] = None
+        self._cache: AlfredTask | None = None
+        self._cache_time: datetime | None = None
         self._cache_ttl = timedelta(seconds=self._CACHE_TTL_SECONDS)
         self._session_state_path = Path.home() / ".moai" / "memory" / "last-session-state.json"
 
@@ -63,7 +62,7 @@ class AlfredDetector:
             if not self._session_state_path.exists():
                 return self._create_default_task()
 
-            with open(self._session_state_path, "r") as f:
+            with open(self._session_state_path) as f:
                 data = json.load(f)
 
             active_task = data.get("active_task")

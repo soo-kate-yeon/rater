@@ -10,7 +10,6 @@ import re
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +19,7 @@ class UpdateInfo:
     """Update information"""
 
     available: bool
-    latest_version: Optional[str]
+    latest_version: str | None
 
 
 class UpdateChecker:
@@ -33,10 +32,10 @@ class UpdateChecker:
 
     def __init__(self):
         """Initialize update checker"""
-        self._cached_info: Optional[UpdateInfo] = None
-        self._cache_time: Optional[datetime] = None
+        self._cached_info: UpdateInfo | None = None
+        self._cache_time: datetime | None = None
         self._cache_ttl = timedelta(seconds=self._CACHE_TTL_SECONDS)
-        self._cached_version: Optional[str] = None
+        self._cached_version: str | None = None
 
     def check_for_update(self, current_version: str) -> UpdateInfo:
         """
@@ -68,7 +67,9 @@ class UpdateChecker:
             UpdateInfo from PyPI or error default
         """
         try:
-            with urllib.request.urlopen(self._PYPI_API_URL, timeout=self._TIMEOUT_SECONDS) as response:
+            with urllib.request.urlopen(
+                self._PYPI_API_URL, timeout=self._TIMEOUT_SECONDS
+            ) as response:
                 data = json.loads(response.read().decode("utf-8"))
 
             latest_version = data.get("info", {}).get("version")

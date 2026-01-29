@@ -4,6 +4,7 @@ Blueprint Pydantic 스키마.
 TOEFL Speaking 문제의 모범답안 구조(Blueprint)를 정의합니다.
 Integrated(통합형)와 Independent(독립형) 두 가지 유형의 Blueprint를 지원합니다.
 """
+
 from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator

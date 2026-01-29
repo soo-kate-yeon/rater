@@ -3,8 +3,8 @@ Stimulus 관리 라우터.
 
 자극자료(Stimulus) CRUD API를 제공합니다.
 """
+
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
@@ -26,7 +26,7 @@ router = APIRouter()
 @router.get("", response_model=StimulusListResponse)
 async def list_stimuli(
     db: AsyncSession = Depends(get_db),
-    item_id: Optional[str] = Query(None, description="Item UUID 필터"),
+    item_id: str | None = Query(None, description="Item UUID 필터"),
 ) -> StimulusListResponse:
     """
     Stimulus 목록 조회

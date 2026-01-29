@@ -1,6 +1,7 @@
 """
 IndependentTopicIngest 스키마 - independent_topics.json 파싱용.
 """
+
 from pydantic import BaseModel, ConfigDict, Field
 
 

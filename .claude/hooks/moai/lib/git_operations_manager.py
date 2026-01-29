@@ -20,6 +20,7 @@ import logging
 import subprocess
 import threading
 import time
+from collections.abc import Callable
 from concurrent.futures import Future, ThreadPoolExecutor
 from contextlib import contextmanager
 from dataclasses import dataclass, field
@@ -27,7 +28,7 @@ from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
 from queue import Empty, Queue
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any
 
 
 class GitOperationType(Enum):
@@ -130,7 +131,7 @@ class GitOperationsManager:
         self._stats_lock = threading.Lock()
 
         # Git command queue for sequential operations when needed
-        self._command_queue: "Queue[Any]" = Queue()
+        self._command_queue: Queue[Any] = Queue()
         self._queue_processor_thread: threading.Thread | None = None
         self._queue_active = True
 
@@ -200,21 +201,25 @@ class GitOperationsManager:
         """Clean up expired cache entries and enforce size limit"""
         with self._cache_lock:
             # Remove expired entries
-            expired_keys = [key for key, entry in self._cache.items() if not self._is_cache_valid(entry)]
+            expired_keys = [
+                key for key, entry in self._cache.items() if not self._is_cache_valid(entry)
+            ]
             for key in expired_keys:
                 del self._cache[key]
 
             # Enforce size limit (remove least recently used)
             if len(self._cache) > self._cache_size_limit:
                 # Sort by last access time (hit count as proxy)
-                sorted_items = sorted(self._cache.items(), key=lambda x: (x[1].hit_count, x[1].timestamp))
+                sorted_items = sorted(
+                    self._cache.items(), key=lambda x: (x[1].hit_count, x[1].timestamp)
+                )
                 items_to_remove = len(self._cache) - self._cache_size_limit
                 for key, _ in sorted_items[:items_to_remove]:
                     del self._cache[key]
 
             return len(expired_keys)
 
-    def _get_from_cache(self, cache_key: str) -> Optional[GitResult]:
+    def _get_from_cache(self, cache_key: str) -> GitResult | None:
         """Get result from cache if valid"""
         with self._cache_lock:
             if cache_key in self._cache:
@@ -243,7 +248,9 @@ class GitOperationsManager:
     def _store_in_cache(self, cache_key: str, result: GitResult, ttl: int) -> None:
         """Store result in cache with TTL"""
         with self._cache_lock:
-            self._cache[cache_key] = CacheEntry(result=result, timestamp=datetime.now(), ttl=timedelta(seconds=ttl))
+            self._cache[cache_key] = CacheEntry(
+                result=result, timestamp=datetime.now(), ttl=timedelta(seconds=ttl)
+            )
 
         # Cleanup if cache is getting large
         if len(self._cache) > self._cache_size_limit * 0.8:
@@ -290,7 +297,9 @@ class GitOperationsManager:
 
         except subprocess.TimeoutExpired:
             execution_time = time.time() - start_time
-            error_msg = f"Git command timed out after {command.timeout_seconds}s: {' '.join(full_command)}"
+            error_msg = (
+                f"Git command timed out after {command.timeout_seconds}s: {' '.join(full_command)}"
+            )
             self._logger.error(error_msg)
 
             with self._stats_lock:
@@ -376,7 +385,7 @@ class GitOperationsManager:
 
         return last_result or GitResult(success=False, stderr="Unknown error")
 
-    def execute_parallel(self, commands: list[GitCommand]) -> List[GitResult]:
+    def execute_parallel(self, commands: list[GitCommand]) -> list[GitResult]:
         """Execute multiple Git commands in parallel with controlled concurrency"""
         futures = []
         results = []
@@ -404,7 +413,7 @@ class GitOperationsManager:
 
         return results
 
-    def get_project_info(self, use_cache: bool = True) -> Dict[str, Any]:
+    def get_project_info(self, use_cache: bool = True) -> dict[str, Any]:
         """Get comprehensive project information efficiently"""
         commands = [
             GitCommand(
@@ -477,7 +486,7 @@ class GitOperationsManager:
         except Exception as e:
             self._logger.error(f"Failed to queue Git command: {e}")
 
-    def get_statistics(self) -> Dict[str, Any]:
+    def get_statistics(self) -> dict[str, Any]:
         """Get performance and cache statistics"""
         with self._stats_lock, self._cache_lock:
             return {
@@ -487,13 +496,21 @@ class GitOperationsManager:
                     "cache_misses": self._operation_stats["cache_misses"],
                     "cache_hit_rate": (
                         self._operation_stats["cache_hits"]
-                        / (self._operation_stats["cache_hits"] + self._operation_stats["cache_misses"])
-                        if (self._operation_stats["cache_hits"] + self._operation_stats["cache_misses"]) > 0
+                        / (
+                            self._operation_stats["cache_hits"]
+                            + self._operation_stats["cache_misses"]
+                        )
+                        if (
+                            self._operation_stats["cache_hits"]
+                            + self._operation_stats["cache_misses"]
+                        )
+                        > 0
                         else 0
                     ),
                     "errors": self._operation_stats["errors"],
                     "average_execution_time": (
-                        self._operation_stats["total_time"] / self._operation_stats["total_operations"]
+                        self._operation_stats["total_time"]
+                        / self._operation_stats["total_operations"]
                         if self._operation_stats["total_operations"] > 0
                         else 0
                     ),
@@ -516,7 +533,9 @@ class GitOperationsManager:
             else:
                 # Clear specific operation type
                 keys_to_remove = [
-                    key for key, entry in self._cache.items() if entry.result.operation_type == operation_type
+                    key
+                    for key, entry in self._cache.items()
+                    if entry.result.operation_type == operation_type
                 ]
                 for key in keys_to_remove:
                     del self._cache[key]
@@ -569,7 +588,7 @@ def git_operation_context(max_workers: int = 4):
 
 
 # Convenience functions for common operations
-def get_git_info(use_cache: bool = True) -> Dict[str, Any]:
+def get_git_info(use_cache: bool = True) -> dict[str, Any]:
     """Convenience function to get Git project information"""
     manager = get_git_manager()
     return manager.get_project_info(use_cache=use_cache)

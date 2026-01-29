@@ -2,7 +2,7 @@
 
 import io
 import uuid
-from unittest.mock import AsyncMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 from httpx import AsyncClient
@@ -82,7 +82,9 @@ async def test_create_job_missing_fields(test_client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_get_job_status_success(test_client: AsyncClient, test_db: AsyncSession, test_task, test_user):
+async def test_get_job_status_success(
+    test_client: AsyncClient, test_db: AsyncSession, test_task, test_user
+):
     """Job 상태 조회 성공 테스트"""
     # Job 생성
     job = Job(
@@ -131,7 +133,9 @@ async def test_get_job_status_invalid_uuid(test_client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_get_job_report_success(test_client: AsyncClient, test_db: AsyncSession, test_task, test_user):
+async def test_get_job_report_success(
+    test_client: AsyncClient, test_db: AsyncSession, test_task, test_user
+):
     """Job 리포트 조회 성공 테스트"""
     # 완료된 Job 생성
     job = Job(
@@ -151,32 +155,52 @@ async def test_get_job_report_success(test_client: AsyncClient, test_db: AsyncSe
         id=uuid.uuid4(),
         job_id=job.id,
         report_json={
-            "summary": {
-                "line1": "Your response demonstrates good organization.",
-                "line2": "There are some minor grammar errors.",
-                "line3": "Vocabulary usage is appropriate for the task.",
+            "summary_3lines": [
+                "Your response demonstrates good organization.",
+                "There are some minor grammar errors.",
+                "Vocabulary usage is appropriate for the task.",
+            ],
+            "bottleneck": {
+                "title": "Grammar Accuracy",
+                "explanation": "Verb tense errors affect clarity",
+                "evidence_quote": "I was go to school instead of I went to school",
+            },
+            "action_items": [
+                {
+                    "action": "Review past tense verb forms",
+                    "why": "Consistent verb tense errors were detected",
+                    "how_to": "Study irregular verbs list and practice with example sentences",
+                    "example_sentence": "I went to school yesterday (not 'I was go')",
+                }
+            ],
+            "structure": {
+                "checklist": {
+                    "introduction": True,
+                    "body_paragraphs": True,
+                    "conclusion": True,
+                    "transitions": True,
+                },
+                "missing": [],
+                "suggested_template": "Introduction → Main Point 1 → Main Point 2 → Conclusion",
+            },
+            "language": {
+                "top_errors": ["Verb tense inconsistency", "Article usage"],
+                "improved_sentences": [
+                    "Original: 'I was go to school' → Improved: 'I went to school'",
+                    "Original: 'I have friend' → Improved: 'I have a friend'",
+                ],
             },
             "delivery": {
-                "speed": {"status": "good", "description": "Natural speaking pace"},
-                "pauses": {"status": "fair", "description": "Some hesitation noted"},
-                "clarity": {"status": "good", "description": "Clear pronunciation"},
+                "speed_comment": "Natural speaking pace maintained throughout",
+                "pause_comment": "Some hesitation noted between ideas",
+                "clarity_comment": "Clear pronunciation with good articulation",
             },
-            "language_use": {
-                "errors": [{"type": "grammar", "example": "I was go to school"}],
-                "vocabulary_level": "intermediate",
-                "sentence_variety": "good",
+            "score_band": {
+                "min": 22,
+                "max": 25,
+                "rationale": "Good organization and delivery with some grammar errors limiting the top score",
             },
-            "structure": {
-                "has_intro": True,
-                "has_body": True,
-                "has_conclusion": True,
-                "coherence": "good",
-            },
-            "score_band": {"min": 22, "max": 25},
-            "action_items": [
-                "Focus on verb tenses",
-                "Practice reducing hesitation",
-            ],
+            "disclaimer": "This is an AI-generated assessment and should be used as practice feedback only.",
         },
         score_band_min=22,
         score_band_max=25,
@@ -198,7 +222,9 @@ async def test_get_job_report_success(test_client: AsyncClient, test_db: AsyncSe
 
 
 @pytest.mark.asyncio
-async def test_get_job_report_not_completed(test_client: AsyncClient, test_db: AsyncSession, test_task, test_user):
+async def test_get_job_report_not_completed(
+    test_client: AsyncClient, test_db: AsyncSession, test_task, test_user
+):
     """완료되지 않은 Job의 리포트 조회 실패 테스트"""
     # 진행 중인 Job 생성
     job = Job(
@@ -232,7 +258,9 @@ async def test_get_job_report_not_found(test_client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_job_status_progression(test_client: AsyncClient, test_db: AsyncSession, test_task, test_user):
+async def test_job_status_progression(
+    test_client: AsyncClient, test_db: AsyncSession, test_task, test_user
+):
     """Job 상태 진행 테스트"""
     # Job 생성
     job = Job(
@@ -336,7 +364,9 @@ async def test_create_job_with_task_data(
 
 
 @pytest.mark.asyncio
-async def test_get_job_status_with_error(test_client: AsyncClient, test_db: AsyncSession, test_task, test_user):
+async def test_get_job_status_with_error(
+    test_client: AsyncClient, test_db: AsyncSession, test_task, test_user
+):
     """실패한 Job의 상태 조회 (error_code와 error_message 포함)"""
     # 실패한 Job 생성
     job = Job(
@@ -439,9 +469,13 @@ async def test_job_status_all_transitions(
 @pytest.mark.asyncio
 async def test_create_job_storage_service_error(test_client: AsyncClient, test_task):
     """StorageService 에러 발생 시 처리"""
-    with patch("src.api.routers.jobs.get_storage_service") as mock_storage_service:
-        from fastapi import HTTPException, status
+    from fastapi import HTTPException, status
 
+    from src.api.main import app
+    from src.services.storage_service import get_storage_service
+
+    # 의존성 오버라이드를 위한 mock 함수 생성
+    async def mock_get_storage_service():
         mock_storage = MagicMock()
         mock_storage.get_audio_path = AsyncMock(
             side_effect=HTTPException(
@@ -449,8 +483,12 @@ async def test_create_job_storage_service_error(test_client: AsyncClient, test_t
                 detail="Storage error",
             )
         )
-        mock_storage_service.return_value = mock_storage
+        return mock_storage
 
+    # FastAPI 의존성 오버라이드
+    app.dependency_overrides[get_storage_service] = mock_get_storage_service
+
+    try:
         response = await test_client.post(
             "/api/v1/jobs",
             json={
@@ -463,6 +501,9 @@ async def test_create_job_storage_service_error(test_client: AsyncClient, test_t
 
         # StorageService 에러는 500으로 전파됨
         assert response.status_code == 500
+    finally:
+        # 의존성 오버라이드 정리
+        app.dependency_overrides.clear()
 
 
 @pytest.mark.asyncio

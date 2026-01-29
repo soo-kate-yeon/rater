@@ -8,7 +8,7 @@ from httpx import AsyncClient
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.models.answer_key import AnswerKey
-from src.models.enums import AnswerKeyType, AnswerKeyLevel
+from src.models.enums import AnswerKeyLevel, AnswerKeyType
 from src.models.item import Item
 from src.models.set import Set
 from src.models.task import TaskType
@@ -94,9 +94,13 @@ async def test_list_answer_keys_filter_by_item_id(
 
 
 @pytest.mark.asyncio
-async def test_list_answer_keys_filter_by_answer_type(test_client: AsyncClient, test_answer_key: AnswerKey):
+async def test_list_answer_keys_filter_by_answer_type(
+    test_client: AsyncClient, test_answer_key: AnswerKey
+):
     """answer_type 필터로 AnswerKey 목록 조회"""
-    response = await test_client.get(f"/api/v1/answer-keys?answer_type={AnswerKeyType.SAMPLE_RESPONSE.value}")
+    response = await test_client.get(
+        f"/api/v1/answer-keys?answer_type={AnswerKeyType.SAMPLE_RESPONSE.value}"
+    )
 
     assert response.status_code == 200
     data = response.json()
@@ -178,7 +182,9 @@ async def test_create_answer_key_missing_fields(test_client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_create_blueprint_answer_key_success(test_client: AsyncClient, test_item_for_answer_key: Item):
+async def test_create_blueprint_answer_key_success(
+    test_client: AsyncClient, test_item_for_answer_key: Item
+):
     """Blueprint AnswerKey 생성 성공"""
     info_units = [
         {
@@ -229,8 +235,15 @@ async def test_create_blueprint_answer_key_item_not_found(test_client: AsyncClie
             "blueprint": {
                 "blueprint_type": "integrated",
                 "data": {
-                    "info_units": [],
-                    "recommended_order": [],
+                    "info_units": [
+                        {
+                            "source": "reading",
+                            "label": "Main Point",
+                            "content": "Test content",
+                            "importance": "essential",
+                        }
+                    ],
+                    "recommended_order": ["Main Point"],
                 },
             },
             "source": "test",
@@ -422,7 +435,9 @@ async def test_multiple_answer_keys_per_item(
         assert response.status_code == 201
 
     # 해당 Item의 AnswerKey 목록 조회
-    list_response = await test_client.get(f"/api/v1/answer-keys?item_id={test_item_for_answer_key.id}")
+    list_response = await test_client.get(
+        f"/api/v1/answer-keys?item_id={test_item_for_answer_key.id}"
+    )
     assert list_response.status_code == 200
     data = list_response.json()
     assert data["total"] >= 3  # 최소 3개 이상

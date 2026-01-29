@@ -1,7 +1,7 @@
 """ASR 서비스 테스트 (모킹)"""
 
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
 import pytest_asyncio

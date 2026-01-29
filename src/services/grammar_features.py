@@ -10,7 +10,6 @@ Requirements:
 """
 
 import logging
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -31,11 +30,11 @@ except ImportError:
 class GrammarFeatures(BaseModel):
     """Grammar 신호 (문법 특징)"""
 
-    poscvamax: Optional[float] = Field(
+    poscvamax: float | None = Field(
         default=None,
         description="POS n-gram 기반 문법 프로파일 유사도 (0.0-1.0)",
     )
-    dep_clauses_per_clause: Optional[float] = Field(
+    dep_clauses_per_clause: float | None = Field(
         default=None,
         ge=0.0,
         description="평균 종속절 수",
@@ -57,7 +56,7 @@ class GrammarFeatureExtractor:
 
     def __init__(self) -> None:
         """추출기 초기화"""
-        self._nlp: Optional[object] = None
+        self._nlp: object | None = None
         if SPACY_AVAILABLE:
             try:
                 # Try to load models in order of preference
@@ -78,7 +77,7 @@ class GrammarFeatureExtractor:
                 logger.warning(f"Failed to load spaCy model: {e}")
                 self._nlp = None
 
-    def extract(self, transcript: str, reference_text: Optional[str] = None) -> GrammarFeatures:
+    def extract(self, transcript: str, reference_text: str | None = None) -> GrammarFeatures:
         """
         Transcript에서 Grammar 신호 추출
 
@@ -114,9 +113,7 @@ class GrammarFeatureExtractor:
             spacy_available=True,
         )
 
-    def _calculate_poscvamax(
-        self, doc: "Doc", reference_text: Optional[str]
-    ) -> Optional[float]:
+    def _calculate_poscvamax(self, doc: "Doc", reference_text: str | None) -> float | None:
         """
         POS n-gram 기반 Content Vector Analysis (CVA) 유사도 계산
 
@@ -162,10 +159,7 @@ class GrammarFeatureExtractor:
         for root in root_verbs:
             # ROOT에 종속된 동사 찾기 (advcl, ccomp, xcomp, acl, relcl 등)
             dependent_clause_deps = {"advcl", "ccomp", "xcomp", "acl", "relcl"}
-            dependents = [
-                child for child in root.children
-                if child.dep_ in dependent_clause_deps
-            ]
+            dependents = [child for child in root.children if child.dep_ in dependent_clause_deps]
             total_dependent_clauses += len(dependents)
 
         # 평균 계산
@@ -174,7 +168,7 @@ class GrammarFeatureExtractor:
 
 
 # 싱글톤 인스턴스
-_extractor: Optional[GrammarFeatureExtractor] = None
+_extractor: GrammarFeatureExtractor | None = None
 
 
 def get_grammar_feature_extractor() -> GrammarFeatureExtractor:

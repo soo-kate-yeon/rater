@@ -3,6 +3,7 @@ TOEFL Speaking 스키마 확장을 위한 Enum 정의.
 
 이 모듈은 Set, Item, Stimulus, AnswerKey 모델에서 사용되는 열거형을 정의합니다.
 """
+
 import enum
 
 

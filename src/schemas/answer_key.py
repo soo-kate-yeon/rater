@@ -3,8 +3,9 @@ AnswerKey 관련 Pydantic 스키마.
 
 모범답안(AnswerKey)의 생성, 조회, 수정을 위한 스키마를 정의합니다.
 """
+
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator
@@ -20,7 +21,7 @@ class AnswerKeyBase(BaseModel):
         ...,
         description="모범답안 유형 (sample_response/transcript/outline/points/blueprint)",
     )
-    level: Optional[AnswerKeyLevel] = Field(
+    level: AnswerKeyLevel | None = Field(
         None,
         description="품질 수준 (high/mid/low)",
     )
@@ -28,7 +29,7 @@ class AnswerKeyBase(BaseModel):
         ...,
         description="모범답안 내용 또는 Blueprint JSON",
     )
-    source: Optional[str] = Field(
+    source: str | None = Field(
         None,
         description="출처 (예: ETS Official, Expert Review)",
         max_length=100,
@@ -58,7 +59,7 @@ class AnswerKeyCreateWithBlueprint(BaseModel):
         default=AnswerKeyType.BLUEPRINT,
         description="모범답안 유형 (blueprint 고정)",
     )
-    level: Optional[AnswerKeyLevel] = Field(
+    level: AnswerKeyLevel | None = Field(
         None,
         description="품질 수준",
     )
@@ -66,7 +67,7 @@ class AnswerKeyCreateWithBlueprint(BaseModel):
         ...,
         description="Blueprint 내용",
     )
-    source: Optional[str] = Field(
+    source: str | None = Field(
         None,
         description="출처",
         max_length=100,
@@ -86,19 +87,19 @@ class AnswerKeyCreateWithBlueprint(BaseModel):
 class AnswerKeyUpdate(BaseModel):
     """AnswerKey 수정 요청 스키마"""
 
-    answer_type: Optional[AnswerKeyType] = Field(
+    answer_type: AnswerKeyType | None = Field(
         None,
         description="모범답안 유형",
     )
-    level: Optional[AnswerKeyLevel] = Field(
+    level: AnswerKeyLevel | None = Field(
         None,
         description="품질 수준",
     )
-    content: Optional[dict[str, Any]] = Field(
+    content: dict[str, Any] | None = Field(
         None,
         description="모범답안 내용",
     )
-    source: Optional[str] = Field(
+    source: str | None = Field(
         None,
         description="출처",
         max_length=100,
@@ -111,9 +112,9 @@ class AnswerKeyResponse(BaseModel):
     id: UUID = Field(..., description="AnswerKey UUID")
     item_id: UUID = Field(..., description="소속 Item UUID")
     answer_type: AnswerKeyType = Field(..., description="모범답안 유형")
-    level: Optional[AnswerKeyLevel] = Field(None, description="품질 수준")
+    level: AnswerKeyLevel | None = Field(None, description="품질 수준")
     content: dict[str, Any] = Field(..., description="모범답안 내용")
-    source: Optional[str] = Field(None, description="출처")
+    source: str | None = Field(None, description="출처")
     created_at: datetime = Field(..., description="생성 시각")
 
     model_config = {"from_attributes": True}
@@ -130,15 +131,15 @@ class SampleResponseContent(BaseModel):
     """sample_response 유형의 content 스키마"""
 
     text: str = Field(..., description="모범 응답 텍스트")
-    audio_url: Optional[str] = Field(None, description="모범 응답 음성 URL")
-    notes: Optional[str] = Field(None, description="평가자 노트")
+    audio_url: str | None = Field(None, description="모범 응답 음성 URL")
+    notes: str | None = Field(None, description="평가자 노트")
 
 
 class TranscriptContent(BaseModel):
     """transcript 유형의 content 스키마"""
 
     text: str = Field(..., description="스크립트 텍스트")
-    speaker_labels: Optional[list[dict[str, Any]]] = Field(
+    speaker_labels: list[dict[str, Any]] | None = Field(
         None,
         description="화자 구분 정보",
     )
@@ -160,7 +161,7 @@ class PointsContent(BaseModel):
         ...,
         description="핵심 포인트 목록",
     )
-    supporting_details: Optional[list[str]] = Field(
+    supporting_details: list[str] | None = Field(
         None,
         description="보조 세부사항 목록",
     )

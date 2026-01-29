@@ -151,7 +151,7 @@ def load_hook_timeout() -> int:
 
         config_file = get_safe_moai_path("config/config.yaml")
         # Direct open without exists() check to prevent race condition
-        with open(config_file, "r", encoding="utf-8") as f:
+        with open(config_file, encoding="utf-8") as f:
             config: dict[str, Any] = yaml.safe_load(f) or {}
             return config.get("hooks", {}).get("timeout_ms", 5000)
     except FileNotFoundError:
@@ -174,7 +174,7 @@ def get_graceful_degradation() -> bool:
 
         config_file = get_safe_moai_path("config/config.yaml")
         # Direct open without exists() check to prevent race condition
-        with open(config_file, "r", encoding="utf-8") as f:
+        with open(config_file, encoding="utf-8") as f:
             config: dict[str, Any] = yaml.safe_load(f) or {}
             return config.get("hooks", {}).get("graceful_degradation", True)
     except FileNotFoundError:
@@ -378,7 +378,9 @@ def check_uncommitted_changes() -> str | None:
 
     # Fallback to direct Git command
     try:
-        result = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, timeout=1)
+        result = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, timeout=1
+        )
 
         if result.returncode == 0:
             uncommitted = result.stdout.strip()
@@ -460,7 +462,9 @@ def count_modified_files() -> int:
 
     # Fallback to direct Git command
     try:
-        result = subprocess.run(["git", "status", "--porcelain"], capture_output=True, text=True, timeout=1)
+        result = subprocess.run(
+            ["git", "status", "--porcelain"], capture_output=True, text=True, timeout=1
+        )
         if result.returncode == 0:
             return len([line for line in result.stdout.strip().split("\n") if line])
     except Exception:
@@ -525,7 +529,7 @@ def extract_specs_from_memory() -> list[str]:
         # Query recent SPECs from command_execution_state.json (use safe path)
         state_file = get_safe_moai_path("memory/command-execution-state.json")
         # Direct open without exists() check to prevent race condition
-        with open(state_file, "r", encoding="utf-8") as f:
+        with open(state_file, encoding="utf-8") as f:
             state_data = json.load(f)
 
         # Extract recent SPEC IDs
@@ -566,7 +570,11 @@ def scan_root_violations(config: dict[str, Any]) -> list[dict[str, str]]:
             # Skip directories (except backup directories)
             if item.is_dir():
                 # Check for backup directories
-                if item.name.endswith("-backup") or item.name.endswith("_backup") or "_backup_" in item.name:
+                if (
+                    item.name.endswith("-backup")
+                    or item.name.endswith("_backup")
+                    or "_backup_" in item.name
+                ):
                     suggested = suggest_moai_location(item.name, config)
                     violations.append(
                         {

@@ -6,10 +6,9 @@ PRESERVE 단계: 기존 동작 검증
 - 서로 다른 네임스페이스는 같은 string ID에 대해 다른 UUID 생성
 - 5개 엔티티 타입 모두 올바르게 동작함
 """
+
 import uuid
 from uuid import UUID
-
-import pytest
 
 from src.services.ingest.id_mapper import IDMapper
 

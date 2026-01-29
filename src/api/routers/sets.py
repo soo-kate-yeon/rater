@@ -3,9 +3,9 @@ Set 관리 라우터.
 
 문제 세트(Set) CRUD API를 제공합니다.
 """
+
 import logging
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
@@ -29,7 +29,7 @@ async def list_sets(
     db: AsyncSession = Depends(get_db),
     skip: int = Query(0, ge=0, description="건너뛸 개수"),
     limit: int = Query(100, ge=1, le=500, description="조회 개수"),
-    source: Optional[str] = Query(None, description="출처 필터"),
+    source: str | None = Query(None, description="출처 필터"),
 ) -> SetListResponse:
     """
     Set 목록 조회

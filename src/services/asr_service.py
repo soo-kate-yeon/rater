@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any
 
 import whisper
 from whisper import Whisper
@@ -18,16 +18,14 @@ class ASRService:
 
     def __init__(self) -> None:
         """서비스 초기화"""
-        self._model: Optional[Whisper] = None
+        self._model: Whisper | None = None
         self._model_name = settings.whisper_model
         self._device = settings.whisper_device
 
     def _load_model(self) -> Whisper:
         """Whisper 모델 로딩 (Lazy Loading)"""
         if self._model is None:
-            logger.info(
-                f"Loading Whisper model: {self._model_name} on device: {self._device}"
-            )
+            logger.info(f"Loading Whisper model: {self._model_name} on device: {self._device}")
             try:
                 self._model = whisper.load_model(self._model_name, device=self._device)
                 logger.info(f"Whisper model '{self._model_name}' loaded successfully")
@@ -36,7 +34,7 @@ class ASRService:
                 raise RuntimeError(f"Whisper 모델 로딩 실패: {e}") from e
         return self._model
 
-    async def transcribe(self, audio_path: Union[str, Path]) -> ASRResult:
+    async def transcribe(self, audio_path: str | Path) -> ASRResult:
         """
         오디오 파일을 전사합니다.
 
@@ -78,9 +76,9 @@ class ASRService:
 
             # 무음 확률 계산 (세그먼트별 no_speech_prob 평균)
             if segments_data:
-                no_speech_prob = sum(
-                    seg.get("no_speech_prob", 0.0) for seg in segments_data
-                ) / len(segments_data)
+                no_speech_prob = sum(seg.get("no_speech_prob", 0.0) for seg in segments_data) / len(
+                    segments_data
+                )
             else:
                 no_speech_prob = 0.0
 
@@ -131,7 +129,7 @@ class ASRService:
 
 
 # 싱글톤 인스턴스
-_asr_service: Optional[ASRService] = None
+_asr_service: ASRService | None = None
 
 
 def get_asr_service() -> ASRService:

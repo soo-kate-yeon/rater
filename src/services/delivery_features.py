@@ -2,7 +2,6 @@
 
 import logging
 import re
-from typing import Optional
 
 import numpy as np
 
@@ -71,9 +70,7 @@ class DeliveryFeatureExtractor:
         # 7. SPEC-TOEFL-FEATURE-001: 추가 features
         secpchk = self._calculate_avg_chunk_length(asr_result.segments)
         silpsecutt = pause_count / duration_sec if duration_sec > 0 else 0.0
-        within_clause_interruptions = self._count_within_clause_interruptions(
-            asr_result.segments
-        )
+        within_clause_interruptions = self._count_within_clause_interruptions(asr_result.segments)
         within_clause_silence_mean_ms = self._calculate_within_clause_silence_mean(
             asr_result.segments
         )
@@ -301,7 +298,7 @@ class DeliveryFeatureExtractor:
 
 
 # 싱글톤 인스턴스
-_extractor: Optional[DeliveryFeatureExtractor] = None
+_extractor: DeliveryFeatureExtractor | None = None
 
 
 def get_delivery_feature_extractor() -> DeliveryFeatureExtractor:

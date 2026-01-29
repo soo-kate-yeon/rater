@@ -9,7 +9,6 @@ import logging
 import os
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +49,7 @@ class MemoryCollector:
     # Cache configuration
     DEFAULT_CACHE_TTL_SECONDS = 10  # Memory doesn't change rapidly
 
-    def __init__(self, cache_ttl_seconds: Optional[int] = None):
+    def __init__(self, cache_ttl_seconds: int | None = None):
         """
         Initialize memory collector.
 
@@ -58,8 +57,8 @@ class MemoryCollector:
             cache_ttl_seconds: Cache TTL in seconds. If None, uses default.
         """
         self._cache_ttl = timedelta(seconds=cache_ttl_seconds or self.DEFAULT_CACHE_TTL_SECONDS)
-        self._cache: Optional[MemoryInfo] = None
-        self._cache_time: Optional[datetime] = None
+        self._cache: MemoryInfo | None = None
+        self._cache_time: datetime | None = None
         self._logger = logging.getLogger(__name__)
 
         # Check if psutil is available
@@ -75,7 +74,7 @@ class MemoryCollector:
             self._logger.warning("psutil not available, memory monitoring disabled")
             return False
 
-    def get_memory_info(self, force_refresh: bool = False) -> Optional[MemoryInfo]:
+    def get_memory_info(self, force_refresh: bool = False) -> MemoryInfo | None:
         """
         Get memory usage information.
 
@@ -157,9 +156,7 @@ class MemoryCollector:
 
         # Format display strings
         display_process = self._format_size(process_rss_mb)
-        display_system = (
-            f"{self._format_size(system_total_mb - system_available_mb)}/{self._format_size(system_total_mb)}"
-        )
+        display_system = f"{self._format_size(system_total_mb - system_available_mb)}/{self._format_size(system_total_mb)}"
         display_percent = f"{system_percent:.0f}%"
 
         return MemoryInfo(
@@ -226,7 +223,7 @@ class MemoryCollector:
         self._cache = None
         self._cache_time = None
 
-    def get_cache_age_seconds(self) -> Optional[float]:
+    def get_cache_age_seconds(self) -> float | None:
         """
         Get cache age in seconds.
 
@@ -239,7 +236,7 @@ class MemoryCollector:
 
 
 # Singleton instance for convenience
-_default_collector: Optional[MemoryCollector] = None
+_default_collector: MemoryCollector | None = None
 
 
 def get_memory_collector() -> MemoryCollector:

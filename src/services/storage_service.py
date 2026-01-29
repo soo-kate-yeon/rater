@@ -5,7 +5,6 @@
 
 import uuid
 from pathlib import Path
-from typing import Optional
 
 import aiofiles
 from fastapi import HTTPException, UploadFile, status
@@ -238,7 +237,7 @@ class StorageService:
 
 
 # 싱글톤 인스턴스
-_storage_service: Optional[StorageService] = None
+_storage_service: StorageService | None = None
 
 
 def get_storage_service() -> StorageService:

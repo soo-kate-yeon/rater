@@ -32,7 +32,13 @@ def delivery_features():
 @pytest_asyncio.fixture
 def mock_feedback_report():
     """모킹된 피드백 리포트"""
-    from src.schemas.jobs import ActionItem, BottleneckInfo, DeliveryAnalysis, LanguageAnalysis, StructureAnalysis
+    from src.schemas.jobs import (
+        ActionItem,
+        BottleneckInfo,
+        DeliveryAnalysis,
+        LanguageAnalysis,
+        StructureAnalysis,
+    )
 
     return FeedbackReport(
         summary_3lines=[
@@ -78,7 +84,9 @@ def mock_feedback_report():
 
 @pytest.mark.asyncio
 async def test_generate_feedback_independent(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """독립형 문제 피드백 생성 테스트"""
     # LLM 서비스 모킹
@@ -108,7 +116,9 @@ async def test_generate_feedback_independent(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_integrated(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """통합형 문제 피드백 생성 테스트"""
     with patch.object(
@@ -133,7 +143,9 @@ async def test_generate_feedback_integrated(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_with_language_features(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """Language features 추출 확인 테스트"""
     with patch.object(
@@ -160,7 +172,9 @@ async def test_generate_feedback_with_language_features(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_with_structure_features(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """Structure features 추출 확인 테스트"""
     with patch.object(
@@ -271,7 +285,9 @@ def test_feedback_service_summarize_features(feedback_service: FeedbackService):
 
 @pytest.mark.asyncio
 async def test_generate_feedback_basic_tier(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """Basic tier 피드백 생성 테스트"""
     with patch.object(
@@ -297,7 +313,9 @@ async def test_generate_feedback_basic_tier(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_standard_tier(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """Standard tier 피드백 생성 테스트"""
     with patch.object(
@@ -322,7 +340,9 @@ async def test_generate_feedback_standard_tier(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_premium_tier(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """Premium tier 피드백 생성 테스트"""
     with patch.object(
@@ -347,7 +367,9 @@ async def test_generate_feedback_premium_tier(
 
 @pytest.mark.asyncio
 async def test_generate_feedback_default_tier(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """tier 미지정 시 기본값 basic 적용 테스트"""
     with patch.object(
@@ -383,15 +405,26 @@ async def test_generate_feedback_invalid_tier(
     with patch.object(
         feedback_service.llm_service, "generate_feedback", new_callable=AsyncMock
     ) as mock_generate:
-        from src.schemas.jobs import ActionItem, BottleneckInfo, DeliveryAnalysis, LanguageAnalysis, StructureAnalysis, ScoreBand
+        from src.schemas.jobs import (
+            ActionItem,
+            BottleneckInfo,
+            DeliveryAnalysis,
+            LanguageAnalysis,
+            ScoreBand,
+            StructureAnalysis,
+        )
 
         mock_report = FeedbackReport(
             summary_3lines=["Test"] * 3,
             bottleneck=BottleneckInfo(title="Test", explanation="Test", evidence_quote="Test"),
-            action_items=[ActionItem(action="Test", why="Test", how_to="Test", example_sentence="Test")],
+            action_items=[
+                ActionItem(action="Test", why="Test", how_to="Test", example_sentence="Test")
+            ],
             structure=StructureAnalysis(checklist={}, missing=[], suggested_template="Test"),
             language=LanguageAnalysis(top_errors=[], improved_sentences=[]),
-            delivery=DeliveryAnalysis(speed_comment="Test", pause_comment="Test", clarity_comment="Test"),
+            delivery=DeliveryAnalysis(
+                speed_comment="Test", pause_comment="Test", clarity_comment="Test"
+            ),
             score_band=ScoreBand(min=20, max=25, rationale="Test"),
             disclaimer="Test",
         )
@@ -413,7 +446,9 @@ async def test_generate_feedback_invalid_tier(
 
 @pytest.mark.asyncio
 async def test_tier_affects_llm_prompt(
-    feedback_service: FeedbackService, delivery_features: DeliveryFeatures, mock_feedback_report: FeedbackReport
+    feedback_service: FeedbackService,
+    delivery_features: DeliveryFeatures,
+    mock_feedback_report: FeedbackReport,
 ):
     """tier에 따라 LLM 프롬프트가 달라지는지 확인"""
     with patch.object(

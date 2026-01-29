@@ -146,7 +146,9 @@ async def test_list_stimuli_ordered_by_display_order(
 
 
 @pytest.mark.asyncio
-async def test_create_reading_stimulus_success(test_client: AsyncClient, test_item_for_stimulus: Item):
+async def test_create_reading_stimulus_success(
+    test_client: AsyncClient, test_item_for_stimulus: Item
+):
     """Reading Stimulus 생성 성공"""
     response = await test_client.post(
         "/api/v1/stimuli",
@@ -168,7 +170,9 @@ async def test_create_reading_stimulus_success(test_client: AsyncClient, test_it
 
 
 @pytest.mark.asyncio
-async def test_create_listening_stimulus_success(test_client: AsyncClient, test_item_for_stimulus: Item):
+async def test_create_listening_stimulus_success(
+    test_client: AsyncClient, test_item_for_stimulus: Item
+):
     """Listening Stimulus 생성 성공 (audio URL 포함)"""
     response = await test_client.post(
         "/api/v1/stimuli",
@@ -401,7 +405,9 @@ async def test_stimulus_lifecycle(test_client: AsyncClient, test_item_for_stimul
 
 
 @pytest.mark.asyncio
-async def test_multiple_stimuli_per_item(test_client: AsyncClient, test_item_for_stimulus: Item, test_db: AsyncSession):
+async def test_multiple_stimuli_per_item(
+    test_client: AsyncClient, test_item_for_stimulus: Item, test_db: AsyncSession
+):
     """하나의 Item에 여러 Stimulus 생성 가능 (Reading + Listening)"""
     # Reading stimulus
     reading_response = await test_client.post(

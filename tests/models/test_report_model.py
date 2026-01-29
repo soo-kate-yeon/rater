@@ -1,6 +1,7 @@
 """Report 모델 테스트"""
 
 import uuid
+from datetime import UTC
 
 import pytest
 from sqlalchemy import select
@@ -277,7 +278,9 @@ async def test_report_cascade_delete_job(test_db: AsyncSession, test_user: User,
 
 
 @pytest.mark.asyncio
-async def test_report_one_to_one_relationship(test_db: AsyncSession, test_user: User, test_task: Task):
+async def test_report_one_to_one_relationship(
+    test_db: AsyncSession, test_user: User, test_task: Task
+):
     """Report-Job의 일대일 관계 테스트"""
     # Job 생성
     job = Job(
@@ -384,7 +387,7 @@ async def test_report_empty_json(test_db: AsyncSession, test_user: User, test_ta
 @pytest.mark.asyncio
 async def test_report_created_at_timestamp(test_db: AsyncSession, test_user: User, test_task: Task):
     """Report created_at 타임스탬프 테스트"""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     # Job 생성
     job = Job(
@@ -399,7 +402,7 @@ async def test_report_created_at_timestamp(test_db: AsyncSession, test_user: Use
     await test_db.commit()
 
     # Report 생성 전 시간
-    before_creation = datetime.now(timezone.utc)
+    before_creation = datetime.now(UTC)
 
     # Report 생성
     report = Report(
@@ -414,7 +417,7 @@ async def test_report_created_at_timestamp(test_db: AsyncSession, test_user: Use
     await test_db.refresh(report)
 
     # Report 생성 후 시간
-    after_creation = datetime.now(timezone.utc)
+    after_creation = datetime.now(UTC)
 
     # created_at이 설정되었고, 생성 전후 시간 사이에 있는지 확인
     assert report.created_at is not None

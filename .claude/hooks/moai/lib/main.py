@@ -1,5 +1,4 @@
 # type: ignore
-# -*- coding: utf-8 -*-
 #!/usr/bin/env python3
 """
 Claude Code Statusline Integration
@@ -14,7 +13,6 @@ import json
 import os
 import sys
 from pathlib import Path
-from typing import Optional
 
 from .alfred_detector import AlfredDetector
 from .config import StatuslineConfig
@@ -143,7 +141,7 @@ def safe_collect_memory() -> str:
         return "N/A"
 
 
-def safe_check_update(current_version: str) -> tuple[bool, Optional[str]]:
+def safe_check_update(current_version: str) -> tuple[bool, str | None]:
     """
     Safely check for updates with fallback.
 
@@ -313,7 +311,9 @@ def main():
 
     if debug_mode:
         # Write debug info to stderr for troubleshooting
-        sys.stderr.write(f"[DEBUG] Received session_context: {json.dumps(session_context, indent=2)}\n")
+        sys.stderr.write(
+            f"[DEBUG] Received session_context: {json.dumps(session_context, indent=2)}\n"
+        )
         sys.stderr.flush()
 
     # Load configuration

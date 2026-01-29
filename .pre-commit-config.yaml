@@ -30,10 +30,13 @@ repos:
     rev: v4.6.0
     hooks:
       - id: trailing-whitespace
-        exclude: ^.*\.(md|rst)$
+        exclude: ^(.*\.(md|rst)$|\.claude/)
       - id: end-of-file-fixer
+        exclude: ^\.claude/
       - id: check-yaml
+        exclude: ^\.claude/
       - id: check-json
+        exclude: ^\.claude/
       - id: check-toml
       - id: check-added-large-files
         args: ['--maxkb=1000']
@@ -57,8 +60,8 @@ repos:
     rev: 1.7.8
     hooks:
       - id: bandit
-        args: ["-ll", "-ii", "-x", "tests/"]
-        exclude: ^tests/
+        args: ["-ll", "-ii", "-x", "tests/,.claude/"]
+        exclude: ^(tests/|\.claude/)
 
   # Commitizen - Conventional commits (선택적)
   # - repo: https://github.com/commitizen-tools/commitizen

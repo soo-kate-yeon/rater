@@ -251,7 +251,7 @@ def test_delivery_features_validation():
     assert features.silence_ratio == 0.15
 
     # 잘못된 데이터 (음수)
-    with pytest.raises(Exception):  # Pydantic ValidationError
+    with pytest.raises(ValueError):
         DeliveryFeatures(
             duration_sec=-10.0,  # 음수 불가
             wpm=120.0,

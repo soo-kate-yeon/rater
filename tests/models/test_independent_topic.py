@@ -15,13 +15,13 @@ from pathlib import Path
 src_path = Path(__file__).parent.parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-import pytest
+import pytest  # noqa: E402
 
 # models/__init__.py를 우회하여 직접 임포트
-from models.independent_topic import IndependentTopic
-from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.ext.asyncio import AsyncSession
+from models.independent_topic import IndependentTopic  # noqa: E402
+from sqlalchemy import select  # noqa: E402
+from sqlalchemy.exc import IntegrityError  # noqa: E402
+from sqlalchemy.ext.asyncio import AsyncSession  # noqa: E402
 
 
 class TestIndependentTopicModel:

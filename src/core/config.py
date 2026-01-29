@@ -79,7 +79,7 @@ class Settings(BaseSettings):
 
     # Server
     api_host: str = Field(
-        default="0.0.0.0",
+        default="0.0.0.0",  # nosec B104 - 컨테이너 환경에서 필요
         description="API 서버 호스트",
     )
     api_port: int = Field(

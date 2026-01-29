@@ -191,22 +191,18 @@ class StructureComparisonService:
 
         for sentence in sentences:
             sentence_lower = sentence.lower()
-            added_to_any = False
 
             # Position 마커 확인
             if any(marker in sentence_lower for marker in POSITION_MARKERS):
                 classified["position"].append(sentence)
-                added_to_any = True
 
             # Reason 마커 확인
             if any(marker in sentence_lower for marker in REASON_MARKERS):
                 classified["reason"].append(sentence)
-                added_to_any = True
 
             # Example 마커 확인
             if any(marker in sentence_lower for marker in EXAMPLE_MARKERS):
                 classified["example"].append(sentence)
-                added_to_any = True
 
         return classified
 

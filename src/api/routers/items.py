@@ -54,11 +54,11 @@ async def list_items(
         try:
             set_uuid = uuid.UUID(set_id)
             query = query.where(Item.set_id == set_uuid)
-        except ValueError:
+        except ValueError as err:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid set_id format",
-            )
+            ) from err
 
     if task_type:
         query = query.where(Item.task_type == task_type)
@@ -163,11 +163,11 @@ async def get_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -203,11 +203,11 @@ async def update_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -262,11 +262,11 @@ async def delete_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -301,11 +301,11 @@ async def get_item_with_relations(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     # Load item with relationships using selectinload
     query = (

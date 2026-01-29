@@ -167,11 +167,11 @@ async def get_set(
     """
     try:
         set_uuid = uuid.UUID(set_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid set_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Set).where(Set.id == set_uuid))
     set_obj = result.scalar_one_or_none()
@@ -216,11 +216,11 @@ async def update_set(
     """
     try:
         set_uuid = uuid.UUID(set_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid set_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Set).where(Set.id == set_uuid))
     set_obj = result.scalar_one_or_none()
@@ -270,11 +270,11 @@ async def delete_set(
     """
     try:
         set_uuid = uuid.UUID(set_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid set_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Set).where(Set.id == set_uuid))
     set_obj = result.scalar_one_or_none()

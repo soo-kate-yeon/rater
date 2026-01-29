@@ -48,11 +48,11 @@ async def list_answer_keys(
         try:
             item_uuid = uuid.UUID(item_id)
             query = query.where(AnswerKey.item_id == item_uuid)
-        except ValueError:
+        except ValueError as err:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid item_id format",
-            )
+            ) from err
 
     if answer_type:
         query = query.where(AnswerKey.answer_type == answer_type)
@@ -177,11 +177,11 @@ async def get_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()
@@ -217,11 +217,11 @@ async def update_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()
@@ -260,11 +260,11 @@ async def delete_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()

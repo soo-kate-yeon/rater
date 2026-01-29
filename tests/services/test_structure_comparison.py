@@ -245,7 +245,7 @@ class TestConfidenceScoring:
         """약한 마커: 중간 confidence"""
         transcript = "Maybe technology is useful."
 
-        result = service.analyze_structure(transcript=transcript)
+        _result = service.analyze_structure(transcript=transcript)
 
         # "maybe"는 약한 position 마커이므로 confidence 중간
         # 구현에 따라 다를 수 있음

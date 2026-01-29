@@ -207,10 +207,10 @@ class TestVocabularyFeaturesSchema:
         assert features.cvamax == 1.0
 
         # 범위 밖 값은 에러
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             VocabularyFeatures(cvamax=1.5)
 
-        with pytest.raises(Exception):
+        with pytest.raises(ValueError):
             VocabularyFeatures(cvamax=-0.1)
 
 

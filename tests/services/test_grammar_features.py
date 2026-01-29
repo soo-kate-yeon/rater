@@ -1,6 +1,7 @@
 """Grammar Features 추출 서비스 테스트"""
 
 import pytest
+import pytest_asyncio
 
 from src.services.grammar_features import (
     SPACY_AVAILABLE,
@@ -10,13 +11,13 @@ from src.services.grammar_features import (
 )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def extractor() -> GrammarFeatureExtractor:
     """Grammar feature extractor 인스턴스"""
     return GrammarFeatureExtractor()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def sample_transcript() -> str:
     """샘플 transcript"""
     return (

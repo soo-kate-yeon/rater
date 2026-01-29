@@ -5,9 +5,20 @@ import uuid
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import DateTime, func
+from sqlalchemy import DateTime, JSON, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.types import TypeDecorator
+
+
+class JSONType(TypeDecorator):
+    """
+    Platform-independent JSON type.
+    Uses JSONB for PostgreSQL, JSON (stored as TEXT) for SQLite.
+    """
+
+    impl = JSON
+    cache_ok = True
 
 
 class Base(DeclarativeBase):

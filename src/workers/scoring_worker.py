@@ -6,7 +6,8 @@ QUEUED → FETCHING_AUDIO → ASR_RUNNING → FEATURE_EXTRACTING
 """
 
 import logging
-from typing import Any
+from typing import Any, Optional
+from uuid import UUID
 
 from celery import Task
 from fastapi import HTTPException
@@ -85,9 +86,18 @@ def process_scoring_impl(job_id: str, job_data: dict[str, Any]) -> dict[str, Any
     return loop.run_until_complete(_process_scoring_job_async(job_id, job_data))
 
 
-async def _process_scoring_job_async(job_id: str, job_data: dict[str, Any]) -> dict[str, Any]:
+async def _process_scoring_job_async(
+    job_id: str,
+    job_data: dict[str, Any],
+    db: Optional[AsyncSession] = None
+) -> dict[str, Any]:
     """
     채점 Job 처리 비동기 함수
+
+    Args:
+        job_id: Job UUID 문자열
+        job_data: Job 생성 데이터
+        db: 데이터베이스 세션 (테스트용, None이면 새 세션 생성)
 
     파이프라인 단계:
     1. FETCHING_AUDIO: 오디오 파일 다운로드 및 검증
@@ -97,80 +107,105 @@ async def _process_scoring_job_async(job_id: str, job_data: dict[str, Any]) -> d
     5. SCORING: 최종 점수 계산 및 리포트 저장
     6. DONE: 완료
     """
-    async with async_session_maker() as db:
-        try:
-            # Job 조회
-            result = await db.execute(
-                select(Job).where(Job.id == job_id)
-            )
-            job = result.scalar_one_or_none()
+    # 세션이 제공되지 않으면 새로 생성 (프로덕션)
+    if db is None:
+        async with async_session_maker() as session:
+            return await _process_job_with_session(session, job_id, job_data)
+    else:
+        # 세션이 제공되면 그것을 사용 (테스트)
+        return await _process_job_with_session(db, job_id, job_data)
 
-            if not job:
-                logger.error(f"Job {job_id} not found")
-                return {"status": "error", "message": "Job not found"}
 
-            logger.info(f"Starting scoring job {job_id}")
+async def _process_job_with_session(
+    db: AsyncSession,
+    job_id: str,
+    job_data: dict[str, Any]
+) -> dict[str, Any]:
+    """
+    실제 Job 처리 로직 (세션 주입)
 
-            # Phase 1: FETCHING_AUDIO
-            await _update_job_status(db, job, JobStatus.FETCHING_AUDIO, 10)
-            audio_path = await _fetch_audio(job.audio_key)
-            logger.info(f"Audio fetched: {audio_path}")
+    Args:
+        db: 데이터베이스 세션
+        job_id: Job UUID 문자열
+        job_data: Job 생성 데이터
 
-            # Phase 2: ASR_RUNNING
-            await _update_job_status(db, job, JobStatus.ASR_RUNNING, 30)
-            asr_result = await _run_asr(audio_path)
-            logger.info(f"ASR completed: {len(asr_result.segments)} segments")
+    Returns:
+        처리 결과 딕셔너리
+    """
+    try:
+        # Job 조회 (UUID 변환 필요)
+        job_uuid = UUID(job_id)
+        result = await db.execute(
+            select(Job).where(Job.id == job_uuid)
+        )
+        job = result.scalar_one_or_none()
 
-            # Phase 3: FEATURE_EXTRACTING
-            await _update_job_status(db, job, JobStatus.FEATURE_EXTRACTING, 50)
-            all_features = await _extract_all_features(
-                job=job,
-                asr_result=asr_result,
-            )
-            logger.info("All features extracted: delivery, grammar, vocabulary, structure")
+        if not job:
+            logger.error(f"Job {job_id} not found")
+            return {"status": "error", "message": "Job not found"}
 
-            # Phase 4: LLM_ANALYZING
-            await _update_job_status(db, job, JobStatus.LLM_ANALYZING, 70)
-            feedback_report = await _analyze_with_llm(
-                job=job,
-                transcript=asr_result.transcript,
-                all_features=all_features,
-                tier=job_data.get("tier", "basic"),
-            )
-            logger.info(f"LLM analysis completed: score_band={feedback_report.score_band.min}-{feedback_report.score_band.max}")
+        logger.info(f"Starting scoring job {job_id}")
 
-            # Phase 4.5: Save JobArtifact
-            await _save_job_artifact(
-                db=db,
-                job=job,
-                asr_result=asr_result,
-                all_features=all_features,
-                feedback_report=feedback_report,
-            )
-            logger.info(f"Job artifacts saved for job {job_id}")
+        # Phase 1: FETCHING_AUDIO
+        await _update_job_status(db, job, JobStatus.FETCHING_AUDIO, 10)
+        audio_path = await _fetch_audio(job.audio_key)
+        logger.info(f"Audio fetched: {audio_path}")
 
-            # Phase 5: SCORING & Report 저장
-            await _update_job_status(db, job, JobStatus.SCORING, 90)
-            await _save_report(db, job, feedback_report)
-            logger.info(f"Report saved for job {job_id}")
+        # Phase 2: ASR_RUNNING
+        await _update_job_status(db, job, JobStatus.ASR_RUNNING, 30)
+        asr_result = await _run_asr(audio_path)
+        logger.info(f"ASR completed: {len(asr_result.segments)} segments")
 
-            # Phase 6: DONE
-            await _update_job_status(db, job, JobStatus.DONE, 100)
+        # Phase 3: FEATURE_EXTRACTING
+        await _update_job_status(db, job, JobStatus.FEATURE_EXTRACTING, 50)
+        all_features = await _extract_all_features(
+            job=job,
+            asr_result=asr_result,
+        )
+        logger.info("All features extracted: delivery, grammar, vocabulary, structure")
 
-            logger.info(f"Job {job_id} completed successfully")
-            return {"status": "success", "job_id": job_id}
+        # Phase 4: LLM_ANALYZING
+        await _update_job_status(db, job, JobStatus.LLM_ANALYZING, 70)
+        feedback_report = await _analyze_with_llm(
+            job=job,
+            transcript=asr_result.transcript,
+            all_features=all_features,
+            tier=job_data.get("tier", "basic"),
+        )
+        logger.info(f"LLM analysis completed: score_band={feedback_report.score_band.min}-{feedback_report.score_band.max}")
 
-        except Exception as e:
-            logger.exception(f"Job {job_id} failed: {str(e)}")
+        # Phase 4.5: Save JobArtifact
+        await _save_job_artifact(
+            db=db,
+            job=job,
+            asr_result=asr_result,
+            all_features=all_features,
+            feedback_report=feedback_report,
+        )
+        logger.info(f"Job artifacts saved for job {job_id}")
 
-            # 실패 상태 업데이트
-            if job:
-                job.status = JobStatus.FAILED
-                job.error_code = "PROCESSING_ERROR"
-                job.error_message = str(e)
-                await db.commit()
+        # Phase 5: SCORING & Report 저장
+        await _update_job_status(db, job, JobStatus.SCORING, 90)
+        await _save_report(db, job, feedback_report)
+        logger.info(f"Report saved for job {job_id}")
 
-            return {"status": "error", "message": str(e)}
+        # Phase 6: DONE
+        await _update_job_status(db, job, JobStatus.DONE, 100)
+
+        logger.info(f"Job {job_id} completed successfully")
+        return {"status": "success", "job_id": job_id}
+
+    except Exception as e:
+        logger.exception(f"Job {job_id} failed: {str(e)}")
+
+        # 실패 상태 업데이트
+        if job:
+            job.status = JobStatus.FAILED
+            job.error_code = "PROCESSING_ERROR"
+            job.error_message = str(e)
+            await db.commit()
+
+        return {"status": "error", "message": str(e)}
 
 
 async def _update_job_status(

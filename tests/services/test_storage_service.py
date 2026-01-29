@@ -4,18 +4,19 @@ import io
 from pathlib import Path
 
 import pytest
+import pytest_asyncio
 from fastapi import UploadFile
 
 from src.services.storage_service import StorageService
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def storage_service():
     """스토리지 서비스 픽스처"""
     return StorageService()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def mock_audio_file():
     """Mock 오디오 파일 픽스처"""
     return UploadFile(

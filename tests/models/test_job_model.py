@@ -181,7 +181,7 @@ async def test_job_cascade_delete_user(test_db: AsyncSession, test_task: Task):
     # 새로운 사용자 생성
     user = User(
         email="cascade@test.com",
-        password_hash=hash_password("password"),
+        hashed_password=hash_password("password"),
         name="Cascade Test",
     )
     test_db.add(user)

@@ -6,18 +6,19 @@
 from typing import Any
 
 import pytest
+import pytest_asyncio
 
 from src.schemas.scoring import ASRResult, DeliverySignals
 from src.services.delivery_features import DeliveryFeatureExtractor, get_delivery_feature_extractor
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def extractor() -> DeliveryFeatureExtractor:
     """Delivery feature extractor 인스턴스"""
     return DeliveryFeatureExtractor()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def simple_asr_result() -> ASRResult:
     """단순한 ASR 결과 (테스트용)"""
     return ASRResult(
@@ -42,7 +43,7 @@ def simple_asr_result() -> ASRResult:
     )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def complex_asr_result() -> ASRResult:
     """복잡한 ASR 결과 (여러 세그먼트, pause 포함)"""
     return ASRResult(

@@ -52,6 +52,7 @@ async def register(
     new_user = User(
         email=user_data.email,
         hashed_password=hashed_pw,
+        name=user_data.name,
     )
     db.add(new_user)
     await db.commit()

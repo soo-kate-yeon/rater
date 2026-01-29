@@ -76,8 +76,8 @@ async def test_login_success(test_client: AsyncClient, test_user):
     """로그인 성공 테스트"""
     response = await test_client.post(
         "/api/v1/auth/login",
-        json={
-            "email": "test@example.com",
+        data={
+            "username": "test@example.com",
             "password": "testpassword123",
         },
     )
@@ -95,8 +95,8 @@ async def test_login_wrong_password(test_client: AsyncClient, test_user):
     """잘못된 비밀번호로 로그인 실패 테스트"""
     response = await test_client.post(
         "/api/v1/auth/login",
-        json={
-            "email": "test@example.com",
+        data={
+            "username": "test@example.com",
             "password": "wrongpassword",
         },
     )
@@ -111,8 +111,8 @@ async def test_login_nonexistent_user(test_client: AsyncClient):
     """존재하지 않는 사용자로 로그인 실패 테스트"""
     response = await test_client.post(
         "/api/v1/auth/login",
-        json={
-            "email": "nonexistent@example.com",
+        data={
+            "username": "nonexistent@example.com",
             "password": "password123",
         },
     )
@@ -142,8 +142,8 @@ async def test_login_missing_fields(test_client: AsyncClient):
     """필수 필드 누락 시 로그인 실패 테스트"""
     response = await test_client.post(
         "/api/v1/auth/login",
-        json={
-            "email": "test@example.com",
+        data={
+            "username": "test@example.com",
             # password 누락
         },
     )

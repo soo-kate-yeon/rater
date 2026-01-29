@@ -124,6 +124,7 @@ class Job(BaseModel):
         back_populates="job",
         lazy="selectin",
         cascade="all, delete-orphan",
+        passive_deletes=True,
         uselist=False,
     )
 

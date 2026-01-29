@@ -4,6 +4,7 @@ SPEC-TOEFL-FEATURE-001 Phase 2: Structure Pattern Detection 구현 테스트
 """
 
 import pytest
+import pytest_asyncio
 
 from src.services.structure_comparison import (
     ComponentMatch,
@@ -13,7 +14,7 @@ from src.services.structure_comparison import (
 )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def service() -> StructureComparisonService:
     """Structure comparison service 인스턴스"""
     return StructureComparisonService()

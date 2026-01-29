@@ -12,7 +12,9 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
 
 from src.api.main import app
-from src.core.database import Base, get_db
+from src.core.database import get_db
+from src.models.base import Base  # Use the correct Base that models inherit from
+from src import models  # Import all models to register with Base.metadata
 from src.models.task import Task
 from src.models.user import User
 from src.schemas.scoring import ASRResult, WhisperSegment
@@ -34,15 +36,35 @@ def event_loop():
 @pytest_asyncio.fixture(scope="function")
 async def test_engine() -> AsyncGenerator[AsyncEngine, None]:
     """테스트용 SQLite in-memory 엔진"""
+    # 모든 모델을 명시적으로 import하여 Base.metadata에 등록
+    from src.models import (
+        User, Task, Job, JobArtifact, Report,
+        Set, Item, Stimulus, AnswerKey, IndependentTopic
+    )
+
     engine = create_async_engine(
         "sqlite+aiosqlite:///:memory:",
         echo=False,
         pool_pre_ping=True,
+        connect_args={"check_same_thread": False},
     )
+
+    # SQLite에서 외래 키 활성화
+    from sqlalchemy import event
+
+    @event.listens_for(engine.sync_engine, "connect")
+    def set_sqlite_pragma(dbapi_conn, connection_record):
+        cursor = dbapi_conn.cursor()
+        cursor.execute("PRAGMA foreign_keys=ON")
+        cursor.close()
 
     # 테이블 생성
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        def create_tables(connection):
+            Base.metadata.create_all(connection)
+            # 디버그: 생성된 테이블 확인
+            print(f"Created tables: {list(Base.metadata.tables.keys())}")
+        await conn.run_sync(create_tables)
 
     yield engine
 
@@ -136,8 +158,7 @@ async def test_user(test_db: AsyncSession) -> User:
 
     user = User(
         email="test@example.com",
-        password_hash=hash_password("testpassword123"),
-        name="Test User",
+        hashed_password=hash_password("testpassword123"),
     )
     test_db.add(user)
     await test_db.commit()

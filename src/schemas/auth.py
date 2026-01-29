@@ -33,5 +33,6 @@ class UserResponse(BaseModel):
 
     id: UUID = Field(..., description="사용자 ID")
     email: str = Field(..., description="사용자 이메일")
+    name: Optional[str] = Field(None, description="사용자 이름")
 
     model_config = {"from_attributes": True}

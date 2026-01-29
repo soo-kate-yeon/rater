@@ -5,7 +5,8 @@ import uuid
 from datetime import datetime
 
 from sqlalchemy import DateTime, ForeignKey, Integer, func
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base, UUIDMixin
@@ -43,7 +44,7 @@ class Report(Base, UUIDMixin):
     )
 
     report_json: Mapped[dict] = mapped_column(
-        JSONB,
+        JSON,
         nullable=False,
         server_default="{}",
     )

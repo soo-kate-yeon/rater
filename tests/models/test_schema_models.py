@@ -3,6 +3,7 @@
 import uuid
 
 import pytest
+import pytest_asyncio
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -68,7 +69,7 @@ async def test_set_repr(test_db: AsyncSession):
 # === Item 모델 테스트 ===
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def test_set(test_db: AsyncSession) -> Set:
     """테스트용 Set"""
     new_set = Set(
@@ -177,7 +178,7 @@ async def test_set_items_relationship(test_db: AsyncSession, test_set: Set):
 # === Stimulus 모델 테스트 ===
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 async def test_item(test_db: AsyncSession, test_set: Set) -> Item:
     """테스트용 Item"""
     item = Item(

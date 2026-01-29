@@ -1,6 +1,7 @@
 """Vocabulary Features 추출 서비스 테스트"""
 
 import pytest
+import pytest_asyncio
 
 from src.services.vocabulary_features import (
     NLTK_AVAILABLE,
@@ -11,13 +12,13 @@ from src.services.vocabulary_features import (
 )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def extractor() -> VocabularyFeatureExtractor:
     """Vocabulary feature extractor 인스턴스"""
     return VocabularyFeatureExtractor()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def sample_transcript() -> str:
     """샘플 transcript"""
     return (
@@ -26,7 +27,7 @@ def sample_transcript() -> str:
     )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def reference_text() -> str:
     """참조 텍스트"""
     return (

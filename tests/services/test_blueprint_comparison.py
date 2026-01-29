@@ -4,6 +4,7 @@ SPEC-TOEFL-FEATURE-001 Phase 2: Blueprint Matching 구현 테스트
 """
 
 import pytest
+import pytest_asyncio
 
 from src.services.blueprint_comparison import (
     BlueprintComparisonResult,
@@ -13,7 +14,7 @@ from src.services.blueprint_comparison import (
 )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def service() -> BlueprintComparisonService:
     """Blueprint comparison service 인스턴스"""
     return BlueprintComparisonService()

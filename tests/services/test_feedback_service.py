@@ -3,18 +3,19 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
+import pytest_asyncio
 
 from src.schemas.jobs import FeedbackReport, ScoreBand
 from src.services.feedback_service import DeliveryFeatures, FeedbackService, FeedbackServiceConfig
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def feedback_service():
     """피드백 서비스 픽스처"""
     return FeedbackService()
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def delivery_features():
     """Delivery features 픽스처"""
     return DeliveryFeatures(
@@ -28,7 +29,7 @@ def delivery_features():
     )
 
 
-@pytest.fixture
+@pytest_asyncio.fixture
 def mock_feedback_report():
     """모킹된 피드백 리포트"""
     from src.schemas.jobs import ActionItem, BottleneckInfo, DeliveryAnalysis, LanguageAnalysis, StructureAnalysis

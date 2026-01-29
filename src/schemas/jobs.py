@@ -31,7 +31,7 @@ class JobCreate(BaseModel):
     """Job 생성 요청 스키마"""
 
     audio_key: str = Field(..., description="업로드된 오디오 파일 키")
-    task_id: int = Field(..., description="문제 ID")
+    task_id: str = Field(..., description="문제 UUID")
     task_type: TaskType = Field(..., description="문제 유형 (independent/integrated)")
     prompt: str = Field(..., description="질문 텍스트")
     source_reading: Optional[str] = Field(None, description="통합형 문제용 읽기 지문")

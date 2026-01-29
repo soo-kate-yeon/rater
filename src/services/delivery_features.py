@@ -2,6 +2,7 @@
 
 import logging
 import re
+from typing import Optional
 
 import numpy as np
 
@@ -300,7 +301,7 @@ class DeliveryFeatureExtractor:
 
 
 # 싱글톤 인스턴스
-_extractor: DeliveryFeatureExtractor | None = None
+_extractor: Optional[DeliveryFeatureExtractor] = None
 
 
 def get_delivery_feature_extractor() -> DeliveryFeatureExtractor:

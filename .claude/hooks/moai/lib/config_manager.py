@@ -6,7 +6,7 @@ Provides centralized configuration management with fallbacks and validation.
 
 import json
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 try:
     import yaml
@@ -96,9 +96,9 @@ class ConfigManager:
                 # Default to YAML for new projects
                 self.config_path = yaml_path if YAML_AVAILABLE else json_path
 
-        self._config: Dict[str, Any] | None = None
+        self._config: dict[str, Any] | None = None
 
-    def load_config(self) -> Dict[str, Any]:
+    def load_config(self) -> dict[str, Any]:
         """Load configuration from file with fallback to defaults.
 
         Returns:
@@ -111,7 +111,7 @@ class ConfigManager:
         config = {}
         if self.config_path.exists():
             try:
-                with open(self.config_path, "r", encoding="utf-8") as f:
+                with open(self.config_path, encoding="utf-8") as f:
                     if self.config_path.suffix in [".yaml", ".yml"]:
                         if not YAML_AVAILABLE:
                             # Fall back to defaults if YAML not available
@@ -122,7 +122,7 @@ class ConfigManager:
                     else:
                         file_config = json.load(f)
                         config = self._merge_configs(DEFAULT_CONFIG.copy(), file_config)
-            except (json.JSONDecodeError, IOError, OSError):
+            except (json.JSONDecodeError, OSError):
                 # Use defaults if file is corrupted or unreadable
                 config = DEFAULT_CONFIG.copy()
             except Exception as e:
@@ -164,7 +164,7 @@ class ConfigManager:
 
         return current
 
-    def get_hooks_config(self) -> Dict[str, Any]:
+    def get_hooks_config(self) -> dict[str, Any]:
         """Get hooks-specific configuration.
 
         Returns:
@@ -172,7 +172,7 @@ class ConfigManager:
         """
         return self.get("hooks", {})
 
-    def get_cache_config(self) -> Dict[str, Any]:
+    def get_cache_config(self) -> dict[str, Any]:
         """Get cache configuration.
 
         Returns:
@@ -180,7 +180,7 @@ class ConfigManager:
         """
         return self.get("hooks.cache", {})
 
-    def get_project_search_config(self) -> Dict[str, Any]:
+    def get_project_search_config(self) -> dict[str, Any]:
         """Get project search configuration.
 
         Returns:
@@ -188,7 +188,7 @@ class ConfigManager:
         """
         return self.get("hooks.project_search", {})
 
-    def get_network_config(self) -> Dict[str, Any]:
+    def get_network_config(self) -> dict[str, Any]:
         """Get network configuration.
 
         Returns:
@@ -196,7 +196,7 @@ class ConfigManager:
         """
         return self.get("hooks.network", {})
 
-    def get_git_config(self) -> Dict[str, Any]:
+    def get_git_config(self) -> dict[str, Any]:
         """Get git configuration.
 
         Returns:
@@ -204,7 +204,7 @@ class ConfigManager:
         """
         return self.get("hooks.git", {})
 
-    def get_language_config(self) -> Dict[str, Any]:
+    def get_language_config(self) -> dict[str, Any]:
         """Get language configuration.
 
         Returns:
@@ -322,7 +322,7 @@ class ConfigManager:
             self._config = None
 
             return True
-        except (IOError, OSError, json.JSONDecodeError):
+        except (OSError, json.JSONDecodeError):
             return False
 
     def validate_config(self) -> bool:
@@ -339,7 +339,7 @@ class ConfigManager:
 
         return True
 
-    def _merge_configs(self, base: dict[str, Any], override: dict[str, Any]) -> Dict[str, Any]:
+    def _merge_configs(self, base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
         """Recursively merge two configuration dictionaries.
 
         This method delegates to common.merge_configs() for consistent behavior.

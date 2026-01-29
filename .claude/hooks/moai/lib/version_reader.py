@@ -14,7 +14,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta
 from enum import Enum
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 import yaml
 
@@ -73,7 +73,7 @@ class VersionConfig:
 
     # Version field priority configuration
     # Order: 1) MoAI package version, 2) Project version, 3) Fallbacks
-    version_fields: List[str] = field(
+    version_fields: list[str] = field(
         default_factory=lambda: [
             "moai.version",  # ← 1st priority: MoAI-ADK version
             "project.version",  # ← 2nd priority: Project version
@@ -113,7 +113,7 @@ class VersionReader:
         "template_version",
     ]
 
-    def __init__(self, config: Optional[VersionConfig] = None, working_dir: Optional[Path] = None):
+    def __init__(self, config: VersionConfig | None = None, working_dir: Path | None = None):
         """
         Initialize version reader with enhanced configuration.
 
@@ -137,8 +137,8 @@ class VersionReader:
         self._config_path = base_dir / ".moai" / "config" / "config.yaml"
 
         # Enhanced caching with LRU support
-        self._cache: Dict[str, CacheEntry] = {}
-        self._cache_stats: Dict[str, Any] = {
+        self._cache: dict[str, CacheEntry] = {}
+        self._cache_stats: dict[str, Any] = {
             "hits": 0,
             "misses": 0,
             "errors": 0,
@@ -150,7 +150,7 @@ class VersionReader:
         }
 
         # Performance tracking
-        self._performance_metrics: Dict[str, List[float]] = {
+        self._performance_metrics: dict[str, list[float]] = {
             "read_times": [],
             "validation_times": [],
             "cache_operation_times": [],
@@ -170,8 +170,8 @@ class VersionReader:
         self._logger = logging.getLogger(__name__)
 
         # Backwards compatibility cache attributes
-        self._version_cache: Optional[str] = None
-        self._cache_time: Optional[datetime] = None
+        self._version_cache: str | None = None
+        self._cache_time: datetime | None = None
         self._cache_ttl = timedelta(seconds=self.config.cache_ttl_seconds)
 
         if self.config.debug_mode:
@@ -282,7 +282,7 @@ class VersionReader:
             self._log_performance(start_time, "async_read")
 
     # Enhanced internal methods
-    def _check_cache(self) -> Optional[str]:
+    def _check_cache(self) -> str | None:
         """
         Check cache for valid version entry.
 
@@ -412,14 +412,14 @@ class VersionReader:
         if self.config.debug_mode:
             self._logger.debug(f"Performance {operation}: {duration:.4f}s")
 
-    def get_performance_metrics(self) -> Dict[str, Any]:
+    def get_performance_metrics(self) -> dict[str, Any]:
         """
         Get performance metrics for analysis.
 
         Returns:
             Dictionary containing performance metrics
         """
-        metrics: Dict[str, Any] = {
+        metrics: dict[str, Any] = {
             "cache_stats": self._cache_stats.copy(),
             "cache_size": len(self._cache),
             "max_cache_size": self.config.cache_size,
@@ -486,7 +486,7 @@ class VersionReader:
             logger.error(f"Error reading version from config: {e}")
             return ""
 
-    def _extract_version_from_config(self, config: Dict[str, Any]) -> str:
+    def _extract_version_from_config(self, config: dict[str, Any]) -> str:
         """
         Extract version from config using multiple fallback strategies.
 
@@ -506,7 +506,7 @@ class VersionReader:
         logger.debug("No version field found in config")
         return ""
 
-    def _get_nested_value(self, config: Dict[str, Any], field_path: str) -> Optional[str]:
+    def _get_nested_value(self, config: dict[str, Any], field_path: str) -> str | None:
         """
         Get nested value from config using dot notation.
 
@@ -622,24 +622,24 @@ class VersionReader:
         except Exception:
             return False
 
-    async def _read_json_async(self, path: Path) -> Dict[str, Any]:
+    async def _read_json_async(self, path: Path) -> dict[str, Any]:
         """Async JSON file reading"""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self._read_json_sync, path)
 
-    def _read_json_sync(self, path: Path) -> Dict[str, Any]:
+    def _read_json_sync(self, path: Path) -> dict[str, Any]:
         """Synchronous JSON file reading"""
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
 
-    async def _read_config_async(self, path: Path) -> Dict[str, Any]:
+    async def _read_config_async(self, path: Path) -> dict[str, Any]:
         """Async config file reading (supports YAML and JSON)"""
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, self._read_config_sync, path)
 
-    def _read_config_sync(self, path: Path) -> Dict[str, Any]:
+    def _read_config_sync(self, path: Path) -> dict[str, Any]:
         """Synchronous config file reading (supports YAML and JSON)"""
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, encoding="utf-8") as f:
             if path.suffix in (".yaml", ".yml"):
                 return yaml.safe_load(f) or {}
             else:
@@ -665,7 +665,7 @@ class VersionReader:
         }
         logger.debug("Version cache cleared")
 
-    def get_cache_stats(self) -> Dict[str, int]:
+    def get_cache_stats(self) -> dict[str, int]:
         """
         Get cache statistics (backwards compatibility).
 
@@ -674,7 +674,7 @@ class VersionReader:
         """
         return self._cache_stats.copy()
 
-    def get_cache_age_seconds(self) -> Optional[float]:
+    def get_cache_age_seconds(self) -> float | None:
         """
         Get cache age in seconds (backwards compatibility).
 

@@ -18,7 +18,7 @@ import os
 import sys
 import time
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
 
 
 class OutputStyleDetector:
@@ -60,7 +60,7 @@ class OutputStyleDetector:
         self.cache = {}
         self.cache_ttl: float = 5.0  # Cache for 5 seconds to balance performance and accuracy
 
-    def detect_from_session_context(self, session_data: Dict[str, Any]) -> Optional[str]:
+    def detect_from_session_context(self, session_data: dict[str, Any]) -> str | None:
         """
         Detect output style from Claude Code session context.
 
@@ -105,7 +105,7 @@ class OutputStyleDetector:
 
         return None
 
-    def detect_from_environment(self) -> Optional[str]:
+    def detect_from_environment(self) -> str | None:
         """
         Detect output style from environment variables.
         """
@@ -133,7 +133,7 @@ class OutputStyleDetector:
 
         return None
 
-    def detect_from_behavioral_analysis(self) -> Optional[str]:
+    def detect_from_behavioral_analysis(self) -> str | None:
         """
         Analyze behavioral patterns to infer current output style.
 
@@ -149,7 +149,9 @@ class OutputStyleDetector:
                 yoda_files = list(moai_dir.rglob("*yoda*"))
                 if yoda_files:
                     # Check if any Yoda files are recently modified
-                    recent_yoda = any(f.stat().st_mtime > (time.time() - 300) for f in yoda_files)  # Last 5 minutes
+                    recent_yoda = any(
+                        f.stat().st_mtime > (time.time() - 300) for f in yoda_files
+                    )  # Last 5 minutes
                     if recent_yoda:
                         return "🧙 Yoda Master"
 
@@ -172,7 +174,7 @@ class OutputStyleDetector:
 
         return None
 
-    def detect_from_settings(self) -> Optional[str]:
+    def detect_from_settings(self) -> str | None:
         """
         Detect output style from settings.json file.
 
@@ -181,7 +183,7 @@ class OutputStyleDetector:
         try:
             settings_path = Path.cwd() / ".claude" / "settings.json"
             if settings_path.exists():
-                with open(settings_path, "r", encoding="utf-8") as f:
+                with open(settings_path, encoding="utf-8") as f:
                     settings = json.load(f)
                     output_style = settings.get("outputStyle", "")
 
@@ -235,7 +237,7 @@ class OutputStyleDetector:
         # Fallback: capitalize first letter
         return style.title() if style else "Unknown"
 
-    def _analyze_message_patterns(self, messages: list) -> Optional[str]:
+    def _analyze_message_patterns(self, messages: list) -> str | None:
         """
         Analyze recent message patterns for style indicators.
         """
@@ -244,7 +246,9 @@ class OutputStyleDetector:
                 return None
 
             # Look for style indicators in recent responses
-            full_text = " ".join(msg.get("content", "") for msg in messages[-3:] if msg.get("role") == "assistant")
+            full_text = " ".join(
+                msg.get("content", "") for msg in messages[-3:] if msg.get("role") == "assistant"
+            )
 
             if not full_text:
                 return None
@@ -291,7 +295,7 @@ class OutputStyleDetector:
             print(f"Message pattern analysis error: {e}", file=sys.stderr)
             return None
 
-    def get_output_style(self, session_context: Optional[Dict[str, Any]] = None) -> str:
+    def get_output_style(self, session_context: dict[str, Any] | None = None) -> str:
         """
         Get the current output style using all available detection methods.
 

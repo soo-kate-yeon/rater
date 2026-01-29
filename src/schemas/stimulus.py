@@ -3,8 +3,8 @@ Stimulus 관련 Pydantic 스키마.
 
 자극자료(Stimulus)의 생성, 조회, 수정을 위한 스키마를 정의합니다.
 """
+
 from datetime import datetime
-from typing import Optional
 from uuid import UUID
 
 from pydantic import BaseModel, Field, model_validator
@@ -19,21 +19,21 @@ class StimulusBase(BaseModel):
         ...,
         description="자료 유형 (reading/audio/image/direction)",
     )
-    title: Optional[str] = Field(
+    title: str | None = Field(
         None,
         description="자료 제목",
         max_length=200,
     )
-    content_text: Optional[str] = Field(
+    content_text: str | None = Field(
         None,
         description="텍스트 내용 (reading, direction 용)",
     )
-    asset_url: Optional[str] = Field(
+    asset_url: str | None = Field(
         None,
         description="미디어 URL (audio, image 용)",
         max_length=500,
     )
-    duration_seconds: Optional[int] = Field(
+    duration_seconds: int | None = Field(
         None,
         description="음성 길이 (초, audio 전용)",
         ge=0,
@@ -84,36 +84,36 @@ class StimulusCreate(StimulusBase):
 class StimulusUpdate(BaseModel):
     """Stimulus 수정 요청 스키마"""
 
-    kind: Optional[StimulusKind] = Field(
+    kind: StimulusKind | None = Field(
         None,
         description="자료 유형",
     )
-    title: Optional[str] = Field(
+    title: str | None = Field(
         None,
         description="자료 제목",
         max_length=200,
     )
-    content_text: Optional[str] = Field(
+    content_text: str | None = Field(
         None,
         description="텍스트 내용",
     )
-    asset_url: Optional[str] = Field(
+    asset_url: str | None = Field(
         None,
         description="미디어 URL",
         max_length=500,
     )
-    duration_seconds: Optional[int] = Field(
+    duration_seconds: int | None = Field(
         None,
         description="음성 길이 (초)",
         ge=0,
         le=600,
     )
-    display_order: Optional[int] = Field(
+    display_order: int | None = Field(
         None,
         description="표시 순서",
         ge=0,
     )
-    notes_allowed: Optional[bool] = Field(
+    notes_allowed: bool | None = Field(
         None,
         description="노트 필기 허용 여부",
     )
@@ -125,10 +125,10 @@ class StimulusResponse(BaseModel):
     id: UUID = Field(..., description="Stimulus UUID")
     item_id: UUID = Field(..., description="소속 Item UUID")
     kind: StimulusKind = Field(..., description="자료 유형")
-    title: Optional[str] = Field(None, description="자료 제목")
-    content_text: Optional[str] = Field(None, description="텍스트 내용")
-    asset_url: Optional[str] = Field(None, description="미디어 URL")
-    duration_seconds: Optional[int] = Field(None, description="음성 길이 (초)")
+    title: str | None = Field(None, description="자료 제목")
+    content_text: str | None = Field(None, description="텍스트 내용")
+    asset_url: str | None = Field(None, description="미디어 URL")
+    duration_seconds: int | None = Field(None, description="음성 길이 (초)")
     display_order: int = Field(..., description="표시 순서")
     notes_allowed: bool = Field(..., description="노트 필기 허용 여부")
     created_at: datetime = Field(..., description="생성 시각")

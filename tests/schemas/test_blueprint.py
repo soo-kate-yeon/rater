@@ -7,14 +7,12 @@ from src.models.enums import TopicType
 from src.schemas.blueprint import (
     BlueprintContent,
     IndependentBlueprint,
-    IndependentTimeBudget,
     InfoUnit,
     IntegratedBlueprint,
     LinkingMove,
     ScoreExpectation,
     TimeBudget,
 )
-
 
 # === InfoUnit 테스트 ===
 

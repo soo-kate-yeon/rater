@@ -1,6 +1,6 @@
 """파일 업로드 라우터"""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, File, UploadFile, status
 
@@ -32,7 +32,7 @@ async def upload_audio(
     audio_key = await storage.save_audio(file)
 
     # 응답 생성
-    uploaded_at = datetime.now(timezone.utc)
+    uploaded_at = datetime.now(UTC)
 
     return UploadResponse(
         audio_key=audio_key,

@@ -183,9 +183,7 @@ class StructureFeaturesExtractor:
         }
 
         # Reason과 Example이 각각 2회 이상 나타나는지 간단히 체크
-        reason_count = sum(
-            1 for pattern in self.REASON_PATTERNS if re.search(pattern, transcript)
-        )
+        reason_count = sum(1 for pattern in self.REASON_PATTERNS if re.search(pattern, transcript))
         example_count = sum(
             1 for pattern in self.EXAMPLE_PATTERNS if re.search(pattern, transcript)
         )

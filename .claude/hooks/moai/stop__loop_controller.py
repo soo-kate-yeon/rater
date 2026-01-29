@@ -232,7 +232,9 @@ def load_ralph_config() -> dict[str, Any]:
                     if "loop" in ralph:
                         config["loop"].update(ralph["loop"])
                     if "hooks" in ralph and "stop_loop_controller" in ralph["hooks"]:
-                        config["hooks"]["stop_loop_controller"].update(ralph["hooks"]["stop_loop_controller"])
+                        config["hooks"]["stop_loop_controller"].update(
+                            ralph["hooks"]["stop_loop_controller"]
+                        )
         except Exception:
             pass
 
@@ -411,7 +413,9 @@ def check_completion_conditions(config: dict[str, Any]) -> CompletionStatus:
     if completion_config.get("zero_errors", True):
         error_count, warning_count = check_lsp_errors()
         status.zero_errors = error_count == 0
-        status.zero_warnings = warning_count == 0 if completion_config.get("zero_warnings", False) else True
+        status.zero_warnings = (
+            warning_count == 0 if completion_config.get("zero_warnings", False) else True
+        )
         details["errors"] = error_count
         details["warnings"] = warning_count
     else:
@@ -523,7 +527,11 @@ def main() -> None:
                 # Get last few assistant messages for completion marker detection
                 recent_messages = messages[-3:] if len(messages) >= 3 else messages
                 conversation_text = " ".join(
-                    [msg.get("content", "") for msg in recent_messages if msg.get("role") == "assistant"]
+                    [
+                        msg.get("content", "")
+                        for msg in recent_messages
+                        if msg.get("role") == "assistant"
+                    ]
                 )
     except (json.JSONDecodeError, OSError):
         pass  # No input available

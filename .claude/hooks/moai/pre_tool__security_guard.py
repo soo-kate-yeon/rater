@@ -25,7 +25,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any, List, Tuple
+from typing import Any
 
 # Patterns for files that should NEVER be modified
 DENY_PATTERNS = [
@@ -103,7 +103,7 @@ SENSITIVE_CONTENT_PATTERNS = [
 ]
 
 
-def compile_patterns(patterns: list[str]) -> List[re.Pattern]:
+def compile_patterns(patterns: list[str]) -> list[re.Pattern]:
     """Compile regex patterns for efficient matching."""
     return [re.compile(p, re.IGNORECASE) for p in patterns]
 
@@ -125,7 +125,7 @@ def get_project_root() -> Path:
     return Path(project_dir).resolve()
 
 
-def check_file_path(file_path: str) -> Tuple[str, str]:
+def check_file_path(file_path: str) -> tuple[str, str]:
     """Check if file path matches any security patterns.
 
     Security measures:
@@ -176,7 +176,7 @@ def check_file_path(file_path: str) -> Tuple[str, str]:
     return "allow", ""
 
 
-def check_content_for_secrets(content: str) -> Tuple[bool, str]:
+def check_content_for_secrets(content: str) -> tuple[bool, str]:
     """Check if content contains sensitive data patterns.
 
     Args:

@@ -104,7 +104,9 @@ class HooksTestSuite:
             assert result == "success", "Quick task should return success"
 
             duration = time.time() - start
-            self.log_test_result("Timeout Manager - Basic", True, "All basic tests passed", duration)
+            self.log_test_result(
+                "Timeout Manager - Basic", True, "All basic tests passed", duration
+            )
 
         except Exception as e:
             duration = time.time() - start
@@ -135,7 +137,9 @@ class HooksTestSuite:
             try:
                 result = manager.execute_with_timeout("test_timeout", slow_task, config=config)
                 # If graceful degradation is enabled, should return default result
-                assert "graceful_degradation" in str(result), "Should return graceful degradation result"
+                assert "graceful_degradation" in str(
+                    result
+                ), "Should return graceful degradation result"
                 duration = time.time() - start
                 self.log_test_result(
                     "Timeout Manager - Timeout",
@@ -209,7 +213,7 @@ class HooksTestSuite:
             example_config_path = hooks_dir / "example_config.json"
             assert example_config_path.exists(), "Example config should exist"
 
-            with open(example_config_path, "r") as f:
+            with open(example_config_path) as f:
                 config = json.load(f)
 
             # Validate configuration
@@ -220,7 +224,11 @@ class HooksTestSuite:
             error_issues = [i for i in issues if i.level == ValidationLevel.ERROR]
 
             success = len(critical_issues) == 0 and len(error_issues) == 0
-            message = f"Found {len(issues)} issues ({len(error_issues)} errors)" if issues else "No issues found"
+            message = (
+                f"Found {len(issues)} issues ({len(error_issues)} errors)"
+                if issues
+                else "No issues found"
+            )
 
             # Test normalization
             normalized = validator.normalize_config({})
@@ -256,7 +264,9 @@ class HooksTestSuite:
                 output = json.loads(result.stdout)
                 assert isinstance(output, dict), "Should return JSON object"
                 success = result.returncode == 0
-                message = "Hook executed successfully" if success else f"Exit code: {result.returncode}"
+                message = (
+                    "Hook executed successfully" if success else f"Exit code: {result.returncode}"
+                )
             except json.JSONDecodeError:
                 success = False
                 message = "Invalid JSON output"
@@ -266,7 +276,9 @@ class HooksTestSuite:
 
         except subprocess.TimeoutExpired:
             duration = time.time() - start
-            self.log_test_result("Hook Integration - Session Start", False, "Hook timeout", duration)
+            self.log_test_result(
+                "Hook Integration - Session Start", False, "Hook timeout", duration
+            )
         except Exception as e:
             duration = time.time() - start
             self.log_test_result("Hook Integration - Session Start", False, str(e), duration)
@@ -406,9 +418,15 @@ class HooksTestSuite:
 
         # Module availability report
         print("\n🔧 MODULE AVAILABILITY:")
-        print(f"  Timeout Manager: {'✅ Available' if TIMEOUT_MANAGER_AVAILABLE else '❌ Not Available'}")
-        print(f"  Git Operations Manager: {'✅ Available' if GIT_MANAGER_AVAILABLE else '❌ Not Available'}")
-        print(f"  Config Validator: {'✅ Available' if CONFIG_VALIDATOR_AVAILABLE else '❌ Not Available'}")
+        print(
+            f"  Timeout Manager: {'✅ Available' if TIMEOUT_MANAGER_AVAILABLE else '❌ Not Available'}"
+        )
+        print(
+            f"  Git Operations Manager: {'✅ Available' if GIT_MANAGER_AVAILABLE else '❌ Not Available'}"
+        )
+        print(
+            f"  Config Validator: {'✅ Available' if CONFIG_VALIDATOR_AVAILABLE else '❌ Not Available'}"
+        )
 
         # Performance summary
         if GIT_MANAGER_AVAILABLE:

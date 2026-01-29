@@ -1,17 +1,17 @@
 """
 Job model for tracking scoring pipeline execution.
 """
+
 from __future__ import annotations
 
 import enum
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Enum, ForeignKey, Integer, String, Text
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import BaseModel
+from .base import GUID, BaseModel
 
 if TYPE_CHECKING:
     from .report import Report
@@ -58,14 +58,14 @@ class Job(BaseModel):
     __tablename__ = "jobs"
 
     user_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        GUID,
         ForeignKey("users.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
 
     task_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        GUID,
         ForeignKey("tasks.id", ondelete="RESTRICT"),
         nullable=False,
         index=True,
@@ -89,12 +89,12 @@ class Job(BaseModel):
         nullable=False,
     )
 
-    error_code: Mapped[Optional[str]] = mapped_column(
+    error_code: Mapped[str | None] = mapped_column(
         String(100),
         nullable=True,
     )
 
-    error_message: Mapped[Optional[str]] = mapped_column(
+    error_message: Mapped[str | None] = mapped_column(
         Text,
         nullable=True,
     )
@@ -119,7 +119,7 @@ class Job(BaseModel):
         cascade="all, delete-orphan",
     )
 
-    report: Mapped[Optional[Report]] = relationship(  # noqa: F821
+    report: Mapped[Report | None] = relationship(  # noqa: F821
         "Report",
         back_populates="job",
         lazy="selectin",

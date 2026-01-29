@@ -1,15 +1,14 @@
 """
 Report model for storing final user-facing feedback and scores.
 """
+
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, Integer, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import JSON
+from sqlalchemy import JSON, DateTime, ForeignKey, Integer, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, UUIDMixin
+from .base import GUID, Base, UUIDMixin
 
 
 class Report(Base, UUIDMixin):
@@ -36,7 +35,7 @@ class Report(Base, UUIDMixin):
     __tablename__ = "reports"
 
     job_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        GUID,
         ForeignKey("jobs.id", ondelete="CASCADE"),
         nullable=False,
         unique=True,

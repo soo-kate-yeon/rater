@@ -9,15 +9,19 @@ from typing import Any
 import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 
 from src.api.main import app
 from src.core.database import get_db
 from src.models.base import Base  # Use the correct Base that models inherit from
-from src import models  # Import all models to register with Base.metadata
 from src.models.task import Task
 from src.models.user import User
-from src.schemas.scoring import ASRResult, WhisperSegment
+from src.schemas.scoring import ASRResult
 
 # 테스트용 환경 변수 설정
 os.environ["DATABASE_URL"] = "sqlite+aiosqlite:///:memory:"
@@ -37,10 +41,6 @@ def event_loop():
 async def test_engine() -> AsyncGenerator[AsyncEngine, None]:
     """테스트용 SQLite in-memory 엔진"""
     # 모든 모델을 명시적으로 import하여 Base.metadata에 등록
-    from src.models import (
-        User, Task, Job, JobArtifact, Report,
-        Set, Item, Stimulus, AnswerKey, IndependentTopic
-    )
 
     engine = create_async_engine(
         "sqlite+aiosqlite:///:memory:",
@@ -60,10 +60,12 @@ async def test_engine() -> AsyncGenerator[AsyncEngine, None]:
 
     # 테이블 생성
     async with engine.begin() as conn:
+
         def create_tables(connection):
             Base.metadata.create_all(connection)
             # 디버그: 생성된 테이블 확인
             print(f"Created tables: {list(Base.metadata.tables.keys())}")
+
         await conn.run_sync(create_tables)
 
     yield engine
@@ -77,6 +79,10 @@ async def test_engine() -> AsyncGenerator[AsyncEngine, None]:
 @pytest_asyncio.fixture(scope="function")
 async def test_db(test_engine: AsyncEngine) -> AsyncGenerator[AsyncSession, None]:
     """테스트용 데이터베이스 세션"""
+    import uuid
+
+    from src.core.security import hash_password
+
     async_session = async_sessionmaker(
         test_engine,
         class_=AsyncSession,
@@ -84,8 +90,20 @@ async def test_db(test_engine: AsyncEngine) -> AsyncGenerator[AsyncSession, None
     )
 
     async with async_session() as session:
+        # 기본 테스트 사용자 생성 (하드코딩된 user_id를 위해)
+        default_user = User(
+            id=uuid.UUID("00000000-0000-0000-0000-000000000001"),
+            email="default@test.com",
+            hashed_password=hash_password("defaultpassword"),
+        )
+        session.add(default_user)
+        await (
+            session.flush()
+        )  # commit 대신 flush를 사용하여 동일한 트랜잭션 내에서 사용 가능하게 함
+
         yield session
-        await session.rollback()
+        # rollback 제거: test_engine이 각 테스트마다 새로 생성되므로 rollback 불필요
+        # await session.rollback()
 
 
 @pytest_asyncio.fixture(scope="function")
@@ -131,7 +149,22 @@ def mock_asr_result() -> dict[str, Any]:
                 "start": 5.5,
                 "end": 12.0,
                 "text": " It helps people develop critical thinking skills and prepare for their future careers.",
-                "tokens": [467, 3665, 561, 1499, 4924, 1953, 3942, 293, 5940, 337, 641, 2027, 16409, 13],
+                "tokens": [
+                    467,
+                    3665,
+                    561,
+                    1499,
+                    4924,
+                    1953,
+                    3942,
+                    293,
+                    5940,
+                    337,
+                    641,
+                    2027,
+                    16409,
+                    13,
+                ],
                 "temperature": 0.0,
                 "avg_logprob": -0.22,
                 "compression_ratio": 1.3,
@@ -161,7 +194,7 @@ async def test_user(test_db: AsyncSession) -> User:
         hashed_password=hash_password("testpassword123"),
     )
     test_db.add(user)
-    await test_db.commit()
+    await test_db.flush()  # commit 대신 flush 사용
     await test_db.refresh(user)
     return user
 
@@ -179,7 +212,7 @@ async def test_task(test_db: AsyncSession) -> Task:
         tags={},
     )
     test_db.add(task)
-    await test_db.commit()
+    await test_db.flush()  # commit 대신 flush 사용
     await test_db.refresh(task)
     return task
 

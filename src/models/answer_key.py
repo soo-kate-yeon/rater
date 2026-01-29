@@ -4,18 +4,16 @@ AnswerKey 모델 - 모범답안 및 채점 기준.
 AnswerKey는 Item에 대한 모범답안, 스크립트, 개요, 포인트, 또는 Blueprint를 저장합니다.
 여러 수준(high, mid, low)의 모범답안을 지원합니다.
 """
+
 from __future__ import annotations
 
 import uuid
 from datetime import datetime
-from typing import Optional
 
-from sqlalchemy import DateTime, Enum, ForeignKey, String, func
-from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy import JSON
+from sqlalchemy import JSON, DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base, UUIDMixin
+from .base import GUID, Base, UUIDMixin
 from .enums import AnswerKeyLevel, AnswerKeyType
 
 
@@ -36,7 +34,7 @@ class AnswerKey(Base, UUIDMixin):
     __tablename__ = "answer_keys"
 
     item_id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        GUID,
         ForeignKey("items.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
@@ -50,7 +48,7 @@ class AnswerKey(Base, UUIDMixin):
         comment="모범답안 유형",
     )
 
-    level: Mapped[Optional[AnswerKeyLevel]] = mapped_column(
+    level: Mapped[AnswerKeyLevel | None] = mapped_column(
         Enum(AnswerKeyLevel, name="answer_key_level_enum"),
         nullable=True,
         index=True,
@@ -63,7 +61,7 @@ class AnswerKey(Base, UUIDMixin):
         comment="모범답안 내용 또는 Blueprint JSON",
     )
 
-    source: Mapped[Optional[str]] = mapped_column(
+    source: Mapped[str | None] = mapped_column(
         String(100),
         nullable=True,
         comment="출처 (예: ETS Official)",

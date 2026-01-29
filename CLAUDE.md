@@ -372,8 +372,33 @@ agentId를 사용하여 중단된 에이전트 작업을 재개합니다:
 
 ---
 
-Version: 10.4.0 (DDD + Progressive Disclosure + Auto-Parallel Task Decomposition)
-Last Updated: 2026-01-19
+## 12. 데이터베이스 안전 규칙
+
+### 금지된 명령어 (HARD)
+
+- [HARD] DROP TABLE, DROP DATABASE 직접 실행 금지
+- [HARD] DELETE FROM (WHERE 절 없이) 전체 삭제 금지
+- [HARD] TRUNCATE TABLE 직접 실행 금지
+- [HARD] alembic downgrade base (전체 롤백) 금지
+- [HARD] 프로덕션 DATABASE_URL로 직접 SQL 실행 금지
+
+### 필수 절차
+
+- 스키마 변경은 반드시 Alembic 마이그레이션을 통해서만 진행
+- 데이터 삭제 시 반드시 WHERE 절 포함 및 사용자 확인 필요
+- 마이그레이션 생성: `alembic revision --autogenerate -m "설명"`
+- 마이그레이션 적용: `alembic upgrade head`
+
+### 예외 처리
+
+- 사용자가 명시적으로 요청하고 확인한 경우에만 예외 허용
+- 예외 실행 전 AskUserQuestion으로 재확인 필수
+- 테스트 DB (sqlite, test container)에서는 제한 완화 가능
+
+---
+
+Version: 10.5.0 (DDD + Progressive Disclosure + Auto-Parallel Task Decomposition + DB Safety)
+Last Updated: 2026-01-29
 Language: Korean (한국어)
 핵심 규칙: Alfred는 오케스트레이터입니다; 직접 구현은 금지됩니다
 

@@ -3,11 +3,9 @@
 SPEC-TOEFL-FEATURE-001 Phase 2: Structure Pattern Detection 구현 테스트
 """
 
-import pytest
 import pytest_asyncio
 
 from src.services.structure_comparison import (
-    ComponentMatch,
     StructureComparisonResult,
     StructureComparisonService,
     get_structure_comparison_service,
@@ -181,9 +179,7 @@ class TestCompleteStructure:
         assert result.matched_components >= 3  # position, reason, example 최소
         assert result.match_percentage >= 75.0  # 3/4 = 75%
 
-    def test_partial_structure_position_and_reason_only(
-        self, service: StructureComparisonService
-    ):
+    def test_partial_structure_position_and_reason_only(self, service: StructureComparisonService):
         """부분 구조: position + reason만"""
         transcript = """
         I think education is important because it helps people succeed.
@@ -249,7 +245,7 @@ class TestConfidenceScoring:
         """약한 마커: 중간 confidence"""
         transcript = "Maybe technology is useful."
 
-        result = service.analyze_structure(transcript=transcript)
+        _result = service.analyze_structure(transcript=transcript)
 
         # "maybe"는 약한 position 마커이므로 confidence 중간
         # 구현에 따라 다를 수 있음

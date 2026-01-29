@@ -8,51 +8,85 @@ SPEC-TOEFL-FEATURE-001: Phase 1+2 Integration
 - feature_configs: 피처 메타데이터 저장 (13개 피처)
 - user_subscriptions: 사용자 구독 티어 관리
 """
-from typing import Sequence, Union
 
-from alembic import op
+from collections.abc import Sequence
+
 import sqlalchemy as sa
 
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = 'c8b27d767a6e'
-down_revision: Union[str, Sequence[str], None] = '9eb28c0bcc1c'
-branch_labels: Union[str, Sequence[str], None] = None
-depends_on: Union[str, Sequence[str], None] = None
+revision: str = "c8b27d767a6e"
+down_revision: str | Sequence[str] | None = "9eb28c0bcc1c"
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
 
 
 def upgrade() -> None:
     """Upgrade schema."""
     # Create feature_configs table
     op.create_table(
-        'feature_configs',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('feature_code', sa.String(50), nullable=False, comment='피처 코드 (예: silmean)'),
-        sa.Column('feature_name_ko', sa.String(100), nullable=False, comment='한글 피처명'),
-        sa.Column('category', sa.String(50), nullable=False, comment='카테고리 (delivery, grammar, vocabulary)'),
-        sa.Column('weight', sa.Numeric(4, 2), nullable=False, comment='가중치 (0.00-1.00)'),
-        sa.Column('requires_audio', sa.Boolean(), server_default='false', nullable=False, comment='오디오 파일 필요 여부'),
-        sa.Column('description', sa.Text(), nullable=True, comment='피처 설명'),
-        sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.PrimaryKeyConstraint('id'),
-        sa.UniqueConstraint('feature_code')
+        "feature_configs",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("feature_code", sa.String(50), nullable=False, comment="피처 코드 (예: silmean)"),
+        sa.Column("feature_name_ko", sa.String(100), nullable=False, comment="한글 피처명"),
+        sa.Column(
+            "category",
+            sa.String(50),
+            nullable=False,
+            comment="카테고리 (delivery, grammar, vocabulary)",
+        ),
+        sa.Column("weight", sa.Numeric(4, 2), nullable=False, comment="가중치 (0.00-1.00)"),
+        sa.Column(
+            "requires_audio",
+            sa.Boolean(),
+            server_default="false",
+            nullable=False,
+            comment="오디오 파일 필요 여부",
+        ),
+        sa.Column("description", sa.Text(), nullable=True, comment="피처 설명"),
+        sa.Column(
+            "created_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+        ),
+        sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("feature_code"),
     )
-    op.create_index(op.f('ix_feature_configs_category'), 'feature_configs', ['category'], unique=False)
-    op.create_index(op.f('ix_feature_configs_feature_code'), 'feature_configs', ['feature_code'], unique=True)
+    op.create_index(
+        op.f("ix_feature_configs_category"), "feature_configs", ["category"], unique=False
+    )
+    op.create_index(
+        op.f("ix_feature_configs_feature_code"), "feature_configs", ["feature_code"], unique=True
+    )
 
     # Create user_subscriptions table
     op.create_table(
-        'user_subscriptions',
-        sa.Column('id', sa.Integer(), nullable=False),
-        sa.Column('user_id', sa.dialects.postgresql.UUID(as_uuid=True), nullable=False, comment='사용자 UUID'),
-        sa.Column('tier', sa.String(20), nullable=False, comment='구독 티어 (basic, standard, premium)'),
-        sa.Column('started_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
-        sa.Column('expires_at', sa.DateTime(timezone=True), nullable=True, comment='만료일 (None = 무제한)'),
-        sa.Column('is_active', sa.Boolean(), server_default='true', nullable=False),
-        sa.PrimaryKeyConstraint('id'),
-        sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE')
+        "user_subscriptions",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column(
+            "user_id",
+            sa.dialects.postgresql.UUID(as_uuid=True),
+            nullable=False,
+            comment="사용자 UUID",
+        ),
+        sa.Column(
+            "tier", sa.String(20), nullable=False, comment="구독 티어 (basic, standard, premium)"
+        ),
+        sa.Column(
+            "started_at", sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False
+        ),
+        sa.Column(
+            "expires_at",
+            sa.DateTime(timezone=True),
+            nullable=True,
+            comment="만료일 (None = 무제한)",
+        ),
+        sa.Column("is_active", sa.Boolean(), server_default="true", nullable=False),
+        sa.PrimaryKeyConstraint("id"),
+        sa.ForeignKeyConstraint(["user_id"], ["users.id"], ondelete="CASCADE"),
     )
-    op.create_index(op.f('ix_user_subscriptions_user_id'), 'user_subscriptions', ['user_id'], unique=False)
+    op.create_index(
+        op.f("ix_user_subscriptions_user_id"), "user_subscriptions", ["user_id"], unique=False
+    )
 
     # Seed data: 13 features from Phase 1 (8 Delivery + 2 Grammar + 3 Vocabulary)
     op.execute("""
@@ -81,10 +115,10 @@ def upgrade() -> None:
 def downgrade() -> None:
     """Downgrade schema."""
     # Drop user_subscriptions table
-    op.drop_index(op.f('ix_user_subscriptions_user_id'), table_name='user_subscriptions')
-    op.drop_table('user_subscriptions')
+    op.drop_index(op.f("ix_user_subscriptions_user_id"), table_name="user_subscriptions")
+    op.drop_table("user_subscriptions")
 
     # Drop feature_configs table
-    op.drop_index(op.f('ix_feature_configs_feature_code'), table_name='feature_configs')
-    op.drop_index(op.f('ix_feature_configs_category'), table_name='feature_configs')
-    op.drop_table('feature_configs')
+    op.drop_index(op.f("ix_feature_configs_feature_code"), table_name="feature_configs")
+    op.drop_index(op.f("ix_feature_configs_category"), table_name="feature_configs")
+    op.drop_table("feature_configs")

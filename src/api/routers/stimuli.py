@@ -3,8 +3,8 @@ Stimulus 관리 라우터.
 
 자극자료(Stimulus) CRUD API를 제공합니다.
 """
+
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
@@ -26,7 +26,7 @@ router = APIRouter()
 @router.get("", response_model=StimulusListResponse)
 async def list_stimuli(
     db: AsyncSession = Depends(get_db),
-    item_id: Optional[str] = Query(None, description="Item UUID 필터"),
+    item_id: str | None = Query(None, description="Item UUID 필터"),
 ) -> StimulusListResponse:
     """
     Stimulus 목록 조회
@@ -44,11 +44,11 @@ async def list_stimuli(
         try:
             item_uuid = uuid.UUID(item_id)
             query = query.where(Stimulus.item_id == item_uuid)
-        except ValueError:
+        except ValueError as err:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid item_id format",
-            )
+            ) from err
 
     query = query.order_by(Stimulus.item_id, Stimulus.display_order)
     result = await db.execute(query)
@@ -126,11 +126,11 @@ async def get_stimulus(
     """
     try:
         stimulus_uuid = uuid.UUID(stimulus_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid stimulus_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Stimulus).where(Stimulus.id == stimulus_uuid))
     stimulus = result.scalar_one_or_none()
@@ -166,11 +166,11 @@ async def update_stimulus(
     """
     try:
         stimulus_uuid = uuid.UUID(stimulus_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid stimulus_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Stimulus).where(Stimulus.id == stimulus_uuid))
     stimulus = result.scalar_one_or_none()
@@ -209,11 +209,11 @@ async def delete_stimulus(
     """
     try:
         stimulus_uuid = uuid.UUID(stimulus_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid stimulus_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Stimulus).where(Stimulus.id == stimulus_uuid))
     stimulus = result.scalar_one_or_none()

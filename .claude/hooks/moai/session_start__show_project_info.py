@@ -331,7 +331,9 @@ except ImportError:
             return {"completed": 0, "total": 0, "percentage": 0}
         try:
             # Only scan SPEC folders in THIS project's .moai/specs/ directory
-            spec_folders = [d for d in specs_dir.iterdir() if d.is_dir() and d.name.startswith("SPEC-")]
+            spec_folders = [
+                d for d in specs_dir.iterdir() if d.is_dir() and d.name.startswith("SPEC-")
+            ]
             total = len(spec_folders)
 
             # FIX: Parse YAML frontmatter to check for status: completed
@@ -351,7 +353,10 @@ except ImportError:
                         if yaml_end > 0:
                             yaml_content = content[3:yaml_end]
                             # Check for status: completed (with or without quotes)
-                            if "status: completed" in yaml_content or 'status: "completed"' in yaml_content:
+                            if (
+                                "status: completed" in yaml_content
+                                or 'status: "completed"' in yaml_content
+                            ):
                                 completed += 1
                 except (OSError, UnicodeDecodeError):
                     # File read failure or encoding error - considered incomplete
@@ -500,7 +505,9 @@ def get_git_info() -> dict[str, Any]:
         results = {}
         with ThreadPoolExecutor(max_workers=4) as executor:
             # Submit all tasks
-            futures = {executor.submit(_run_git_command_fallback, cmd): key for cmd, key in git_commands}
+            futures = {
+                executor.submit(_run_git_command_fallback, cmd): key for cmd, key in git_commands
+            }
 
             # Collect results as they complete with overall timeout
             # FIX #254: Add timeout to prevent infinite waiting on stuck git operations
@@ -546,7 +553,11 @@ def get_git_info() -> dict[str, Any]:
             "branch": branch,
             "last_commit": last_commit,
             "commit_time": results.get("commit_time", ""),
-            "changes": (len(results.get("changes_raw", "").splitlines()) if results.get("changes_raw") else 0),
+            "changes": (
+                len(results.get("changes_raw", "").splitlines())
+                if results.get("changes_raw")
+                else 0
+            ),
             "git_initialized": True,
         }
 
@@ -811,7 +822,9 @@ def load_user_personalization() -> dict:
 
         # FIX #5: Check if USER_NAME is a template variable or empty
         user_name = config.get("user_name", "")
-        has_valid_name = user_name and not user_name.startswith("{{") and not user_name.endswith("}}")
+        has_valid_name = (
+            user_name and not user_name.startswith("{{") and not user_name.endswith("}}")
+        )
 
         # Build personalization info using resolved configuration
         personalization = {
@@ -822,7 +835,9 @@ def load_user_personalization() -> dict:
             "is_korean": config.get("conversation_language") == "ko",
             "has_personalization": has_valid_name,
             "config_source": config.get("config_source", "default"),
-            "personalized_greeting": (resolver.get_personalized_greeting(config) if has_valid_name else ""),
+            "personalized_greeting": (
+                resolver.get_personalized_greeting(config) if has_valid_name else ""
+            ),
             "needs_setup": not has_valid_name,  # FIX #5: Flag for setup guidance
         }
 
@@ -830,7 +845,9 @@ def load_user_personalization() -> dict:
         template_vars = resolver.export_template_variables(config)
 
         # Store resolved configuration for session-wide access
-        personalization_cache_file = find_project_root() / ".moai" / "cache" / "personalization.json"
+        personalization_cache_file = (
+            find_project_root() / ".moai" / "cache" / "personalization.json"
+        )
         try:
             personalization_cache_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -841,7 +858,9 @@ def load_user_personalization() -> dict:
                 "resolved_at": datetime.now().isoformat(),
                 "config_source": config.get("config_source", "default"),
             }
-            personalization_cache_file.write_text(json.dumps(cache_data, ensure_ascii=False, indent=2))
+            personalization_cache_file.write_text(
+                json.dumps(cache_data, ensure_ascii=False, indent=2)
+            )
 
         except (OSError, PermissionError):
             # Cache write errors are non-critical
@@ -868,7 +887,9 @@ def load_user_personalization() -> dict:
             conversation_lang = config.get("language", {}).get("conversation_language", "en")
 
         # FIX #5: Check if USER_NAME is a template variable or empty
-        has_valid_name = user_name and not user_name.startswith("{{") and not user_name.endswith("}}")
+        has_valid_name = (
+            user_name and not user_name.startswith("{{") and not user_name.endswith("}}")
+        )
 
         # Get language name
         lang_name_map = {
@@ -902,10 +923,14 @@ def load_user_personalization() -> dict:
         }
 
         # Store for session-wide access
-        personalization_cache_file = find_project_root() / ".moai" / "cache" / "personalization.json"
+        personalization_cache_file = (
+            find_project_root() / ".moai" / "cache" / "personalization.json"
+        )
         try:
             personalization_cache_file.parent.mkdir(parents=True, exist_ok=True)
-            personalization_cache_file.write_text(json.dumps(personalization, ensure_ascii=False, indent=2))
+            personalization_cache_file.write_text(
+                json.dumps(personalization, ensure_ascii=False, indent=2)
+            )
         except (OSError, PermissionError):
             # Cache write errors are non-critical
             pass

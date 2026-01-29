@@ -1,0 +1,82 @@
+# Pre-commit hooks for TOEFL Speaking Rater
+# 설치: pip install pre-commit && pre-commit install
+# 수동 실행: pre-commit run --all-files
+
+default_language_version:
+  python: python3
+
+repos:
+  # Ruff - Fast Python linter and formatter
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      # Linter
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+        types_or: [python, pyi]
+      # Formatter (ruff format은 black 대체 가능)
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  # Black - Code formatter (Ruff format과 중복 시 하나만 사용)
+  # - repo: https://github.com/psf/black
+  #   rev: 24.4.2
+  #   hooks:
+  #     - id: black
+  #       language_version: python3.11
+
+  # 기본 파일 체크
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^(.*\.(md|rst)$|\.claude/)
+      - id: end-of-file-fixer
+        exclude: ^\.claude/
+      - id: check-yaml
+        exclude: ^\.claude/
+      - id: check-json
+        exclude: ^\.claude/
+      - id: check-toml
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: check-case-conflict
+
+  # MyPy - Type checking (선택적, 시간이 오래 걸릴 수 있음)
+  # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.10.0
+  #   hooks:
+  #     - id: mypy
+  #       additional_dependencies:
+  #         - pydantic
+  #         - sqlalchemy[mypy]
+  #       args: [--ignore-missing-imports]
+  #       exclude: ^(tests/|alembic/)
+
+  # Bandit - Security linter
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.8
+    hooks:
+      - id: bandit
+        args: ["-ll", "-ii", "-x", "tests/,.claude/"]
+        exclude: ^(tests/|\.claude/)
+
+  # Commitizen - Conventional commits (선택적)
+  # - repo: https://github.com/commitizen-tools/commitizen
+  #   rev: v3.27.0
+  #   hooks:
+  #     - id: commitizen
+  #       stages: [commit-msg]
+
+# CI에서는 모든 파일 검사
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false

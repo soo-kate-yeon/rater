@@ -3,8 +3,8 @@ AnswerKey 관리 라우터.
 
 모범답안(AnswerKey) CRUD API를 제공합니다.
 """
+
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
@@ -28,8 +28,8 @@ router = APIRouter()
 @router.get("", response_model=AnswerKeyListResponse)
 async def list_answer_keys(
     db: AsyncSession = Depends(get_db),
-    item_id: Optional[str] = Query(None, description="Item UUID 필터"),
-    answer_type: Optional[AnswerKeyType] = Query(None, description="유형 필터"),
+    item_id: str | None = Query(None, description="Item UUID 필터"),
+    answer_type: AnswerKeyType | None = Query(None, description="유형 필터"),
 ) -> AnswerKeyListResponse:
     """
     AnswerKey 목록 조회
@@ -48,11 +48,11 @@ async def list_answer_keys(
         try:
             item_uuid = uuid.UUID(item_id)
             query = query.where(AnswerKey.item_id == item_uuid)
-        except ValueError:
+        except ValueError as err:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid item_id format",
-            )
+            ) from err
 
     if answer_type:
         query = query.where(AnswerKey.answer_type == answer_type)
@@ -177,11 +177,11 @@ async def get_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()
@@ -217,11 +217,11 @@ async def update_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()
@@ -260,11 +260,11 @@ async def delete_answer_key(
     """
     try:
         answer_key_uuid = uuid.UUID(answer_key_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid answer_key_id format",
-        )
+        ) from err
 
     result = await db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_uuid))
     answer_key = result.scalar_one_or_none()

@@ -1,7 +1,6 @@
 """
 User model for authentication and authorization.
 """
-from typing import Optional
 
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -36,7 +35,7 @@ class User(BaseModel):
         nullable=False,
     )
 
-    name: Mapped[Optional[str]] = mapped_column(
+    name: Mapped[str | None] = mapped_column(
         String(100),
         nullable=True,
     )

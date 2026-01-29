@@ -3,8 +3,6 @@
 이 테스트는 기존 delivery_features.py의 동작을 문서화하고 보존합니다.
 """
 
-from typing import Any
-
 import pytest
 import pytest_asyncio
 
@@ -141,7 +139,9 @@ class TestDeliveryFeatureExtractorBasicBehavior:
     def test_characterize_interpretation_rules(self, extractor: DeliveryFeatureExtractor):
         """CHARACTERIZE: Interpretation 생성 규칙"""
         # 느린 속도
-        interp = extractor._generate_interpretation(wpm=80, silence_ratio=0.15, asr_clarity_signal=-0.3)
+        interp = extractor._generate_interpretation(
+            wpm=80, silence_ratio=0.15, asr_clarity_signal=-0.3
+        )
         assert "느림" in interp
 
         # 과속
@@ -271,8 +271,28 @@ class TestDeliveryFeatureExtractorSPECFeatures:
         asr_result = ASRResult(
             transcript="Test",
             segments=[
-                {"id": 0, "start": 0.0, "end": 2.0, "text": "First", "tokens": [1], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
-                {"id": 1, "start": 2.0, "end": 5.0, "text": "Second", "tokens": [2], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 0,
+                    "start": 0.0,
+                    "end": 2.0,
+                    "text": "First",
+                    "tokens": [1],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
+                {
+                    "id": 1,
+                    "start": 2.0,
+                    "end": 5.0,
+                    "text": "Second",
+                    "tokens": [2],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
             ],
             language="en",
             avg_logprob=-0.2,
@@ -289,9 +309,29 @@ class TestDeliveryFeatureExtractorSPECFeatures:
         asr_result = ASRResult(
             transcript="Test",
             segments=[
-                {"id": 0, "start": 0.0, "end": 2.0, "text": "A", "tokens": [1], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 0,
+                    "start": 0.0,
+                    "end": 2.0,
+                    "text": "A",
+                    "tokens": [1],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.6초 pause (>500ms) → pause_count=1
-                {"id": 1, "start": 2.6, "end": 5.0, "text": "B", "tokens": [2], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 1,
+                    "start": 2.6,
+                    "end": 5.0,
+                    "text": "B",
+                    "tokens": [2],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
             ],
             language="en",
             avg_logprob=-0.2,
@@ -308,11 +348,41 @@ class TestDeliveryFeatureExtractorSPECFeatures:
         asr_result = ASRResult(
             transcript="Test",
             segments=[
-                {"id": 0, "start": 0.0, "end": 1.0, "text": "A", "tokens": [1], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 0,
+                    "start": 0.0,
+                    "end": 1.0,
+                    "text": "A",
+                    "tokens": [1],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.1초 pause (100ms, 50~500ms 범위) → 절 내부 중단
-                {"id": 1, "start": 1.1, "end": 2.0, "text": "B", "tokens": [2], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 1,
+                    "start": 1.1,
+                    "end": 2.0,
+                    "text": "B",
+                    "tokens": [2],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.2초 pause (200ms, 50~500ms 범위) → 절 내부 중단
-                {"id": 2, "start": 2.2, "end": 3.0, "text": "C", "tokens": [3], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 2,
+                    "start": 2.2,
+                    "end": 3.0,
+                    "text": "C",
+                    "tokens": [3],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
             ],
             language="en",
             avg_logprob=-0.2,
@@ -328,11 +398,41 @@ class TestDeliveryFeatureExtractorSPECFeatures:
         asr_result = ASRResult(
             transcript="Test",
             segments=[
-                {"id": 0, "start": 0.0, "end": 1.0, "text": "A", "tokens": [1], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 0,
+                    "start": 0.0,
+                    "end": 1.0,
+                    "text": "A",
+                    "tokens": [1],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.1초 pause (100ms)
-                {"id": 1, "start": 1.1, "end": 2.0, "text": "B", "tokens": [2], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 1,
+                    "start": 1.1,
+                    "end": 2.0,
+                    "text": "B",
+                    "tokens": [2],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.2초 pause (200ms)
-                {"id": 2, "start": 2.2, "end": 3.0, "text": "C", "tokens": [3], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 2,
+                    "start": 2.2,
+                    "end": 3.0,
+                    "text": "C",
+                    "tokens": [3],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
             ],
             language="en",
             avg_logprob=-0.2,
@@ -349,9 +449,29 @@ class TestDeliveryFeatureExtractorSPECFeatures:
         asr_result = ASRResult(
             transcript="Test",
             segments=[
-                {"id": 0, "start": 0.0, "end": 1.0, "text": "A", "tokens": [1], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 0,
+                    "start": 0.0,
+                    "end": 1.0,
+                    "text": "A",
+                    "tokens": [1],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
                 # 0.6초 pause (>500ms, 절 간 pause로 간주)
-                {"id": 1, "start": 1.6, "end": 2.0, "text": "B", "tokens": [2], "temperature": 0.0, "avg_logprob": -0.2, "compression_ratio": 1.0, "no_speech_prob": 0.01},
+                {
+                    "id": 1,
+                    "start": 1.6,
+                    "end": 2.0,
+                    "text": "B",
+                    "tokens": [2],
+                    "temperature": 0.0,
+                    "avg_logprob": -0.2,
+                    "compression_ratio": 1.0,
+                    "no_speech_prob": 0.01,
+                },
             ],
             language="en",
             avg_logprob=-0.2,

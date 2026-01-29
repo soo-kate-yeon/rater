@@ -9,17 +9,41 @@ SPEC-TOEFL-FEATURE-001 Phase 2: Integrated Task Blueprint Matching
 import logging
 import re
 from difflib import SequenceMatcher
-from typing import List, Optional, Set, Tuple
 
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
 # English stopwords (간소화된 목록)
-STOPWORDS: Set[str] = {
-    "a", "an", "and", "are", "as", "at", "be", "by", "for", "from",
-    "has", "he", "in", "is", "it", "its", "of", "on", "that", "the",
-    "to", "was", "were", "will", "with", "this", "these", "those",
+STOPWORDS: set[str] = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "by",
+    "for",
+    "from",
+    "has",
+    "he",
+    "in",
+    "is",
+    "it",
+    "its",
+    "of",
+    "on",
+    "that",
+    "the",
+    "to",
+    "was",
+    "were",
+    "will",
+    "with",
+    "this",
+    "these",
+    "those",
 }
 
 
@@ -29,16 +53,14 @@ class UnitMatch(BaseModel):
     unit_id: str = Field(..., description="Blueprint unit ID")
     matched: bool = Field(..., description="매칭 여부")
     confidence: float = Field(..., ge=0.0, le=1.0, description="매칭 신뢰도 (0.0-1.0)")
-    evidence_span: Optional[str] = Field(default=None, description="증거 텍스트 span")
+    evidence_span: str | None = Field(default=None, description="증거 텍스트 span")
 
 
 class BlueprintComparisonResult(BaseModel):
     """Blueprint 비교 결과"""
 
-    coverage_percentage: float = Field(
-        ..., ge=0.0, le=100.0, description="Blueprint 커버리지 (%)"
-    )
-    matched_units: List[UnitMatch] = Field(default_factory=list, description="매칭된 units")
+    coverage_percentage: float = Field(..., ge=0.0, le=100.0, description="Blueprint 커버리지 (%)")
+    matched_units: list[UnitMatch] = Field(default_factory=list, description="매칭된 units")
     total_units: int = Field(..., ge=0, description="전체 unit 수")
     matched_count: int = Field(..., ge=0, description="매칭된 unit 수")
 
@@ -67,9 +89,7 @@ class BlueprintComparisonService:
         self.confidence_threshold = confidence_threshold
         logger.info(f"BlueprintComparisonService initialized (threshold={confidence_threshold})")
 
-    def compare(
-        self, transcript: str, blueprint_units: List[str]
-    ) -> BlueprintComparisonResult:
+    def compare(self, transcript: str, blueprint_units: list[str]) -> BlueprintComparisonResult:
         """
         Transcript와 blueprint units 비교
 
@@ -110,7 +130,7 @@ class BlueprintComparisonService:
         transcript_lower = transcript.lower()
 
         # 각 unit 매칭 시도
-        matched_units: List[UnitMatch] = []
+        matched_units: list[UnitMatch] = []
         matched_count = 0
 
         for idx, unit in enumerate(blueprint_units):
@@ -161,7 +181,7 @@ class BlueprintComparisonService:
             matched_count=matched_count,
         )
 
-    def _extract_keywords(self, text: str) -> List[str]:
+    def _extract_keywords(self, text: str) -> list[str]:
         """
         텍스트에서 키워드 추출 (stopwords 제거)
 
@@ -172,7 +192,7 @@ class BlueprintComparisonService:
             키워드 리스트
         """
         # 소문자 변환 및 특수 문자 제거
-        text_clean = re.sub(r'[^a-z0-9\s]', ' ', text.lower())
+        text_clean = re.sub(r"[^a-z0-9\s]", " ", text.lower())
 
         # 단어 분리
         words = text_clean.split()
@@ -183,8 +203,8 @@ class BlueprintComparisonService:
         return keywords
 
     def _calculate_match(
-        self, transcript_lower: str, keywords: List[str], original_transcript: str
-    ) -> Tuple[float, Optional[str]]:
+        self, transcript_lower: str, keywords: list[str], original_transcript: str
+    ) -> tuple[float, str | None]:
         """
         키워드 매칭 및 confidence 계산
 
@@ -200,8 +220,8 @@ class BlueprintComparisonService:
             return 0.0, None
 
         # 각 키워드가 transcript에 포함되는지 확인
-        matched_keywords: List[str] = []
-        keyword_positions: List[int] = []
+        matched_keywords: list[str] = []
+        keyword_positions: list[int] = []
 
         for keyword in keywords:
             # 정확 매칭 시도
@@ -222,7 +242,7 @@ class BlueprintComparisonService:
                         best_ratio = ratio
                         if ratio >= 0.8:  # Fuzzy match threshold
                             # 위치 추정
-                            text_before = ' '.join(words_in_transcript[:i])
+                            text_before = " ".join(words_in_transcript[:i])
                             best_pos = len(text_before) + (1 if text_before else 0)
 
                 if best_ratio >= 0.8:
@@ -234,7 +254,7 @@ class BlueprintComparisonService:
         confidence = len(matched_keywords) / len(keywords) if keywords else 0.0
 
         # Evidence span 추출
-        evidence_span: Optional[str] = None
+        evidence_span: str | None = None
         if matched_keywords and keyword_positions:
             # 매칭된 키워드 주변 문맥 추출
             min_pos = min(keyword_positions)
@@ -249,13 +269,13 @@ class BlueprintComparisonService:
             # 불완전한 문장 시작/끝 정리
             if start > 0 and not original_transcript[start].isupper():
                 # 첫 단어 경계 찾기
-                space_idx = evidence_span.find(' ')
+                space_idx = evidence_span.find(" ")
                 if space_idx > 0:
-                    evidence_span = evidence_span[space_idx + 1:]
+                    evidence_span = evidence_span[space_idx + 1 :]
 
             if end < len(original_transcript):
                 # 마지막 단어 경계 찾기
-                last_space = evidence_span.rfind(' ')
+                last_space = evidence_span.rfind(" ")
                 if last_space > 0:
                     evidence_span = evidence_span[:last_space]
 
@@ -263,7 +283,7 @@ class BlueprintComparisonService:
 
 
 # 싱글톤 인스턴스
-_service: Optional[BlueprintComparisonService] = None
+_service: BlueprintComparisonService | None = None
 
 
 def get_blueprint_comparison_service() -> BlueprintComparisonService:

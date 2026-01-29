@@ -317,7 +317,9 @@ def run_fallback_diagnostics(file_path: str) -> dict[str, Any]:
                         issues = json.loads(proc.stdout)
                         result["available"] = True
                         for issue in issues[:10]:  # Limit to 10 issues
-                            severity = "error" if issue.get("code", "").startswith("E") else "warning"
+                            severity = (
+                                "error" if issue.get("code", "").startswith("E") else "warning"
+                            )
                             if severity == "error":
                                 result["error_count"] += 1
                             else:
@@ -387,7 +389,12 @@ def format_diagnostic_output(result: dict[str, Any], file_path: str) -> str:
         return f"LSP: No diagnostics available for {filename}"
 
     # No issues found
-    total = result["error_count"] + result["warning_count"] + result["info_count"] + result["hint_count"]
+    total = (
+        result["error_count"]
+        + result["warning_count"]
+        + result["info_count"]
+        + result["hint_count"]
+    )
     if total == 0:
         return f"LSP: No issues in {filename}"
 
@@ -494,10 +501,14 @@ def main() -> None:
 
     if severity_threshold == "error" and result.get("error_count", 0) > 0:
         sys.exit(2)  # Attention needed
-    elif severity_threshold == "warning" and (result.get("error_count", 0) > 0 or result.get("warning_count", 0) > 0):
+    elif severity_threshold == "warning" and (
+        result.get("error_count", 0) > 0 or result.get("warning_count", 0) > 0
+    ):
         sys.exit(2)  # Attention needed
     elif severity_threshold == "info" and (
-        result.get("error_count", 0) > 0 or result.get("warning_count", 0) > 0 or result.get("info_count", 0) > 0
+        result.get("error_count", 0) > 0
+        or result.get("warning_count", 0) > 0
+        or result.get("info_count", 0) > 0
     ):
         sys.exit(2)  # Attention needed
 

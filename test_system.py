@@ -2,11 +2,13 @@
 시스템 통합 테스트 스크립트
 API 서버의 주요 엔드포인트를 테스트합니다.
 """
+
 import asyncio
+
 import httpx
-from pathlib import Path
 
 BASE_URL = "http://localhost:8000"
+
 
 async def test_system():
     print("=" * 60)
@@ -27,10 +29,7 @@ async def test_system():
         # 2. 사용자 등록
         print("\n[2/6] 사용자 등록 테스트...")
         try:
-            user_data = {
-                "email": "test@example.com",
-                "password": "testpassword123"
-            }
+            user_data = {"email": "test@example.com", "password": "testpassword123"}
             response = await client.post(f"{BASE_URL}/v1/auth/register", json=user_data)
             print(f"  ✅ 상태 코드: {response.status_code}")
             if response.status_code == 200:
@@ -44,14 +43,11 @@ async def test_system():
         # 3. 로그인
         print("\n[3/6] 로그인 테스트...")
         try:
-            login_data = {
-                "username": "test@example.com",
-                "password": "testpassword123"
-            }
+            login_data = {"username": "test@example.com", "password": "testpassword123"}
             response = await client.post(
                 f"{BASE_URL}/v1/auth/login",
                 data=login_data,
-                headers={"Content-Type": "application/x-www-form-urlencoded"}
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
             )
             print(f"  ✅ 상태 코드: {response.status_code}")
             if response.status_code == 200:
@@ -88,12 +84,10 @@ async def test_system():
             task_data = {
                 "task_type": "INDEPENDENT",
                 "prompt": "Do you agree or disagree with the following statement? It is better to work in a team than to work alone.",
-                "tags": {"difficulty": "medium", "topic": "work"}
+                "tags": {"difficulty": "medium", "topic": "work"},
             }
             response = await client.post(
-                f"{BASE_URL}/v1/tasks",
-                json=task_data,
-                headers=auth_headers
+                f"{BASE_URL}/v1/tasks", json=task_data, headers=auth_headers
             )
             print(f"  ✅ 상태 코드: {response.status_code}")
             if response.status_code == 200:
@@ -122,10 +116,7 @@ async def test_system():
                 data = {"task_id": task_id}
 
                 response = await client.post(
-                    f"{BASE_URL}/v1/jobs",
-                    files=files,
-                    data=data,
-                    headers=auth_headers
+                    f"{BASE_URL}/v1/jobs", files=files, data=data, headers=auth_headers
                 )
                 print(f"  상태 코드: {response.status_code}")
                 if response.status_code == 200:
@@ -146,6 +137,7 @@ async def test_system():
         print("- Redis 설치: brew install redis")
         print("- Redis 실행: redis-server")
         print("- Worker 실행: uv run celery -A src.workers.celery_app worker --loglevel=info")
+
 
 if __name__ == "__main__":
     asyncio.run(test_system())

@@ -20,11 +20,12 @@ import platform
 import signal
 import threading
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Any, Callable, Dict, Set
+from typing import Any
 
 import yaml
 
@@ -106,10 +107,10 @@ class UnifiedTimeoutManager:
     """
 
     # Global singleton instance
-    _instance: "UnifiedTimeoutManager | None" = None
+    _instance: UnifiedTimeoutManager | None = None
     _lock = threading.Lock()
 
-    def __new__(cls) -> "UnifiedTimeoutManager":
+    def __new__(cls) -> UnifiedTimeoutManager:
         """Singleton pattern to ensure single timeout manager"""
         if cls._instance is None:
             with cls._lock:
@@ -137,7 +138,7 @@ class UnifiedTimeoutManager:
 
         # Resource monitoring
         self._memory_tracker: dict[str, Any] = {}
-        self._cleanup_registry: Set[str] = set()
+        self._cleanup_registry: set[str] = set()
 
         # Default timeout configurations
         self._default_configs = {
@@ -163,19 +164,21 @@ class UnifiedTimeoutManager:
 
         self._logger.info("UnifiedTimeoutManager initialized")
 
-    def load_config(self) -> Dict[str, Any]:
+    def load_config(self) -> dict[str, Any]:
         """Load timeout configuration from project config"""
         try:
             config_file = Path(".moai/config/config.yaml")
             if config_file.exists():
-                with open(config_file, "r", encoding="utf-8") as f:
+                with open(config_file, encoding="utf-8") as f:
                     config = yaml.safe_load(f) or {}
                     return config.get("hooks", {}).get("timeout_manager", {})
         except Exception as e:
             self._logger.warning(f"Failed to load timeout config: {e}")
         return {}
 
-    def get_timeout_config(self, hook_name: str, custom_config: HookTimeoutConfig | None = None) -> HookTimeoutConfig:
+    def get_timeout_config(
+        self, hook_name: str, custom_config: HookTimeoutConfig | None = None
+    ) -> HookTimeoutConfig:
         """Get timeout configuration for a specific hook"""
         if custom_config:
             return custom_config
@@ -206,7 +209,9 @@ class UnifiedTimeoutManager:
         else:
             return self._default_configs[TimeoutPolicy.NORMAL]
 
-    def create_timeout_session(self, hook_name: str, config: HookTimeoutConfig | None = None) -> TimeoutSession:
+    def create_timeout_session(
+        self, hook_name: str, config: HookTimeoutConfig | None = None
+    ) -> TimeoutSession:
         """Create a new timeout session for a hook"""
         if not config:
             config = self.get_timeout_config(hook_name)
@@ -386,10 +391,14 @@ class UnifiedTimeoutManager:
                 self.cancel_timeout(session)
 
                 if attempt < config.retry_count:
-                    self._logger.warning(f"Hook {hook_name} timeout, retrying ({attempt + 1}/{config.retry_count})")
+                    self._logger.warning(
+                        f"Hook {hook_name} timeout, retrying ({attempt + 1}/{config.retry_count})"
+                    )
                     time.sleep(config.retry_delay_ms / 1000.0)
                 else:
-                    self._logger.error(f"Hook {hook_name} failed after {config.retry_count} retries")
+                    self._logger.error(
+                        f"Hook {hook_name} failed after {config.retry_count} retries"
+                    )
 
                     if config.graceful_degradation:
                         return self._get_graceful_degradation_result(hook_name)
@@ -401,7 +410,9 @@ class UnifiedTimeoutManager:
                 self.cancel_timeout(session)
 
                 if attempt < config.retry_count:
-                    self._logger.warning(f"Hook {hook_name} error, retrying ({attempt + 1}/{config.retry_count}): {e}")
+                    self._logger.warning(
+                        f"Hook {hook_name} error, retrying ({attempt + 1}/{config.retry_count}): {e}"
+                    )
                     time.sleep(config.retry_delay_ms / 1000.0)
                 else:
                     self._logger.error(f"Hook {hook_name} failed with exception: {e}")
@@ -420,7 +431,9 @@ class UnifiedTimeoutManager:
             memory_mb = process.memory_info().rss / 1024 / 1024
 
             if memory_mb > limit_mb:
-                self._logger.warning(f"Memory usage ({memory_mb:.1f}MB) exceeds limit ({limit_mb}MB)")
+                self._logger.warning(
+                    f"Memory usage ({memory_mb:.1f}MB) exceeds limit ({limit_mb}MB)"
+                )
                 # Could implement more aggressive cleanup here
         except ImportError:
             # psutil not available, skip memory checking
@@ -457,7 +470,7 @@ class UnifiedTimeoutManager:
                 "graceful_degradation": True,
             }
 
-    def get_active_sessions(self) -> Dict[str, Dict[str, Any]]:
+    def get_active_sessions(self) -> dict[str, dict[str, Any]]:
         """Get information about active timeout sessions"""
         with self._session_lock:
             return {
@@ -475,7 +488,9 @@ class UnifiedTimeoutManager:
     def cleanup_completed_sessions(self) -> int:
         """Clean up completed sessions and return count cleaned"""
         with self._session_lock:
-            completed_ids = [hook_id for hook_id, session in self._active_sessions.items() if session.completed]
+            completed_ids = [
+                hook_id for hook_id, session in self._active_sessions.items() if session.completed
+            ]
 
             for hook_id in completed_ids:
                 del self._active_sessions[hook_id]

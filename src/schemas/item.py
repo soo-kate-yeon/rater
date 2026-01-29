@@ -3,11 +3,13 @@ Item 관련 Pydantic 스키마.
 
 개별 문항(Item)의 생성, 조회, 수정을 위한 스키마를 정의합니다.
 """
+
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import BaseModel, Field, field_validator, model_validator
+from pydantic_core import PydanticCustomError
 
 from src.models.enums import Difficulty, TopicCategory, TopicType
 from src.models.task import TaskType
@@ -45,15 +47,15 @@ class ItemBase(BaseModel):
     )
 
     # Independent 전용 필드
-    topic_type: Optional[TopicType] = Field(
+    topic_type: TopicType | None = Field(
         None,
         description="주제 유형 (Independent 전용)",
     )
-    topic_category: Optional[TopicCategory] = Field(
+    topic_category: TopicCategory | None = Field(
         None,
         description="주제 카테고리 (Independent 전용)",
     )
-    question_pattern: Optional[str] = Field(
+    question_pattern: str | None = Field(
         None,
         description="질문 패턴 (예: Do you agree or disagree...)",
         max_length=200,
@@ -64,7 +66,7 @@ class ItemBase(BaseModel):
         default_factory=list,
         description="태그 목록",
     )
-    difficulty: Optional[Difficulty] = Field(
+    difficulty: Difficulty | None = Field(
         None,
         description="난이도 (easy/medium/hard)",
     )
@@ -83,10 +85,17 @@ class ItemCreate(ItemBase):
     def validate_independent_fields(self) -> "ItemCreate":
         """Independent 문제의 필수 필드 검증"""
         if self.task_type == TaskType.INDEPENDENT:
+            errors = []
             if not self.topic_type:
-                raise ValueError("Independent 문제는 topic_type이 필수입니다")
+                errors.append("topic_type")
             if not self.topic_category:
-                raise ValueError("Independent 문제는 topic_category가 필수입니다")
+                errors.append("topic_category")
+            if errors:
+                missing_fields = ", ".join(errors)
+                raise PydanticCustomError(
+                    "missing_independent_fields",
+                    f"Independent 문제는 다음 필드가 필수입니다: {missing_fields}",
+                )
         return self
 
     @field_validator("scoring_focus")
@@ -106,55 +115,55 @@ class ItemCreate(ItemBase):
 class ItemUpdate(BaseModel):
     """Item 수정 요청 스키마"""
 
-    task_no: Optional[int] = Field(
+    task_no: int | None = Field(
         None,
         description="Set 내 문항 번호 (1-4)",
         ge=1,
         le=10,
     )
-    task_type: Optional[TaskType] = Field(
+    task_type: TaskType | None = Field(
         None,
         description="문항 유형",
     )
-    prompt: Optional[str] = Field(
+    prompt: str | None = Field(
         None,
         description="문제 지시문",
         min_length=1,
     )
-    prep_seconds: Optional[int] = Field(
+    prep_seconds: int | None = Field(
         None,
         description="준비 시간 (초)",
         ge=0,
         le=120,
     )
-    response_seconds: Optional[int] = Field(
+    response_seconds: int | None = Field(
         None,
         description="응답 시간 (초)",
         ge=15,
         le=120,
     )
-    topic_type: Optional[TopicType] = Field(
+    topic_type: TopicType | None = Field(
         None,
         description="주제 유형",
     )
-    topic_category: Optional[TopicCategory] = Field(
+    topic_category: TopicCategory | None = Field(
         None,
         description="주제 카테고리",
     )
-    question_pattern: Optional[str] = Field(
+    question_pattern: str | None = Field(
         None,
         description="질문 패턴",
         max_length=200,
     )
-    tags: Optional[list[str]] = Field(
+    tags: list[str] | None = Field(
         None,
         description="태그 목록",
     )
-    difficulty: Optional[Difficulty] = Field(
+    difficulty: Difficulty | None = Field(
         None,
         description="난이도",
     )
-    scoring_focus: Optional[dict[str, float]] = Field(
+    scoring_focus: dict[str, float] | None = Field(
         None,
         description="채점 가중치",
     )
@@ -172,13 +181,13 @@ class ItemResponse(BaseModel):
     response_seconds: int = Field(..., description="응답 시간 (초)")
 
     # Independent 전용 필드
-    topic_type: Optional[TopicType] = Field(None, description="주제 유형")
-    topic_category: Optional[TopicCategory] = Field(None, description="주제 카테고리")
-    question_pattern: Optional[str] = Field(None, description="질문 패턴")
+    topic_type: TopicType | None = Field(None, description="주제 유형")
+    topic_category: TopicCategory | None = Field(None, description="주제 카테고리")
+    question_pattern: str | None = Field(None, description="질문 패턴")
 
     # 공통 필드
     tags: list[Any] = Field(default_factory=list, description="태그 목록")
-    difficulty: Optional[Difficulty] = Field(None, description="난이도")
+    difficulty: Difficulty | None = Field(None, description="난이도")
     scoring_focus: dict[str, Any] = Field(default_factory=dict, description="채점 가중치")
 
     created_at: datetime = Field(..., description="생성 시각")

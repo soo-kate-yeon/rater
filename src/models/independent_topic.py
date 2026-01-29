@@ -4,6 +4,7 @@ IndependentTopic 모델 - Independent Speaking 토픽 뱅크.
 Independent 문제에 사용할 수 있는 토픽 목록을 관리합니다.
 각 토픽은 번호와 프롬프트, 출처로 구성됩니다.
 """
+
 from __future__ import annotations
 
 from sqlalchemy import Integer, String, Text

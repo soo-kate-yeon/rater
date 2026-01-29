@@ -7,6 +7,7 @@ PRESERVE 단계: 모델 동작 검증
 - 데이터베이스 저장 및 조회
 - unique 제약조건 (number 필드)
 """
+
 import sys
 from pathlib import Path
 
@@ -14,13 +15,13 @@ from pathlib import Path
 src_path = Path(__file__).parent.parent.parent / "src"
 sys.path.insert(0, str(src_path))
 
-import pytest
-from sqlalchemy import select
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.ext.asyncio import AsyncSession
+import pytest  # noqa: E402
 
 # models/__init__.py를 우회하여 직접 임포트
-from models.independent_topic import IndependentTopic
+from models.independent_topic import IndependentTopic  # noqa: E402
+from sqlalchemy import select  # noqa: E402
+from sqlalchemy.exc import IntegrityError  # noqa: E402
+from sqlalchemy.ext.asyncio import AsyncSession  # noqa: E402
 
 
 class TestIndependentTopicModel:
@@ -55,9 +56,7 @@ class TestIndependentTopicModel:
         await test_db.refresh(topic)
 
         # When: 데이터베이스에서 조회
-        result = await test_db.execute(
-            select(IndependentTopic).where(IndependentTopic.number == 1)
-        )
+        result = await test_db.execute(select(IndependentTopic).where(IndependentTopic.number == 1))
         retrieved_topic = result.scalar_one_or_none()
 
         # Then: 저장된 데이터가 조회됨
@@ -233,9 +232,7 @@ class TestIndependentTopicQueries:
         await test_db.commit()
 
         # When: number=2 조회
-        result = await test_db.execute(
-            select(IndependentTopic).where(IndependentTopic.number == 2)
-        )
+        result = await test_db.execute(select(IndependentTopic).where(IndependentTopic.number == 2))
         topic = result.scalar_one_or_none()
 
         # Then
@@ -280,9 +277,7 @@ class TestIndependentTopicQueries:
         await test_db.commit()
 
         # When: number 오름차순 조회
-        result = await test_db.execute(
-            select(IndependentTopic).order_by(IndependentTopic.number)
-        )
+        result = await test_db.execute(select(IndependentTopic).order_by(IndependentTopic.number))
         ordered_topics = result.scalars().all()
 
         # Then: 1, 2, 3 순서
@@ -373,8 +368,6 @@ class TestIndependentTopicRealWorldScenarios:
         await test_db.commit()
 
         # Then: 조회 불가
-        result = await test_db.execute(
-            select(IndependentTopic).where(IndependentTopic.number == 1)
-        )
+        result = await test_db.execute(select(IndependentTopic).where(IndependentTopic.number == 1))
         deleted_topic = result.scalar_one_or_none()
         assert deleted_topic is None

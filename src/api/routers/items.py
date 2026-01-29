@@ -3,12 +3,13 @@ Item 관리 라우터.
 
 개별 문항(Item) CRUD API를 제공합니다.
 """
+
 import uuid
-from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from src.core.database import get_db
 from src.models.item import Item
@@ -27,8 +28,8 @@ router = APIRouter()
 @router.get("", response_model=ItemListResponse)
 async def list_items(
     db: AsyncSession = Depends(get_db),
-    set_id: Optional[str] = Query(None, description="Set UUID 필터"),
-    task_type: Optional[TaskType] = Query(None, description="문항 유형 필터"),
+    set_id: str | None = Query(None, description="Set UUID 필터"),
+    task_type: TaskType | None = Query(None, description="문항 유형 필터"),
     skip: int = Query(0, ge=0, description="건너뛸 개수"),
     limit: int = Query(100, ge=1, le=500, description="조회 개수"),
 ) -> ItemListResponse:
@@ -53,11 +54,11 @@ async def list_items(
         try:
             set_uuid = uuid.UUID(set_id)
             query = query.where(Item.set_id == set_uuid)
-        except ValueError:
+        except ValueError as err:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Invalid set_id format",
-            )
+            ) from err
 
     if task_type:
         query = query.where(Item.task_type == task_type)
@@ -162,11 +163,11 @@ async def get_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -202,11 +203,11 @@ async def update_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -261,11 +262,11 @@ async def delete_item(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Item).where(Item.id == item_uuid))
     item = result.scalar_one_or_none()
@@ -300,13 +301,19 @@ async def get_item_with_relations(
     """
     try:
         item_uuid = uuid.UUID(item_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid item_id format",
-        )
+        ) from err
 
-    result = await db.execute(select(Item).where(Item.id == item_uuid))
+    # Load item with relationships using selectinload
+    query = (
+        select(Item)
+        .where(Item.id == item_uuid)
+        .options(selectinload(Item.stimuli), selectinload(Item.answer_keys))
+    )
+    result = await db.execute(query)
     item = result.scalar_one_or_none()
 
     if not item:

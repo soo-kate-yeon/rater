@@ -44,7 +44,9 @@ def atomic_write_text(
 
     try:
         # Write to temporary file first
-        fd, temp_path = tempfile.mkstemp(dir=path.parent, prefix=".tmp_", suffix=path.suffix or ".tmp")
+        fd, temp_path = tempfile.mkstemp(
+            dir=path.parent, prefix=".tmp_", suffix=path.suffix or ".tmp"
+        )
         try:
             # Write content to temp file
             with os.fdopen(fd, "w", encoding=encoding) as f:

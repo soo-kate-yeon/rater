@@ -9,7 +9,7 @@ import json
 import logging
 import sys
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 # Configure logger for language validator (H4: structured logging)
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ except ImportError:
     YAML_AVAILABLE = False
 
 
-def _load_yaml_file(file_path: Path) -> Dict[str, Any]:
+def _load_yaml_file(file_path: Path) -> dict[str, Any]:
     """Load a YAML file safely with fallback to empty dict.
 
     Args:
@@ -36,13 +36,13 @@ def _load_yaml_file(file_path: Path) -> Dict[str, Any]:
     if not YAML_AVAILABLE:
         return {}
     try:
-        with open(file_path, "r", encoding="utf-8") as f:
+        with open(file_path, encoding="utf-8") as f:
             return yaml.safe_load(f) or {}
     except Exception:
         return {}
 
 
-def _merge_configs(base: dict[str, Any], override: dict[str, Any]) -> Dict[str, Any]:
+def _merge_configs(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any]:
     """Recursively merge two configuration dictionaries.
 
     Args:
@@ -61,7 +61,7 @@ def _merge_configs(base: dict[str, Any], override: dict[str, Any]) -> Dict[str, 
     return result
 
 
-def load_config() -> Dict[str, Any]:
+def load_config() -> dict[str, Any]:
     """Load configuration from section YAML files with fallbacks.
 
     Priority:
@@ -99,7 +99,7 @@ def load_config() -> Dict[str, Any]:
     yaml_config_path = config_dir / "config.yaml"
     if yaml_config_path.exists() and YAML_AVAILABLE:
         try:
-            with open(yaml_config_path, "r", encoding="utf-8") as f:
+            with open(yaml_config_path, encoding="utf-8") as f:
                 config = yaml.safe_load(f) or {}
                 if config:
                     return config
@@ -110,7 +110,7 @@ def load_config() -> Dict[str, Any]:
     json_config_path = config_dir / "config.json"
     if json_config_path.exists():
         try:
-            with open(json_config_path, "r", encoding="utf-8") as f:
+            with open(json_config_path, encoding="utf-8") as f:
                 return json.load(f)
         except json.JSONDecodeError as e:
             return {"error": f"JSON decode error: {e}"}
@@ -120,7 +120,7 @@ def load_config() -> Dict[str, Any]:
     return {"error": "Configuration file not found"}
 
 
-def validate_language_config(config: dict[str, Any]) -> Dict[str, Any]:
+def validate_language_config(config: dict[str, Any]) -> dict[str, Any]:
     """Validate language configuration
 
     Args:
@@ -162,13 +162,21 @@ def validate_language_config(config: dict[str, Any]) -> Dict[str, Any]:
         result["valid"] = False
         errors.append("conversation_language_name is empty or missing")
     elif conversation_lang == "ko" and lang_name != "Korean":
-        warnings.append(f"conversation_language_name '{lang_name}' doesn't match 'Korean' for Korean language")
+        warnings.append(
+            f"conversation_language_name '{lang_name}' doesn't match 'Korean' for Korean language"
+        )
     elif conversation_lang == "en" and lang_name != "English":
-        warnings.append(f"conversation_language_name '{lang_name}' doesn't match 'English' for English language")
+        warnings.append(
+            f"conversation_language_name '{lang_name}' doesn't match 'English' for English language"
+        )
     elif conversation_lang == "ja" and lang_name != "Japanese":
-        warnings.append(f"conversation_language_name '{lang_name}' doesn't match 'Japanese' for Japanese language")
+        warnings.append(
+            f"conversation_language_name '{lang_name}' doesn't match 'Japanese' for Japanese language"
+        )
     elif conversation_lang == "zh" and lang_name != "Chinese":
-        warnings.append(f"conversation_language_name '{lang_name}' doesn't match 'Chinese' for Chinese language")
+        warnings.append(
+            f"conversation_language_name '{lang_name}' doesn't match 'Chinese' for Chinese language"
+        )
 
     # Validate agent_prompt_language
     agent_lang = lang_config.get("agent_prompt_language", conversation_lang)
@@ -193,7 +201,7 @@ def validate_language_config(config: dict[str, Any]) -> Dict[str, Any]:
     return result
 
 
-def validate_output_style_compatibility() -> Dict[str, Any]:
+def validate_output_style_compatibility() -> dict[str, Any]:
     """Validate if output style supports language configuration
 
     Returns:
@@ -213,7 +221,7 @@ def validate_output_style_compatibility() -> Dict[str, Any]:
 
     if r2d2_path.exists():
         try:
-            with open(r2d2_path, "r", encoding="utf-8") as f:
+            with open(r2d2_path, encoding="utf-8") as f:
                 content = f.read()
 
             # Check for language support indicators
@@ -225,7 +233,9 @@ def validate_output_style_compatibility() -> Dict[str, Any]:
                 "Language Configuration",
             ]
 
-            result["language_support_present"] = any(keyword in content for keyword in language_keywords)
+            result["language_support_present"] = any(
+                keyword in content for keyword in language_keywords
+            )
             # Check for config reading (supports both YAML sections and legacy JSON)
             result["config_reading_present"] = (
                 ".moai/config/sections" in content
@@ -247,7 +257,7 @@ def validate_output_style_compatibility() -> Dict[str, Any]:
     return result
 
 
-def validate_session_start_hook() -> Dict[str, Any]:
+def validate_session_start_hook() -> dict[str, Any]:
     """Validate if SessionStart hook displays language info
 
     Returns:
@@ -265,7 +275,7 @@ def validate_session_start_hook() -> Dict[str, Any]:
 
     if hook_path.exists():
         try:
-            with open(hook_path, "r", encoding="utf-8") as f:
+            with open(hook_path, encoding="utf-8") as f:
                 content = f.read()
 
             # Check for language display functionality
@@ -276,7 +286,9 @@ def validate_session_start_hook() -> Dict[str, Any]:
                 "Language:",
             ]
 
-            result["language_display_present"] = any(indicator in content for indicator in language_indicators)
+            result["language_display_present"] = any(
+                indicator in content for indicator in language_indicators
+            )
 
             if not result["language_display_present"]:
                 recommendations.append("Add language info display to SessionStart hook")

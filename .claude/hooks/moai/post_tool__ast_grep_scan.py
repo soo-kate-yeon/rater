@@ -17,7 +17,7 @@ import shutil
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 # Configure logger for AST-Grep scanner (H4: structured logging)
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ def get_project_dir() -> Path:
     return Path(project_dir)
 
 
-def get_rules_config_path() -> Optional[Path]:
+def get_rules_config_path() -> Path | None:
     """Find the AST-Grep rules configuration file."""
     project_dir = get_project_dir()
 
@@ -85,7 +85,7 @@ def is_scannable_file(file_path: str) -> bool:
     return ext in SUPPORTED_EXTENSIONS
 
 
-def run_ast_grep_scan(file_path: str, config_path: Optional[Path] = None) -> dict[str, Any]:
+def run_ast_grep_scan(file_path: str, config_path: Path | None = None) -> dict[str, Any]:
     """Run AST-Grep scan on a file and return results."""
     logger.debug(f"Starting AST-Grep scan for: {file_path}")
 

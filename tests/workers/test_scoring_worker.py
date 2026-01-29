@@ -23,9 +23,7 @@ from src.workers.scoring_worker import (
     _save_job_artifact,
     _save_report,
     _update_job_status,
-    process_scoring_impl,
 )
-
 
 # ============================================================================
 # 테스트 픽스처
@@ -119,9 +117,13 @@ async def test_process_scoring_impl_success(test_db: AsyncSession, mock_job, moc
     with (
         patch("src.workers.scoring_worker._fetch_audio", new_callable=AsyncMock) as mock_fetch,
         patch("src.workers.scoring_worker._run_asr", new_callable=AsyncMock) as mock_asr,
-        patch("src.workers.scoring_worker._extract_all_features", new_callable=AsyncMock) as mock_features,
+        patch(
+            "src.workers.scoring_worker._extract_all_features", new_callable=AsyncMock
+        ) as mock_features,
         patch("src.workers.scoring_worker._analyze_with_llm", new_callable=AsyncMock) as mock_llm,
-        patch("src.workers.scoring_worker._save_job_artifact", new_callable=AsyncMock) as mock_artifact,
+        patch(
+            "src.workers.scoring_worker._save_job_artifact", new_callable=AsyncMock
+        ) as mock_artifact,
         patch("src.workers.scoring_worker._save_report", new_callable=AsyncMock) as mock_report,
     ):
         # Mock 반환값 설정
@@ -363,7 +365,9 @@ async def test_analyze_with_llm_success(mock_job, mock_feedback_report):
         "vocabulary": {"types": 50},
     }
 
-    with patch("src.workers.scoring_worker.generate_full_feedback", new_callable=AsyncMock) as mock_feedback:
+    with patch(
+        "src.workers.scoring_worker.generate_full_feedback", new_callable=AsyncMock
+    ) as mock_feedback:
         mock_feedback.return_value = mock_feedback_report
 
         result = await _analyze_with_llm(
@@ -384,7 +388,9 @@ async def test_analyze_with_llm_success(mock_job, mock_feedback_report):
 
 
 @pytest.mark.asyncio
-async def test_save_job_artifact_success(test_db: AsyncSession, mock_job, mock_asr_result_model, mock_feedback_report):
+async def test_save_job_artifact_success(
+    test_db: AsyncSession, mock_job, mock_asr_result_model, mock_feedback_report
+):
     """JobArtifact 저장 성공 테스트"""
     test_db.add(mock_job)
     await test_db.commit()

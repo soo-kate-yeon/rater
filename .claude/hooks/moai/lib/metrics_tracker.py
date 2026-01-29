@@ -6,7 +6,6 @@ Session metrics tracker for statusline
 
 import logging
 from datetime import datetime, timedelta
-from typing import Optional
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +19,8 @@ class MetricsTracker:
     def __init__(self):
         """Initialize metrics tracker"""
         self._session_start: datetime = datetime.now()
-        self._duration_cache: Optional[str] = None
-        self._cache_time: Optional[datetime] = None
+        self._duration_cache: str | None = None
+        self._cache_time: datetime | None = None
         self._cache_ttl = timedelta(seconds=self._CACHE_TTL_SECONDS)
 
     def get_duration(self) -> str:

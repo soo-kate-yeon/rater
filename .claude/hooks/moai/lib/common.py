@@ -145,7 +145,12 @@ def suggest_moai_location(filename: str, config: dict[str, Any]) -> str:
 
     if match:
         dir_type, category = match
-        base_dir = config.get("document_management", {}).get("directories", {}).get(dir_type, {}).get("base", "")
+        base_dir = (
+            config.get("document_management", {})
+            .get("directories", {})
+            .get(dir_type, {})
+            .get("base", "")
+        )
         if base_dir:
             return f"{base_dir}{category}/"
 

@@ -2,12 +2,14 @@
 End-to-End 시스템 테스트
 전체 채점 파이프라인 테스트: 오디오 업로드 → Job 생성 → 비동기 채점 → 결과 확인
 """
+
 import asyncio
 import time
-from pathlib import Path
+
 import httpx
 
 BASE_URL = "http://localhost:8000"
+
 
 async def test_end_to_end():
     print("=" * 70)
@@ -17,17 +19,14 @@ async def test_end_to_end():
     async with httpx.AsyncClient(timeout=60.0, follow_redirects=True) as client:
         # 1. 사용자 등록
         print("\n[1/7] 사용자 등록...")
-        user_data = {
-            "email": "e2e_test@example.com",
-            "password": "testpass123"
-        }
+        user_data = {"email": "e2e_test@example.com", "password": "testpass123"}
         try:
             response = await client.post(f"{BASE_URL}/v1/auth/register", json=user_data)
             if response.status_code == 201:
                 user_info = response.json()
                 print(f"  ✅ 사용자 생성: {user_info['email']}")
             elif response.status_code == 409:
-                print(f"  ℹ️  이미 존재하는 사용자 (계속 진행)")
+                print("  ℹ️  이미 존재하는 사용자 (계속 진행)")
             else:
                 print(f"  ❌ 등록 실패: {response.status_code}")
                 return
@@ -38,20 +37,17 @@ async def test_end_to_end():
         # 2. 로그인
         print("\n[2/7] 로그인...")
         try:
-            login_data = {
-                "username": "e2e_test@example.com",
-                "password": "testpass123"
-            }
+            login_data = {"username": "e2e_test@example.com", "password": "testpass123"}
             response = await client.post(
                 f"{BASE_URL}/v1/auth/login",
                 data=login_data,
-                headers={"Content-Type": "application/x-www-form-urlencoded"}
+                headers={"Content-Type": "application/x-www-form-urlencoded"},
             )
             if response.status_code == 200:
                 token_data = response.json()
                 access_token = token_data["access_token"]
                 auth_headers = {"Authorization": f"Bearer {access_token}"}
-                print(f"  ✅ 로그인 성공")
+                print("  ✅ 로그인 성공")
             else:
                 print(f"  ❌ 로그인 실패: {response.status_code}")
                 return
@@ -65,12 +61,10 @@ async def test_end_to_end():
             task_data = {
                 "task_type": "INDEPENDENT",
                 "prompt": "Some people prefer to work independently. Others prefer to work in teams. Which do you prefer? Use specific reasons and examples to support your answer.",
-                "tags": {"difficulty": "medium", "category": "work-preference"}
+                "tags": {"difficulty": "medium", "category": "work-preference"},
             }
             response = await client.post(
-                f"{BASE_URL}/v1/tasks",
-                json=task_data,
-                headers=auth_headers
+                f"{BASE_URL}/v1/tasks", json=task_data, headers=auth_headers
             )
             if response.status_code == 201:
                 task_info = response.json()
@@ -91,9 +85,7 @@ async def test_end_to_end():
             files = {"file": ("test_speaking.wav", audio_content, "audio/wav")}
 
             response = await client.post(
-                f"{BASE_URL}/v1/uploads/audio",
-                files=files,
-                headers=auth_headers
+                f"{BASE_URL}/v1/uploads/audio", files=files, headers=auth_headers
             )
             if response.status_code == 200:
                 upload_info = response.json()
@@ -109,15 +101,8 @@ async def test_end_to_end():
         # 5. Job 생성 (비동기 채점 시작)
         print("\n[5/7] 채점 Job 생성...")
         try:
-            job_data = {
-                "audio_key": audio_key,
-                "task_id": task_id
-            }
-            response = await client.post(
-                f"{BASE_URL}/v1/jobs",
-                json=job_data,
-                headers=auth_headers
-            )
+            job_data = {"audio_key": audio_key, "task_id": task_id}
+            response = await client.post(f"{BASE_URL}/v1/jobs", json=job_data, headers=auth_headers)
             if response.status_code == 201:
                 job_info = response.json()
                 job_id = job_info["job_id"]
@@ -138,10 +123,7 @@ async def test_end_to_end():
 
         while time.time() - start_time < max_wait:
             try:
-                response = await client.get(
-                    f"{BASE_URL}/v1/jobs/{job_id}",
-                    headers=auth_headers
-                )
+                response = await client.get(f"{BASE_URL}/v1/jobs/{job_id}", headers=auth_headers)
                 if response.status_code == 200:
                     job_status = response.json()
                     status = job_status["status"]
@@ -151,7 +133,7 @@ async def test_end_to_end():
 
                     if status == "DONE":
                         job_done = True
-                        print(f"  ✅ 채점 완료!")
+                        print("  ✅ 채점 완료!")
                         break
                     elif status == "FAILED":
                         error_msg = job_status.get("error_message", "Unknown error")
@@ -173,10 +155,7 @@ async def test_end_to_end():
         # 7. 최종 리포트 조회
         print("\n[7/7] 최종 피드백 리포트 조회...")
         try:
-            response = await client.get(
-                f"{BASE_URL}/v1/jobs/{job_id}/report",
-                headers=auth_headers
-            )
+            response = await client.get(f"{BASE_URL}/v1/jobs/{job_id}/report", headers=auth_headers)
             if response.status_code == 200:
                 report_data = response.json()
                 report = report_data["report"]
@@ -185,15 +164,15 @@ async def test_end_to_end():
                 print("📊 채점 결과")
                 print(f"{'=' * 70}")
                 print(f"\n점수대: {report['score_band']['min']}-{report['score_band']['max']}")
-                print(f"\n요약:")
-                for i, line in enumerate(report['summary_3lines'], 1):
+                print("\n요약:")
+                for i, line in enumerate(report["summary_3lines"], 1):
                     print(f"  {i}. {line}")
 
-                print(f"\n주요 병목:")
+                print("\n주요 병목:")
                 print(f"  {report['bottleneck']}")
 
-                print(f"\n개선 액션 아이템:")
-                for i, action in enumerate(report['action_items'], 1):
+                print("\n개선 액션 아이템:")
+                for i, action in enumerate(report["action_items"], 1):
                     print(f"  {i}. {action}")
 
                 print(f"\n구조 점수: {report['structure']['score']}/30")
@@ -217,6 +196,7 @@ async def test_end_to_end():
         except Exception as e:
             print(f"  ❌ 오류: {e}")
             return
+
 
 if __name__ == "__main__":
     asyncio.run(test_end_to_end())

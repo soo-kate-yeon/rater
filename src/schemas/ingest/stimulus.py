@@ -1,8 +1,9 @@
 """
 StimulusIngest 스키마 - stimuli.json 파싱용.
 """
+
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -27,11 +28,11 @@ class StimulusIngest(BaseModel):
     item_id: str = Field(..., description="소속 Item ID", min_length=1)
     kind: Literal["reading", "direction", "listening"] = Field(..., description="자료 유형")
     title: str = Field(..., description="자료 제목", min_length=1)
-    content_text: Optional[str] = Field(None, description="텍스트 내용")
-    asset_url: Optional[str] = Field(None, description="미디어 URL")
-    duration_seconds: Optional[float] = Field(None, description="음성 길이 (초)")
+    content_text: str | None = Field(None, description="텍스트 내용")
+    asset_url: str | None = Field(None, description="미디어 URL")
+    duration_seconds: float | None = Field(None, description="음성 길이 (초)")
     order: int = Field(0, description="표시 순서", ge=0)
     notes_allowed: bool = Field(True, description="노트 필기 허용 여부")
-    created_at: Optional[datetime] = None
+    created_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True, extra="ignore")

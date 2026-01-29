@@ -54,7 +54,7 @@ async def create_job(
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail=f"Audio file not found: {job_data.audio_key}",
-            )
+            ) from e
         raise
 
     # 2. Job 레코드 생성
@@ -99,11 +99,11 @@ async def get_job_status(
     """
     try:
         job_uuid = UUID(job_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid job_id format",
-        )
+        ) from err
 
     result = await db.execute(select(Job).where(Job.id == job_uuid))
     job = result.scalar_one_or_none()
@@ -139,11 +139,11 @@ async def get_job_report(
     # Job ID 검증
     try:
         job_uuid = UUID(job_id)
-    except ValueError:
+    except ValueError as err:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid job_id format",
-        )
+        ) from err
 
     # Job 조회
     result = await db.execute(select(Job).where(Job.id == job_uuid))

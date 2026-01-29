@@ -7,7 +7,7 @@ Usage:
 import asyncio
 import json
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from src.schemas.scoring import ScoringFeatures
@@ -55,7 +55,7 @@ async def test_asr_and_features(audio_path: str) -> None:
     scoring_features = ScoringFeatures(
         asr_result=asr_result,
         delivery_signals=delivery_signals,
-        extracted_at=datetime.now(timezone.utc).isoformat(),
+        extracted_at=datetime.now(UTC).isoformat(),
     )
 
     # 5. JSON 출력 (job_artifacts.features_json에 저장될 형태)

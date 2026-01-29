@@ -7,7 +7,6 @@ Statusline renderer for Claude Code status display
 # -*- coding: utf-8 -*-
 
 from dataclasses import dataclass
-from typing import List
 
 from .config import StatuslineConfig  # type: ignore[attr-defined]
 
@@ -89,7 +88,7 @@ class StatuslineRenderer:
 
         return result
 
-    def _build_compact_parts(self, data: StatuslineData) -> List[str]:
+    def _build_compact_parts(self, data: StatuslineData) -> list[str]:
         """
         Build parts list for compact mode with labeled sections
         Format: 🤖 Model | 💰 Context | 💬 Style | 📁 Directory | 📊 Changes | 💾 Memory | 🔀 Branch

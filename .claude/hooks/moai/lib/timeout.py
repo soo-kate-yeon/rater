@@ -14,8 +14,9 @@ Architecture:
 import platform
 import signal
 import threading
+from collections.abc import Callable
 from contextlib import contextmanager
-from typing import Any, Callable
+from typing import Any
 
 
 class TimeoutError(Exception):
@@ -90,7 +91,9 @@ class CrossPlatformTimeout:
         def timeout_handler():
             if self.callback:
                 self.callback()
-            raise TimeoutError(f"Operation exceeded {self.timeout_seconds}s timeout (Windows threading)")
+            raise TimeoutError(
+                f"Operation exceeded {self.timeout_seconds}s timeout (Windows threading)"
+            )
 
         self.timer = threading.Timer(self.timeout_seconds, timeout_handler)
         self.timer.daemon = True

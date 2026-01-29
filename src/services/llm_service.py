@@ -8,7 +8,7 @@ JSON 모드 출력을 강제하고, 파싱 실패 시 재시도 로직을 제공
 import json
 import logging
 from enum import Enum
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from anthropic import AsyncAnthropic
 from openai import AsyncOpenAI
@@ -72,7 +72,7 @@ class LLMService:
         - 멀티 프로바이더 지원
     """
 
-    def __init__(self, config: Optional[LLMConfig] = None) -> None:
+    def __init__(self, config: LLMConfig | None = None) -> None:
         """
         LLM 서비스 초기화
 
@@ -80,8 +80,8 @@ class LLMService:
             config: LLM 설정 (None이면 기본값 사용)
         """
         self.config = config or LLMConfig()
-        self._openai_client: Optional[AsyncOpenAI] = None
-        self._anthropic_client: Optional[AsyncAnthropic] = None
+        self._openai_client: AsyncOpenAI | None = None
+        self._anthropic_client: AsyncAnthropic | None = None
 
     @property
     def openai_client(self) -> AsyncOpenAI:
@@ -107,8 +107,8 @@ class LLMService:
         prompt: str,
         transcript: str,
         features: dict[str, Any],
-        source_reading: Optional[str] = None,
-        source_listening: Optional[str] = None,
+        source_reading: str | None = None,
+        source_listening: str | None = None,
         tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> FeedbackReport:
         """
@@ -215,7 +215,9 @@ class LLMService:
             JSON 문자열 응답
         """
         # Anthropic은 JSON 모드가 없으므로 프롬프트에 명시
-        enhanced_user_prompt = f"{user_prompt}\n\n**중요**: 반드시 유효한 JSON 형식으로만 응답하세요."
+        enhanced_user_prompt = (
+            f"{user_prompt}\n\n**중요**: 반드시 유효한 JSON 형식으로만 응답하세요."
+        )
 
         response = await self.anthropic_client.messages.create(
             model=self.config.model,
@@ -306,8 +308,8 @@ Output Format: Valid JSON matching the FeedbackReport schema.
         prompt: str,
         transcript: str,
         features: dict[str, Any],
-        source_reading: Optional[str] = None,
-        source_listening: Optional[str] = None,
+        source_reading: str | None = None,
+        source_listening: str | None = None,
         tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> str:
         """

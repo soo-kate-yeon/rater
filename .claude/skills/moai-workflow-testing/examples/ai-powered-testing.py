@@ -5,7 +5,6 @@ Context7 MCP integration with intelligent test generation
 
 import asyncio
 import json
-from typing import Dict, List, Optional
 
 from playwright.sync_api import Page, expect, sync_playwright
 
@@ -17,7 +16,7 @@ class AITestGenerator:
         self.context7_client = context7_client
         self.ai_patterns = {}
 
-    async def generate_smart_selectors(self, page: Page) -> Dict[str, str]:
+    async def generate_smart_selectors(self, page: Page) -> dict[str, str]:
         """Generate intelligent CSS selectors using AI pattern recognition"""
 
         # Get all interactive elements
@@ -41,7 +40,7 @@ class AITestGenerator:
 
         return smart_selectors
 
-    def generate_test_script(self, selectors: Dict, actions: List[str]) -> str:
+    def generate_test_script(self, selectors: dict, actions: list[str]) -> str:
         """Generate automated test script using AI patterns"""
 
         script_template = '''
@@ -78,15 +77,19 @@ if __name__ == "__main__":
                 for name, info in selectors.items():
                     if info["type"] == "button":
                         interactions.append(f"        page.locator('{info['selector']}').click()")
-                        assertions.append(f"        expect(page.locator('{info['selector']}')).to_be_visible()")
+                        assertions.append(
+                            f"        expect(page.locator('{info['selector']}')).to_be_visible()"
+                        )
 
-        return script_template.format(interactions="\n".join(interactions), assertions="\n".join(assertions))
+        return script_template.format(
+            interactions="\n".join(interactions), assertions="\n".join(assertions)
+        )
 
 
 class Context7TestEnhancer:
     """Context7 MCP integration for enhanced testing"""
 
-    async def get_latest_patterns(self, topic: str) -> Dict:
+    async def get_latest_patterns(self, topic: str) -> dict:
         """Fetch latest Playwright patterns from Context7"""
 
         # Simulate Context7 integration (would use actual Context7 client)
@@ -113,7 +116,7 @@ class Context7TestEnhancer:
 
         return patterns.get(topic, {})
 
-    def apply_context7_patterns(self, test_config: Dict) -> Dict:
+    def apply_context7_patterns(self, test_config: dict) -> dict:
         """Apply Context7 best practices to test configuration"""
 
         enhanced_config = test_config.copy()
@@ -142,7 +145,7 @@ class VisualRegressionTester:
         self.current_dir = "./current"
         self.diff_dir = "./diff"
 
-    async def capture_screenshot(self, page: Page, name: str, selector: Optional[str] = None):
+    async def capture_screenshot(self, page: Page, name: str, selector: str | None = None):
         """Capture intelligent screenshot with Context7 patterns"""
 
         # Wait for dynamic content
@@ -160,7 +163,7 @@ class VisualRegressionTester:
 
         return screenshot_path
 
-    def compare_screenshots(self, baseline: str, current: str, diff: str) -> Dict:
+    def compare_screenshots(self, baseline: str, current: str, diff: str) -> dict:
         """AI-powered screenshot comparison"""
 
         # Simulate AI comparison (would use actual image comparison library)
@@ -182,7 +185,7 @@ class CrossBrowserOrchestrator:
         self.browsers = ["chromium", "firefox", "webkit"]
         self.results = {}
 
-    async def run_cross_browser_test(self, test_script: str) -> Dict:
+    async def run_cross_browser_test(self, test_script: str) -> dict:
         """Execute test across multiple browsers with AI coordination"""
 
         results = {}
@@ -210,7 +213,7 @@ class CrossBrowserOrchestrator:
 
         return results
 
-    async def execute_test_in_browser(self, page: Page, test_script: str) -> Dict:
+    async def execute_test_in_browser(self, page: Page, test_script: str) -> dict:
         """Execute test script and capture results"""
 
         import time

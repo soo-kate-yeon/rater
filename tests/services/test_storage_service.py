@@ -1,7 +1,6 @@
 """스토리지 서비스 테스트"""
 
 import io
-from pathlib import Path
 
 import pytest
 import pytest_asyncio

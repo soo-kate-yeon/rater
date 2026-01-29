@@ -7,7 +7,9 @@ from httpx import AsyncClient
 
 
 @pytest.mark.asyncio
-async def test_upload_audio_success(test_client: AsyncClient, sample_audio_file: bytes, cleanup_storage):
+async def test_upload_audio_success(
+    test_client: AsyncClient, sample_audio_file: bytes, cleanup_storage
+):
     """오디오 파일 업로드 성공 테스트"""
     # MP3 파일 업로드
     files = {"file": ("test_audio.mp3", io.BytesIO(sample_audio_file), "audio/mpeg")}
@@ -75,8 +77,8 @@ async def test_upload_audio_no_filename(test_client: AsyncClient):
 
     response = await test_client.post("/api/v1/uploads/presign", files=files)
 
-    # 검증
-    assert response.status_code == 400
+    # 검증 (빈 파일명은 FastAPI validation error이므로 422 반환)
+    assert response.status_code == 422
 
 
 @pytest.mark.asyncio
@@ -104,7 +106,9 @@ async def test_upload_audio_no_file(test_client: AsyncClient):
 
 
 @pytest.mark.asyncio
-async def test_upload_audio_response_format(test_client: AsyncClient, sample_audio_file: bytes, cleanup_storage):
+async def test_upload_audio_response_format(
+    test_client: AsyncClient, sample_audio_file: bytes, cleanup_storage
+):
     """업로드 응답 포맷 검증"""
     files = {"file": ("test.mp3", io.BytesIO(sample_audio_file), "audio/mpeg")}
 

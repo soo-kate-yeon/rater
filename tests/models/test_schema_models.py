@@ -21,7 +21,6 @@ from src.models.set import Set
 from src.models.stimulus import Stimulus
 from src.models.task import TaskType
 
-
 # === Set 모델 테스트 ===
 
 
@@ -410,7 +409,9 @@ async def test_set_cascade_delete(test_db: AsyncSession):
     stimulus_result = await test_db.execute(select(Stimulus).where(Stimulus.id == stimulus_id))
     assert stimulus_result.scalar_one_or_none() is None
 
-    answer_key_result = await test_db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_id))
+    answer_key_result = await test_db.execute(
+        select(AnswerKey).where(AnswerKey.id == answer_key_id)
+    )
     assert answer_key_result.scalar_one_or_none() is None
 
 
@@ -455,7 +456,9 @@ async def test_item_cascade_delete(test_db: AsyncSession, test_set: Set):
     stimulus_result = await test_db.execute(select(Stimulus).where(Stimulus.id == stimulus_id))
     assert stimulus_result.scalar_one_or_none() is None
 
-    answer_key_result = await test_db.execute(select(AnswerKey).where(AnswerKey.id == answer_key_id))
+    answer_key_result = await test_db.execute(
+        select(AnswerKey).where(AnswerKey.id == answer_key_id)
+    )
     assert answer_key_result.scalar_one_or_none() is None
 
 

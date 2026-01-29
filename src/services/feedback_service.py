@@ -10,7 +10,7 @@ TODO SPEC-TOEFL-FEATURE-001 Phase 2: 3-Tier Feedback System
 """
 
 import logging
-from typing import Any, Literal, Optional
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -70,7 +70,7 @@ class FeedbackService:
         4. 모든 features를 LLM에 전달하여 피드백 생성
     """
 
-    def __init__(self, config: Optional[FeedbackServiceConfig] = None) -> None:
+    def __init__(self, config: FeedbackServiceConfig | None = None) -> None:
         """
         피드백 서비스 초기화
 
@@ -93,8 +93,8 @@ class FeedbackService:
         prompt: str,
         transcript: str,
         delivery_features: DeliveryFeatures,
-        source_reading: Optional[str] = None,
-        source_listening: Optional[str] = None,
+        source_reading: str | None = None,
+        source_listening: str | None = None,
         tier: Literal["basic", "standard", "premium"] = "basic",
     ) -> FeedbackReport:
         """
@@ -188,14 +188,14 @@ async def generate_full_feedback(
     prompt: str,
     transcript: str,
     delivery_features_dict: dict[str, Any],
-    source_reading: Optional[str] = None,
-    source_listening: Optional[str] = None,
+    source_reading: str | None = None,
+    source_listening: str | None = None,
     llm_provider: LLMProvider = LLMProvider.OPENAI,
     tier: Literal["basic", "standard", "premium"] = "basic",
-    grammar_features: Optional[dict[str, Any]] = None,
-    vocabulary_features: Optional[dict[str, Any]] = None,
-    blueprint_result: Optional[dict[str, Any]] = None,
-    structure_result: Optional[dict[str, Any]] = None,
+    grammar_features: dict[str, Any] | None = None,
+    vocabulary_features: dict[str, Any] | None = None,
+    blueprint_result: dict[str, Any] | None = None,
+    structure_result: dict[str, Any] | None = None,
 ) -> FeedbackReport:
     """
     피드백 생성 헬퍼 함수

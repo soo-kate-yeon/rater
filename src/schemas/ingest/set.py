@@ -4,8 +4,8 @@ SetIngest 스키마 - sets.json 파싱용.
 JSON 파일의 string ID를 그대로 받아서 검증합니다.
 UUID 변환은 매핑 레이어에서 수행됩니다.
 """
+
 from datetime import datetime
-from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -47,11 +47,11 @@ class SetIngest(BaseModel):
         min_length=1,
         max_length=20,
     )
-    created_at: Optional[datetime] = Field(
+    created_at: datetime | None = Field(
         None,
         description="생성 시각 (DB 자동 생성으로 무시됨)",
     )
-    updated_at: Optional[datetime] = Field(
+    updated_at: datetime | None = Field(
         None,
         description="수정 시각 (DB 자동 생성으로 무시됨)",
     )
